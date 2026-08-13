@@ -1,0 +1,69 @@
+{
+  "id": "normal-beatdown",
+  "name": "Normal Beatdown",
+  "tierScore": 5,
+  "coreCards": [
+    { "name": "Alexandrite Dragon", "copies": 3 },
+    { "name": "Gemini Elf", "copies": 3 },
+    { "name": "Luster Dragon", "copies": 3 },
+    { "name": "Neo the Magic Swordsman", "copies": 2 },
+    { "name": "Ancient Rules", "copies": 2 },
+    { "name": "Blue-Eyes White Dragon", "copies": 1 }
+  ],
+  "flexSlots": [
+    {
+      "role": "removal",
+      "count": 2,
+      "candidates": ["Enemy Controller", "Book of Moon", "Forbidden Lance", "Cosmic Cyclone"]
+    },
+    {
+      "role": "disruption",
+      "count": 2,
+      "candidates": ["Mirror Wall", "Wall of Disruption", "Draining Shield", "Karma Cut"]
+    },
+    {
+      "role": "draw",
+      "count": 1,
+      "candidates": ["Sword of Deep-Seated", "Six Samurai United"]
+    },
+    {
+      "role": "recovery",
+      "count": 1,
+      "candidates": ["Powerful Rebirth", "Fusion Recovery"]
+    }
+  ],
+  "extraDeck": [
+    { "name": "Number 39: Utopia", "copies": 1 },
+    { "name": "Gagaga Cowboy", "copies": 1 }
+  ],
+  "strategy": {
+    "gamePlan": "The cheapest real deck in the format. Every monster is a vanilla body that beats what the opponent normal summons, and Ancient Rules turns a dead high-level card into a free 3000. You have no card advantage engine, so the plan is to be ahead on board from turn one and never give it back.",
+    "openingPriorities": [
+      "Lead with the 1900s, not Alexandrite Dragon. Keep the 2000 body for the turn it can actually run something over.",
+      "Ancient Rules is only good with Blue-Eyes in hand — mulligan your line around drawing the pair, not either half.",
+      "Do not attack into an untouched backrow with your only monster when you are ahead on life."
+    ],
+    "keyInteractions": [
+      "Mirror Wall halves an attacker permanently and costs half your life each turn it stays. Let it go once it has done its job.",
+      "Powerful Rebirth brings back a Level 4 or lower Normal monster with a small stat boost, which is often exactly lethal.",
+      "Two Level 4 bodies make Number 39: Utopia, your only answer to a monster bigger than 2000."
+    ],
+    "matchups": [
+      {
+        "against": "Dark Magician Control",
+        "winRate": 37,
+        "notes": "They answer each body one at a time and you never draw a second wave. Push before the traps land."
+      },
+      {
+        "against": "Stall Burn",
+        "winRate": 38,
+        "notes": "You cannot touch backrow and they burn faster than you swing. This is the matchup that keeps the deck honest."
+      },
+      {
+        "against": "Six Samurai Aggro",
+        "winRate": 39,
+        "notes": "They summon two bodies to your one every turn. You need Utopia on board early."
+      }
+    ]
+  }
+}

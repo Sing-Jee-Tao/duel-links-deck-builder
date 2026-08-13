@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build result · Deck Ledger</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+<div class="shell">
+  <div class="rail" data-role="perf-rail" aria-hidden="true"></div>
+  <div class="page">
+
+    <header class="masthead" data-role="masthead">
+      <a class="masthead__mark" href="welcome.html">DECK LEDGER</a>
+      <span class="masthead__meta">DUEL LINKS · SPEED DUEL</span>
+      <span class="masthead__spacer"></span>
+      <span class="masthead__meta" data-role="format-summary">MAIN 20–30 · EXTRA 5 · LP 4000</span>
+      <details class="acct" data-role="account-menu">
+        <summary class="acct__trigger" data-role="account-trigger">
+          <span class="acct__avatar" data-role="account-avatar">KM</span>
+          <span class="acct__name" data-role="account-name">kaiba_main</span>
+          <span class="acct__caret" aria-hidden="true">▼</span>
+        </summary>
+        <div class="acct__menu" data-role="account-dropdown">
+          <div class="acct__head"><div class="acct__name">kaiba_main</div><div class="mono muted" style="font-size:var(--t-10);margin-top:2px">312 CARDS · SYNCED 14:02</div></div>
+          <a class="acct__item" href="account.html" data-role="account-link">Account</a>
+          <a class="acct__item" href="collection.html" data-role="account-link">Collection sync</a>
+          <a class="acct__item acct__item--danger" href="account.html" data-role="signout-button">Sign out</a>
+        </div>
+      </details>
+    </header>
+
+    <nav class="nav" data-role="screen-nav">
+      <a class="nav__item" href="collection.html" data-role="nav-item"><span class="nav__num">01</span>Collection</a>
+      <a class="nav__item" href="build.html" data-role="nav-item" aria-current="page"><span class="nav__num">02</span>Build</a>
+      <a class="nav__item" href="upgrade.html" data-role="nav-item"><span class="nav__num">03</span>Upgrade</a>
+      <a class="nav__item" href="strategy.html" data-role="nav-item"><span class="nav__num">04</span>Strategy</a>
+      <a class="nav__item" href="banlist.html" data-role="nav-item"><span class="nav__num">05</span>Banlist</a>
+    </nav>
+
+    <div class="panel" style="display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;padding:16px 20px" data-role="build-header">
+      <div>
+        <div class="label">Assembled from your collection</div>
+        <h1 class="h1" style="margin-top:6px" data-role="deck-name">Dark Magician Control</h1>
+      </div>
+      <span style="flex:1"></span>
+      <div style="display:flex;gap:22px;align-items:flex-end">
+        <div><div class="stat" style="font-size:var(--t-26)" data-role="deck-power-score">84.2</div><div class="stat__label">power score</div></div>
+        <div><div class="stat" style="font-size:var(--t-26)" data-role="deck-size">20</div><div class="stat__label">main deck</div></div>
+        <button class="btn" type="button" data-role="rebuild-button">Rebuild</button>
+      </div>
+    </div>
+
+    <div class="body">
+      <main class="main" data-role="deck-region">
+
+        <div class="state state--loading" data-role="deck-loading" hidden>SOLVING · 312 CARDS · 4 TIER CONSTRAINTS…</div>
+        <div class="state state--empty" data-role="deck-empty" hidden>
+          <div class="state__title">Nothing to build with yet.</div>
+          <div class="state__body">The engine needs at least 20 owned copies. <a href="collection.html">Enter your collection.</a></div>
+        </div>
+        <div class="notice notice--error" data-role="deck-error" hidden>
+          <div class="notice__title">The solver timed out.</div>
+          <div class="notice__body">Last good build from 13:48 is shown below. <button class="btn--link" type="button" data-role="retry-button">Run again</button></div>
+        </div>
+
+        <div data-role="deck-list" data-deck="main">
+          <div class="scroll" data-role="deck-scroll">
+            <div class="ledger ledger--deck">
+
+              <div data-role="deck-group" data-group="monster">
+                <div class="strip" data-role="group-head"><span>Monster</span><span data-role="group-count">8</span></div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Dark Magician</span>
+                  <span class="row__meta" data-role="card-type">MONSTER/NORMAL</span>
+                  <span class="row__num" data-role="card-stats">2500/2100</span>
+                  <span class="row__limit" data-role="card-limit">—</span>
+                  <span class="row__copies" data-role="card-copies">×3</span>
+                </div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Sphere Kuriboh</span>
+                  <span class="row__meta" data-role="card-type">MONSTER/EFFECT</span>
+                  <span class="row__num" data-role="card-stats">300/200</span>
+                  <span class="row__limit row__limit--set" data-role="card-limit">L1</span>
+                  <span class="row__copies" data-role="card-copies">×1</span>
+                </div>
+              </div>
+
+              <div data-role="deck-group" data-group="spell">
+                <div class="strip" data-role="group-head"><span>Spell</span><span data-role="group-count">7</span></div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Enemy Controller</span>
+                  <span class="row__meta" data-role="card-type">SPELL/QUICK-PLAY</span>
+                  <span class="row__num muted" data-role="card-stats">—</span>
+                  <span class="row__limit row__limit--set" data-role="card-limit">L2</span>
+                  <span class="row__copies" data-role="card-copies">×1</span>
+                </div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Book of Moon</span>
+                  <span class="row__meta" data-role="card-type">SPELL/QUICK-PLAY</span>
+                  <span class="row__num muted" data-role="card-stats">—</span>
+                  <span class="row__limit row__limit--set" data-role="card-limit">L2</span>
+                  <span class="row__copies" data-role="card-copies">×1</span>
+                </div>
+              </div>
+
+              <div data-role="deck-group" data-group="trap">
+                <div class="strip" data-role="group-head"><span>Trap</span><span data-role="group-count">5</span></div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Wall of Disruption</span>
+                  <span class="row__meta" data-role="card-type">TRAP/NORMAL</span>
+                  <span class="row__num muted" data-role="card-stats">—</span>
+                  <span class="row__limit row__limit--set" data-role="card-limit">L3</span>
+                  <span class="row__copies" data-role="card-copies">×2</span>
+                </div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Cosmic Cyclone</span>
+                  <span class="row__meta" data-role="card-type">SPELL/QUICK-PLAY</span>
+                  <span class="row__num muted" data-role="card-stats">—</span>
+                  <span class="row__limit row__limit--set" data-role="card-limit">L3</span>
+                  <span class="row__copies" data-role="card-copies">×1</span>
+                </div>
+              </div>
+
+              <div data-role="deck-list" data-deck="extra">
+                <div class="strip" data-role="group-head">
+                  <span>Extra Deck</span>
+                  <span style="display:flex;align-items:center;gap:8px">
+                    <span data-role="extra-count">4/<span data-role="extra-cap-value">5</span></span>
+                    <button class="btn btn--step" type="button" data-role="extra-cap-decrease" aria-label="Decrease Extra Deck cap">−</button>
+                    <button class="btn btn--step" type="button" data-role="extra-cap-increase" aria-label="Increase Extra Deck cap">+</button>
+                  </span>
+                </div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Dark Magician the Dragon Knight</span>
+                  <span class="row__meta" data-role="card-type">FUSION</span>
+                  <span class="row__num" data-role="card-stats">2800/2600</span>
+                  <span class="row__limit" data-role="card-limit">—</span>
+                  <span class="row__copies" data-role="card-copies">×1</span>
+                </div>
+                <div class="row cols-deck" data-role="card-row">
+                  <span class="row__name" data-role="card-name">Number 39: Utopia</span>
+                  <span class="row__meta" data-role="card-type">XYZ · RANK 4</span>
+                  <span class="row__num" data-role="card-stats">2500/2000</span>
+                  <span class="row__limit" data-role="card-limit">—</span>
+                  <span class="row__copies" data-role="card-copies">×1</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <aside class="side" data-role="legality-panel">
+        <div class="side__sticky">
+          <div class="panel">
+            <div class="label">Legality</div>
+            <div style="margin-top:8px;font-size:var(--t-15);font-weight:600" data-role="legality-status" data-state="legal">Legal · ranked play</div>
+            <div style="margin-top:12px" data-role="deck-size-meter">
+              <div class="mono muted" style="display:flex;justify-content:space-between;font-size:var(--t-11)"><span>MAIN DECK</span><span data-role="deck-size-value">20 / 20–30</span></div>
+              <div class="meter"><div class="meter__fill" style="width:20%"></div><div class="meter__gap"></div></div>
+              <div class="stat__label">At minimum size. Every extra card dilutes the opening four.</div>
+            </div>
+          </div>
+
+          <div class="notice" data-role="legality-warning">
+            <div class="notice__title">Limited 2 allowance fully spent</div>
+            <div class="notice__body">Adding any other Limited 2 card means cutting Enemy Controller or Book of Moon.</div>
+          </div>
+
+          <div class="notice notice--error" data-role="legality-error" hidden>
+            <div class="notice__title">Illegal: 2 Limited 1 cards</div>
+            <div class="notice__body">Sphere Kuriboh and Treacherous Trap Hole both draw on a one-slot pool.</div>
+          </div>
+
+          <div class="allow" data-role="allowance-rail">
+            <div class="allow__head"><span>Allowance</span><span data-role="allowance-summary">5/6 SPENT</span></div>
+            <p class="allow__note">Each tier is one shared pool across the whole deck, not a per-card limit.</p>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="1">
+              <div class="allow__tier-label">LIMITED 1<div class="allow__tier-count" data-role="tier-count">1/1</div></div>
+              <div class="allow__slots"><div class="allow__slot" data-role="allowance-slot">Sphere Kuriboh</div></div>
+            </div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="2">
+              <div class="allow__tier-label">LIMITED 2<div class="allow__tier-count" data-role="tier-count">2/2</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot">Enemy Controller</div>
+                <div class="allow__slot" data-role="allowance-slot">Book of Moon</div>
+              </div>
+            </div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="3">
+              <div class="allow__tier-label">LIMITED 3<div class="allow__tier-count" data-role="tier-count">2/3</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot">Cosmic Cyclone</div>
+                <div class="allow__slot" data-role="allowance-slot">Wall of Disruption</div>
+                <div class="allow__slot allow__slot--empty" data-role="allowance-slot-empty">open</div>
+              </div>
+            </div>
+          </div>
+
+          <div data-role="copy-count-panel" style="border-bottom:1px solid var(--ink)">
+            <div class="strip strip--bar">Copy counts</div>
+            <div class="row" style="display:flex;justify-content:space-between;height:auto;padding:6px 16px;font-size:var(--t-12)" data-role="copy-count-row"><span>Cards at 3 copies</span><span class="num" style="font-weight:600">4</span></div>
+            <div class="row" style="display:flex;justify-content:space-between;height:auto;padding:6px 16px;font-size:var(--t-12)" data-role="copy-count-row"><span>Cards at 1 copy</span><span class="num" style="font-weight:600">6</span></div>
+          </div>
+
+          <div style="padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn btn--primary" href="upgrade.html" data-role="upgrade-link">Upgrade path →</a>
+            <a class="btn" href="strategy.html" data-role="strategy-link">Strategy</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<script src="ledger.js"></script>
+</body>
+</html>

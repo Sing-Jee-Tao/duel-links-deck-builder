@@ -1,0 +1,65 @@
+{
+  "id": "stall-burn",
+  "name": "Stall Burn",
+  "tierScore": 6,
+  "coreCards": [
+    { "name": "Wave-Motion Cannon", "copies": 3 },
+    { "name": "Secret Barrel", "copies": 3 },
+    { "name": "Just Desserts", "copies": 3 },
+    { "name": "Ojama Trio", "copies": 2 },
+    { "name": "Des Koala", "copies": 2 },
+    { "name": "Dark Room of Nightmare", "copies": 1 }
+  ],
+  "flexSlots": [
+    {
+      "role": "disruption",
+      "count": 3,
+      "candidates": ["Draining Shield", "Magic Cylinder", "Wall of Disruption", "Floodgate Trap Hole"]
+    },
+    {
+      "role": "recovery",
+      "count": 1,
+      "candidates": ["Nimble Momonga", "Powerful Rebirth"]
+    },
+    {
+      "role": "removal",
+      "count": 2,
+      "candidates": ["Cosmic Cyclone", "Book of Moon", "Enemy Controller"]
+    }
+  ],
+  "extraDeck": [
+    { "name": "Number 39: Utopia", "copies": 1 },
+    { "name": "Gagaga Cowboy", "copies": 1 }
+  ],
+  "strategy": {
+    "gamePlan": "You are not playing Yu-Gi-Oh!, you are playing a clock. 4000 life points is a short number: Ojama Trio plus Secret Barrel is 1500 off one activation, and Wave-Motion Cannon left alone for four turns ends the game by itself. Survive, count, and do not take a single avoidable point of damage.",
+    "openingPriorities": [
+      "Set Wave-Motion Cannon turn one and leave it. Every turn it sits is 1000 damage you do not have to draw into.",
+      "Ojama Trio is a burn card, not a stall card. Resolve it before Secret Barrel, never after.",
+      "Keep one defensive trap up at all times. A single unanswered attack step is a third of your life total."
+    ],
+    "keyInteractions": [
+      "Dark Room of Nightmare adds 300 to every effect burn — including each Ojama token destroyed by Secret Barrel.",
+      "Des Koala flips for 400 per card in the opponent's hand, so flip it before they commit, not after.",
+      "Draining Shield gains you more life than most beaters deal, which buys the two turns Wave-Motion Cannon needs.",
+      "Cosmic Cyclone costs you 1000 life. In this deck that is a real price — only fire it at a card that beats you."
+    ],
+    "matchups": [
+      {
+        "against": "Six Samurai Aggro",
+        "winRate": 34,
+        "notes": "They out-clock you. You need an early Draining Shield and a Trio into Barrel to have a game at all."
+      },
+      {
+        "against": "Dark Magician Control",
+        "winRate": 56,
+        "notes": "Their removal is aimed at monsters you do not play. Their clock is slow enough for the Cannon."
+      },
+      {
+        "against": "Normal Beatdown",
+        "winRate": 62,
+        "notes": "Big bodies, no reach, no backrow removal. Just Desserts scales with everything they want to do."
+      }
+    ]
+  }
+}

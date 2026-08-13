@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banlist status · Deck Ledger</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+<div class="shell">
+  <div class="rail" data-role="perf-rail" aria-hidden="true"></div>
+  <div class="page">
+
+    <header class="masthead" data-role="masthead">
+      <a class="masthead__mark" href="welcome.html">DECK LEDGER</a>
+      <span class="masthead__meta">DUEL LINKS · SPEED DUEL</span>
+      <span class="masthead__spacer"></span>
+      <span class="masthead__meta" data-role="format-summary">MAIN 20–30 · EXTRA 5 · LP 4000</span>
+      <details class="acct" data-role="account-menu">
+        <summary class="acct__trigger" data-role="account-trigger">
+          <span class="acct__avatar" data-role="account-avatar">KM</span>
+          <span class="acct__name" data-role="account-name">kaiba_main</span>
+          <span class="acct__caret" aria-hidden="true">▼</span>
+        </summary>
+        <div class="acct__menu" data-role="account-dropdown">
+          <div class="acct__head"><div class="acct__name">kaiba_main</div><div class="mono muted" style="font-size:var(--t-10);margin-top:2px">312 CARDS · SYNCED 14:02</div></div>
+          <a class="acct__item" href="account.html" data-role="account-link">Account</a>
+          <a class="acct__item" href="collection.html" data-role="account-link">Collection sync</a>
+          <a class="acct__item acct__item--danger" href="account.html" data-role="signout-button">Sign out</a>
+        </div>
+      </details>
+    </header>
+
+    <nav class="nav" data-role="screen-nav">
+      <a class="nav__item" href="collection.html" data-role="nav-item"><span class="nav__num">01</span>Collection</a>
+      <a class="nav__item" href="build.html" data-role="nav-item"><span class="nav__num">02</span>Build</a>
+      <a class="nav__item" href="upgrade.html" data-role="nav-item"><span class="nav__num">03</span>Upgrade</a>
+      <a class="nav__item" href="strategy.html" data-role="nav-item"><span class="nav__num">04</span>Strategy</a>
+      <a class="nav__item" href="banlist.html" data-role="nav-item" aria-current="page"><span class="nav__num">05</span>Banlist</a>
+    </nav>
+
+    <div class="panel" style="display:flex;flex-wrap:wrap;gap:14px 28px;align-items:flex-end;padding:16px 20px" data-role="banlist-header">
+      <div>
+        <h1 class="h1">Forbidden &amp; Limited</h1>
+        <div class="mono muted" style="font-size:var(--t-11);letter-spacing:.06em;margin-top:6px" data-role="banlist-effective">EFFECTIVE 04 AUG 2026 · KONAMI LIST 41</div>
+      </div>
+      <span style="flex:1"></span>
+      <div style="text-align:right">
+        <div class="mono" style="font-size:var(--t-12);font-weight:600" data-role="last-updated">CHECKED 06 AUG 2026, 03:00 UTC</div>
+        <div class="stat__label">automatic refresh, every 6 hours</div>
+      </div>
+    </div>
+
+    <div class="notice notice--error" style="display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;padding:12px 20px" data-role="stale-warning">
+      <div style="flex:1 1 320px;min-width:0">
+        <div class="notice__title">Refresh is 6 days stale.</div>
+        <div class="notice__body" style="font-size:var(--t-13)">The source has not responded since 06 Aug. Legality checks on Build and Upgrade are still running against list 41 — treat any result as provisional until this clears.</div>
+      </div>
+      <button class="btn btn--danger" type="button" data-role="refresh-button">Refresh now</button>
+    </div>
+
+    <div style="border-bottom:1px solid var(--ink);background:var(--panel);padding:14px 20px" data-role="allowance-explainer">
+      <p style="margin:0;max-width:74ch;font-size:14px;line-height:1.5;text-wrap:pretty">A tier is an allowance, not a per-card rule. <strong>You may run one card total from the Limited 1 pool</strong>, two from Limited 2, three from Limited 3 — a single copy each, drawn from the whole pool. Picking one card in a tier spends the slot for every other card in it.</p>
+    </div>
+
+    <div class="tiers" data-role="banlist-region">
+
+      <section class="tier" data-role="banlist-tier" data-tier="forbidden">
+        <div class="strip strip--redline"><span>Forbidden</span><span data-role="tier-count">31 cards</span></div>
+        <div class="tier__note tier__note--forbidden">Not playable in any quantity.</div>
+        <div class="row cols-banlist" data-role="banlist-row">
+          <span class="row__name" data-role="card-name">Harpie's Feather Duster</span>
+          <span class="row__meta" data-role="card-owned">OWN 2</span>
+        </div>
+        <div class="row cols-banlist" data-role="banlist-row">
+          <span class="row__name" data-role="card-name">Sangan</span>
+          <span class="row__meta" data-role="card-owned">OWN 0</span>
+        </div>
+      </section>
+
+      <section class="tier" data-role="banlist-tier" data-tier="1">
+        <div class="strip"><span>Limited 1</span><span data-role="tier-count">24 cards</span></div>
+        <div class="tier__note"><strong>1 slot</strong> shared by all 24. Yours: <span class="num" style="font-weight:600" data-role="tier-spent">Sphere Kuriboh</span></div>
+        <div class="row cols-banlist row--in-deck" data-role="banlist-row" data-in-deck="true">
+          <span class="row__name" data-role="card-name">Sphere Kuriboh</span>
+          <span class="row__meta" style="color:var(--ochre);font-weight:600" data-role="card-owned">IN DECK</span>
+        </div>
+        <div class="row cols-banlist" data-role="banlist-row">
+          <span class="row__name" data-role="card-name">Treacherous Trap Hole</span>
+          <span class="row__meta" data-role="card-owned">BLOCKED</span>
+        </div>
+      </section>
+
+      <section class="tier" data-role="banlist-tier" data-tier="2">
+        <div class="strip"><span>Limited 2</span><span data-role="tier-count">37 cards</span></div>
+        <div class="tier__note"><strong>2 slots</strong> shared by all 37. Yours: <span class="num" style="font-weight:600" data-role="tier-spent">both spent</span></div>
+        <div class="row cols-banlist row--in-deck" data-role="banlist-row" data-in-deck="true">
+          <span class="row__name" data-role="card-name">Enemy Controller</span>
+          <span class="row__meta" style="color:var(--ochre);font-weight:600" data-role="card-owned">IN DECK</span>
+        </div>
+        <div class="row cols-banlist row--in-deck" data-role="banlist-row" data-in-deck="true">
+          <span class="row__name" data-role="card-name">Book of Moon</span>
+          <span class="row__meta" style="color:var(--ochre);font-weight:600" data-role="card-owned">IN DECK</span>
+        </div>
+      </section>
+
+      <section class="tier" data-role="banlist-tier" data-tier="3">
+        <div class="strip"><span>Limited 3</span><span data-role="tier-count">52 cards</span></div>
+        <div class="tier__note"><strong>3 slots</strong> shared by all 52. Yours: <span class="num" style="font-weight:600" data-role="tier-spent">2 of 3</span></div>
+        <div class="row cols-banlist row--in-deck" data-role="banlist-row" data-in-deck="true">
+          <span class="row__name" data-role="card-name">Cosmic Cyclone</span>
+          <span class="row__meta" style="color:var(--ochre);font-weight:600" data-role="card-owned">IN DECK</span>
+        </div>
+        <div class="row cols-banlist" data-role="banlist-row">
+          <span class="row__name" data-role="card-name">Wall of Disruption</span>
+          <span class="row__meta" data-role="card-owned">OWN 3</span>
+        </div>
+      </section>
+    </div>
+
+    <div class="state state--loading" data-role="banlist-loading" hidden>FETCHING LIST…</div>
+    <div class="state state--empty" data-role="banlist-empty" hidden>
+      <div class="state__title">No cards in this tier.</div>
+      <div class="state__body">Konami has emptied the pool in this revision.</div>
+    </div>
+    <div class="notice notice--error" data-role="banlist-error" hidden>
+      <div class="notice__title">Could not reach the list source.</div>
+      <div class="notice__body">Showing the last known good copy from 04 Aug. <button class="btn--link" type="button" data-role="retry-button">Retry</button></div>
+    </div>
+
+    <div style="padding:14px 20px 40px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline" data-role="banlist-history">
+      <span class="label">Previous revisions</span>
+      <a class="mono" style="font-size:var(--t-12)" href="banlist.html" data-role="revision-link">LIST 40 · 12 MAY 2026</a>
+      <a class="mono" style="font-size:var(--t-12)" href="banlist.html" data-role="revision-link">LIST 39 · 17 FEB 2026</a>
+    </div>
+  </div>
+</div>
+<script src="ledger.js"></script>
+</body>
+</html>

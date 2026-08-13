@@ -1,0 +1,33 @@
+# Netlify deploy config.
+#
+# The site name is set in the Netlify UI (Site settings → Change site name);
+# `duellinksdeckbuilder` was unclaimed as of 12 Aug 2026, which gives
+# https://duellinksdeckbuilder.netlify.app.
+#
+# `base = "./"` in vite.config.ts means the build also works from a subpath, so
+# GitHub Pages (see .github/workflows/deploy-pages.yml) is a drop-in alternative.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Hash routing means every route is served by index.html; this catch-all only
+# matters for a direct hit on a stray path.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# The card pool is a 4 MB immutable, content-hashed asset.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

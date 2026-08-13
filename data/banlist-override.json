@@ -1,0 +1,9 @@
+{
+  "note": "Hand-applied on top of the scraped list, for when Konami announces a change before the weekly scrape catches up. Names under a tier move into that tier; names under `unlimited` are removed from every tier. Empty by default.",
+  "updatedAt": "2026-08-12",
+  "forbidden": [],
+  "limited1": [],
+  "limited2": [],
+  "limited3": [],
+  "unlimited": []
+}

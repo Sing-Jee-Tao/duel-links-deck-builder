@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategy · Deck Ledger</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+<div class="shell">
+  <div class="rail" data-role="perf-rail" aria-hidden="true"></div>
+  <div class="page">
+
+    <header class="masthead" data-role="masthead">
+      <a class="masthead__mark" href="welcome.html">DECK LEDGER</a>
+      <span class="masthead__meta">DUEL LINKS · SPEED DUEL</span>
+      <span class="masthead__spacer"></span>
+      <span class="masthead__meta" data-role="format-summary">MAIN 20–30 · EXTRA 5 · LP 4000</span>
+      <details class="acct" data-role="account-menu">
+        <summary class="acct__trigger" data-role="account-trigger">
+          <span class="acct__avatar" data-role="account-avatar">KM</span>
+          <span class="acct__name" data-role="account-name">kaiba_main</span>
+          <span class="acct__caret" aria-hidden="true">▼</span>
+        </summary>
+        <div class="acct__menu" data-role="account-dropdown">
+          <div class="acct__head"><div class="acct__name">kaiba_main</div><div class="mono muted" style="font-size:var(--t-10);margin-top:2px">312 CARDS · SYNCED 14:02</div></div>
+          <a class="acct__item" href="account.html" data-role="account-link">Account</a>
+          <a class="acct__item" href="collection.html" data-role="account-link">Collection sync</a>
+          <a class="acct__item acct__item--danger" href="account.html" data-role="signout-button">Sign out</a>
+        </div>
+      </details>
+    </header>
+
+    <nav class="nav" data-role="screen-nav">
+      <a class="nav__item" href="collection.html" data-role="nav-item"><span class="nav__num">01</span>Collection</a>
+      <a class="nav__item" href="build.html" data-role="nav-item"><span class="nav__num">02</span>Build</a>
+      <a class="nav__item" href="upgrade.html" data-role="nav-item"><span class="nav__num">03</span>Upgrade</a>
+      <a class="nav__item" href="strategy.html" data-role="nav-item" aria-current="page"><span class="nav__num">04</span>Strategy</a>
+      <a class="nav__item" href="banlist.html" data-role="nav-item"><span class="nav__num">05</span>Banlist</a>
+    </nav>
+
+    <!-- The insert: different stock, narrower measure, serif takes over. -->
+    <div class="insert-desk">
+      <article class="insert" data-role="strategy-document">
+
+        <div class="insert__head">
+          <div>
+            <div class="label">Strategy insert · rev 2026.08.04</div>
+            <h1 class="insert__title" data-role="strategy-deck-name">Dark Magician Control</h1>
+          </div>
+          <span style="flex:1"></span>
+          <div class="mono muted" style="font-size:var(--t-11);line-height:1.6;text-align:right" data-role="strategy-meta">TIER 2 · KOG VIABLE<br>READ TIME 4 MIN</div>
+        </div>
+
+        <div class="insert__body" data-role="strategy-body">
+          <div class="prose">
+
+            <section class="section" data-role="strategy-section" data-section="game-plan">
+              <h2 class="section__head">Game plan</h2>
+              <p>You are not racing to a combo. The deck wins by keeping the board flat and the opponent's hand empty until turn four, then closing with a single 2500 body that the opponent has already spent their answers on.</p>
+              <p style="margin-bottom:0">Three monster zones means one resolved backrow answer usually decides the turn. Hold Enemy Controller for the summon that actually threatens lethal rather than the first one you see, and remember there is no Main Phase 2 to bail you out of a bad attack.</p>
+            </section>
+
+            <section class="section" data-role="strategy-section" data-section="opening-priorities">
+              <h2 class="section__head">Opening priorities</h2>
+              <div class="listrow" data-role="priority-row">
+                <span class="listrow__rank" data-role="priority-rank">01</span>
+                <span>Set <strong>Wall of Disruption</strong> on any hand with two or more monsters. It answers the swarm turn that this deck otherwise loses to outright.</span>
+              </div>
+              <div class="listrow" data-role="priority-row">
+                <span class="listrow__rank" data-role="priority-rank">02</span>
+                <span>Keep <strong>Sphere Kuriboh</strong> in hand through turn two. It is your only Limited 1 slot, and discarding it for a marginal tribute wastes the whole allowance.</span>
+              </div>
+            </section>
+
+            <section class="section" data-role="strategy-section" data-section="key-interactions">
+              <h2 class="section__head">Key interactions</h2>
+              <div class="listrow listrow--interaction" data-role="interaction-row">
+                <span><strong>Book of Moon</strong> flips your own Dark Magician face-down to dodge targeted removal, then re-summons it as a fresh normal summon next turn.</span>
+                <button class="btn btn--mini" type="button" data-role="ruling-button">RULING</button>
+              </div>
+              <div class="listrow listrow--interaction" data-role="interaction-row">
+                <span><strong>Cosmic Cyclone</strong> banishes rather than destroys, which beats graveyard triggers but costs 1000 of your 4000 life points. Do not fire it on turn one against a burn deck.</span>
+                <button class="btn btn--mini" type="button" data-role="ruling-button">RULING</button>
+              </div>
+            </section>
+
+            <section class="section" style="margin-bottom:0" data-role="strategy-section" data-section="matchups">
+              <h2 class="section__head">Common matchups</h2>
+              <div class="listrow listrow--matchup" data-role="matchup-row">
+                <span class="listrow__name" data-role="matchup-name">Blue-Eyes Chaos MAX</span>
+                <span class="winrate winrate--bad" data-role="matchup-winrate">42%</span>
+                <span class="listrow__note">Their 4000 ATK ends you in one swing. Wall of Disruption is the only reliable out; hold it.</span>
+              </div>
+              <div class="listrow listrow--matchup" data-role="matchup-row">
+                <span class="listrow__name" data-role="matchup-name">Six Samurai</span>
+                <span class="winrate" data-role="matchup-winrate">58%</span>
+                <span class="listrow__note">They flood three zones early, which is exactly what Wall of Disruption taxes. Let them commit first.</span>
+              </div>
+            </section>
+
+            <div class="state state--loading" style="border:0;padding:20px 0 0" data-role="strategy-loading" hidden>LOADING GUIDE…</div>
+            <div style="margin-top:20px;font-family:var(--font-read);font-size:var(--t-17);color:var(--ink-2)" data-role="strategy-empty" hidden>No guide has been written for this deck yet.</div>
+            <div class="notice notice--error" style="margin-top:20px;border-bottom:0" data-role="strategy-error" hidden>
+              <div class="notice__title">Guide failed to load.</div>
+              <div class="notice__body"><button class="btn--link" type="button" data-role="retry-button">Retry</button></div>
+            </div>
+          </div>
+
+          <aside class="margin-col" data-role="strategy-margin">
+            <div class="label" style="font-size:var(--t-10);letter-spacing:.12em">This deck at a glance</div>
+            <div class="margin-col__row" data-role="margin-stat"><span>Main deck</span><span class="num" style="font-weight:600">20</span></div>
+            <div class="margin-col__row" data-role="margin-stat"><span>Allowance spent</span><span class="num" style="font-weight:600">5/6</span></div>
+            <div class="label" style="font-size:var(--t-10);letter-spacing:.12em;margin-top:16px">Author</div>
+            <p style="margin:6px 0 0;font-size:var(--t-12);line-height:1.5;color:var(--ink-2)">Written against the 04 Aug 2026 list. Win rates from 1,412 ranked games at Legend rank.</p>
+            <a href="build.html" style="display:inline-block;margin-top:14px;font-size:var(--t-12);font-weight:600;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--ink)">Back to build</a>
+          </aside>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<div class="modal" role="dialog" aria-modal="true" aria-label="Card ruling" data-role="ruling-modal" hidden>
+  <div class="modal__box">
+    <div class="modal__head">
+      <span>Ruling · Book of Moon</span>
+      <button class="modal__close" type="button" data-role="modal-close" aria-label="Close">ESC</button>
+    </div>
+    <div class="modal__body">
+      <p style="margin:0 0 10px;font-family:var(--font-read);font-size:var(--t-17);line-height:1.5">Flipping a monster face-down resets its effects and clears any equip or continuous targeting it. The monster loses its summon status, so a face-down Dark Magician can be normal summoned again on a later turn.</p>
+      <p class="mono muted" style="margin:0;font-size:var(--t-11)">LIMITED 2 · SHARED POOL · 1 OF 2 SLOTS</p>
+    </div>
+  </div>
+</div>
+
+<script src="ledger.js"></script>
+</body>
+</html>

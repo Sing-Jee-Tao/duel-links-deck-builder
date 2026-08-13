@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upgrade path · Deck Ledger</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+<div class="shell">
+  <div class="rail" data-role="perf-rail" aria-hidden="true"></div>
+  <div class="page">
+
+    <header class="masthead" data-role="masthead">
+      <a class="masthead__mark" href="welcome.html">DECK LEDGER</a>
+      <span class="masthead__meta">DUEL LINKS · SPEED DUEL</span>
+      <span class="masthead__spacer"></span>
+      <span class="masthead__meta" data-role="format-summary">MAIN 20–30 · EXTRA 5 · LP 4000</span>
+      <details class="acct" data-role="account-menu">
+        <summary class="acct__trigger" data-role="account-trigger">
+          <span class="acct__avatar" data-role="account-avatar">KM</span>
+          <span class="acct__name" data-role="account-name">kaiba_main</span>
+          <span class="acct__caret" aria-hidden="true">▼</span>
+        </summary>
+        <div class="acct__menu" data-role="account-dropdown">
+          <div class="acct__head"><div class="acct__name">kaiba_main</div><div class="mono muted" style="font-size:var(--t-10);margin-top:2px">312 CARDS · SYNCED 14:02</div></div>
+          <a class="acct__item" href="account.html" data-role="account-link">Account</a>
+          <a class="acct__item" href="collection.html" data-role="account-link">Collection sync</a>
+          <a class="acct__item acct__item--danger" href="account.html" data-role="signout-button">Sign out</a>
+        </div>
+      </details>
+    </header>
+
+    <nav class="nav" data-role="screen-nav">
+      <a class="nav__item" href="collection.html" data-role="nav-item"><span class="nav__num">01</span>Collection</a>
+      <a class="nav__item" href="build.html" data-role="nav-item"><span class="nav__num">02</span>Build</a>
+      <a class="nav__item" href="upgrade.html" data-role="nav-item" aria-current="page"><span class="nav__num">03</span>Upgrade</a>
+      <a class="nav__item" href="strategy.html" data-role="nav-item"><span class="nav__num">04</span>Strategy</a>
+      <a class="nav__item" href="banlist.html" data-role="nav-item"><span class="nav__num">05</span>Banlist</a>
+    </nav>
+
+    <div class="tabs" role="tablist" data-role="candidate-switcher">
+      <button class="tab" type="button" role="tab" data-role="candidate-tab" data-candidate="dm-combo" aria-selected="true">
+        <span class="tab__name">Dark Magician Combo</span>
+        <span class="tab__meta">78% · 4 to acquire</span>
+      </button>
+      <button class="tab" type="button" role="tab" data-role="candidate-tab" data-candidate="six-sam" aria-selected="false">
+        <span class="tab__name">Six Samurai Aggro</span>
+        <span class="tab__meta">54% · 9 to acquire</span>
+      </button>
+      <div class="mono muted" style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:flex-end;padding:0 16px;font-size:var(--t-11)">6 CANDIDATES SCORED</div>
+    </div>
+
+    <!-- Candidate panel A ------------------------------------------------ -->
+    <div class="body" data-role="candidate-panel" data-candidate="dm-combo">
+      <main class="main">
+        <section class="panel" data-role="completion-region" style="padding:18px 20px">
+          <div class="label">Target · diff against your current build</div>
+          <div style="display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end;margin-top:10px">
+            <h1 class="h1" data-role="target-deck-name">Dark Magician Combo</h1>
+            <span style="flex:1"></span>
+            <div style="text-align:right">
+              <div class="num" style="font-size:var(--t-40);font-weight:600;line-height:.9" data-role="completion-percent">78%</div>
+              <div class="stat__label">complete</div>
+            </div>
+          </div>
+          <div class="meter meter--tall" style="margin-top:14px" data-role="completion-meter">
+            <div class="meter__fill" style="width:78%" data-role="completion-fill"></div>
+            <div class="meter__gap" data-role="completion-gap"></div>
+          </div>
+          <div class="mono muted" style="display:flex;justify-content:space-between;font-size:var(--t-11);margin-top:6px">
+            <span data-role="owned-count">23 OF 30 SLOTS OWNED</span><span data-role="gap-count">7 MISSING</span>
+          </div>
+        </section>
+
+        <section data-role="acquire-region">
+          <div class="strip" data-role="group-head"><span>Acquire</span><span data-role="group-count">7 copies</span></div>
+          <div class="scroll" data-role="diff-scroll">
+            <div class="ledger ledger--deck">
+              <div class="row cols-acquire" data-role="card-row" data-diff="add">
+                <span class="diff-mark diff-mark--add" aria-hidden="true">+</span>
+                <span class="row__name" data-role="card-name">Magician's Rod</span>
+                <span class="row__meta" data-role="card-source">SR · STRUCTURE DECK EX</span>
+                <span class="row__num" data-role="card-cost">1,200</span>
+                <span class="row__copies" data-role="card-copies">×2</span>
+              </div>
+              <div class="row cols-acquire" data-role="card-row" data-diff="add">
+                <span class="diff-mark diff-mark--add" aria-hidden="true">+</span>
+                <span class="row__name" data-role="card-name">Dark Magical Circle</span>
+                <span class="row__meta" data-role="card-source">UR · SELECTION BOX</span>
+                <span class="row__num" data-role="card-cost">3,600</span>
+                <span class="row__copies" data-role="card-copies">×1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="strip" data-role="group-head"><span>Cut</span><span data-role="group-count">5 copies</span></div>
+          <div class="scroll" data-role="diff-scroll">
+            <div class="ledger ledger--deck">
+              <div class="row cols-cut" data-role="card-row" data-diff="cut">
+                <span class="diff-mark diff-mark--cut" aria-hidden="true">−</span>
+                <span class="row__name row__name--cut" data-role="card-name">Wall of Disruption</span>
+                <span data-role="cut-reason" style="font-size:var(--t-12);color:var(--ink-2)">Too slow once you open Circle</span>
+                <span class="row__copies" data-role="card-copies">×2</span>
+              </div>
+              <div class="row cols-cut" data-role="card-row" data-diff="cut">
+                <span class="diff-mark diff-mark--cut" aria-hidden="true">−</span>
+                <span class="row__name row__name--cut" data-role="card-name">Cosmic Cyclone</span>
+                <span data-role="cut-reason" style="font-size:var(--t-12);color:var(--ink-2)">Freed Limited 3 slot goes to Rod</span>
+                <span class="row__copies" data-role="card-copies">×1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="state state--loading" data-role="diff-loading" hidden>DIFFING AGAINST CURRENT BUILD…</div>
+          <div class="state state--empty" data-role="diff-empty" hidden>
+            <div class="state__title">You already own every card in this list.</div>
+            <div class="state__body">Nothing to acquire. <a href="build.html">Build it now.</a></div>
+          </div>
+          <div class="notice notice--error" data-role="diff-error" hidden>
+            <div class="notice__title">Target list unavailable.</div>
+            <div class="notice__body">This candidate references a set that failed to sync. <button class="btn--link" type="button" data-role="retry-button">Retry</button></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="side" data-role="upgrade-summary">
+        <div class="side__sticky">
+          <div class="panel">
+            <div class="label">Cost to finish</div>
+            <div class="stat" style="margin-top:8px" data-role="gem-cost">4,800</div>
+            <div class="stat__label">estimated gems, worst case pulls</div>
+          </div>
+          <div class="allow" data-role="allowance-delta">
+            <div class="allow__head"><span>Allowance after</span><span data-role="allowance-summary">3/6 SPENT</span></div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="1">
+              <div class="allow__tier-label">LIMITED 1<div class="allow__tier-count" data-role="tier-count">1/1</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot" data-change="kept"><span>Sphere Kuriboh</span><span class="mono" style="font-size:var(--t-11);color:var(--ochre)">KEPT</span></div>
+              </div>
+            </div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="2">
+              <div class="allow__tier-label">LIMITED 2<div class="allow__tier-count" data-role="tier-count">1/2</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot">Enemy Controller</div>
+                <div class="allow__slot allow__slot--empty" data-role="allowance-slot-empty">open</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn--primary" type="button" data-role="set-target-button">Set as target</button>
+            <a class="btn" href="strategy.html" data-role="strategy-link">Strategy</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Candidate panel B ------------------------------------------------ -->
+    <div class="body" data-role="candidate-panel" data-candidate="six-sam" hidden>
+      <main class="main">
+        <section class="panel" data-role="completion-region" style="padding:18px 20px">
+          <div class="label">Target · diff against your current build</div>
+          <div style="display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end;margin-top:10px">
+            <h1 class="h1" data-role="target-deck-name">Six Samurai Aggro</h1>
+            <span style="flex:1"></span>
+            <div style="text-align:right">
+              <div class="num" style="font-size:var(--t-40);font-weight:600;line-height:.9" data-role="completion-percent">54%</div>
+              <div class="stat__label">complete</div>
+            </div>
+          </div>
+          <div class="meter meter--tall" style="margin-top:14px" data-role="completion-meter">
+            <div class="meter__fill" style="width:54%" data-role="completion-fill"></div>
+            <div class="meter__gap" data-role="completion-gap"></div>
+          </div>
+          <div class="mono muted" style="display:flex;justify-content:space-between;font-size:var(--t-11);margin-top:6px">
+            <span data-role="owned-count">16 OF 30 SLOTS OWNED</span><span data-role="gap-count">14 MISSING</span>
+          </div>
+        </section>
+
+        <section data-role="acquire-region">
+          <div class="strip" data-role="group-head"><span>Acquire</span><span data-role="group-count">14 copies</span></div>
+          <div class="scroll" data-role="diff-scroll">
+            <div class="ledger ledger--deck">
+              <div class="row cols-acquire" data-role="card-row" data-diff="add">
+                <span class="diff-mark diff-mark--add" aria-hidden="true">+</span>
+                <span class="row__name" data-role="card-name">Legendary Six Samurai - Shi En</span>
+                <span class="row__meta" data-role="card-source">UR · STRUCTURE DECK</span>
+                <span class="row__num" data-role="card-cost">6,000</span>
+                <span class="row__copies" data-role="card-copies">×1</span>
+              </div>
+              <div class="row cols-acquire" data-role="card-row" data-diff="add">
+                <span class="diff-mark diff-mark--add" aria-hidden="true">+</span>
+                <span class="row__name" data-role="card-name">Secret Six Samurai - Kizaru</span>
+                <span class="row__meta" data-role="card-source">SR · VALIANT SOULS</span>
+                <span class="row__num" data-role="card-cost">2,400</span>
+                <span class="row__copies" data-role="card-copies">×3</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="strip" data-role="group-head"><span>Cut</span><span data-role="group-count">11 copies</span></div>
+          <div class="scroll" data-role="diff-scroll">
+            <div class="ledger ledger--deck">
+              <div class="row cols-cut" data-role="card-row" data-diff="cut">
+                <span class="diff-mark diff-mark--cut" aria-hidden="true">−</span>
+                <span class="row__name row__name--cut" data-role="card-name">Dark Magician</span>
+                <span data-role="cut-reason" style="font-size:var(--t-12);color:var(--ink-2)">Off-archetype, no search line</span>
+                <span class="row__copies" data-role="card-copies">×3</span>
+              </div>
+              <div class="row cols-cut" data-role="card-row" data-diff="cut">
+                <span class="diff-mark diff-mark--cut" aria-hidden="true">−</span>
+                <span class="row__name row__name--cut" data-role="card-name">Book of Moon</span>
+                <span data-role="cut-reason" style="font-size:var(--t-12);color:var(--ink-2)">Allowance better spent on Shi En</span>
+                <span class="row__copies" data-role="card-copies">×1</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="side" data-role="upgrade-summary">
+        <div class="side__sticky">
+          <div class="panel">
+            <div class="label">Cost to finish</div>
+            <div class="stat" style="margin-top:8px" data-role="gem-cost">11,400</div>
+            <div class="stat__label">estimated gems, worst case pulls</div>
+          </div>
+          <div class="allow" data-role="allowance-delta">
+            <div class="allow__head"><span>Allowance after</span><span data-role="allowance-summary">4/6 SPENT</span></div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="1">
+              <div class="allow__tier-label">LIMITED 1<div class="allow__tier-count" data-role="tier-count">0/1</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot allow__slot--empty" data-role="allowance-slot-empty"><span>open — no L1 card</span><span class="mono" style="color:var(--ochre)">FREED</span></div>
+              </div>
+            </div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="2">
+              <div class="allow__tier-label">LIMITED 2<div class="allow__tier-count" data-role="tier-count">2/2</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot">Enemy Controller</div>
+                <div class="allow__slot" data-role="allowance-slot">Legendary Six Samurai - Shi En</div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn--primary" type="button" data-role="set-target-button">Set as target</button>
+            <a class="btn" href="strategy.html" data-role="strategy-link">Strategy</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+<script src="ledger.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deck Ledger · Duel Links deck builder</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+<div class="shell">
+  <div class="rail" data-role="perf-rail" aria-hidden="true"></div>
+  <div class="page">
+
+    <header class="masthead" data-role="masthead">
+      <a class="masthead__mark" href="welcome.html">DECK LEDGER</a>
+      <span class="masthead__meta">DUEL LINKS · SPEED DUEL</span>
+      <span class="masthead__spacer"></span>
+      <a class="btn" href="account.html" data-role="signin-link" style="padding:8px 14px;font-size:var(--t-12)">Sign in</a>
+      <a class="btn btn--primary" href="account.html" data-role="signup-link" style="padding:8px 14px;font-size:var(--t-12)">Create account</a>
+    </header>
+
+    <section class="hero" data-role="hero">
+      <div class="hero__inner">
+        <div class="hero__eyebrow">Deck builder · list 41 · 04 Aug 2026</div>
+        <h1 class="hero__title">Enter what you own. Get the strongest legal deck out of it.</h1>
+        <p class="hero__lede">The solver reads your collection against the live Forbidden &amp; Limited lists, spends the three shared Limited allowances where they buy the most, and shows you exactly which cards move you up a tier.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary btn--lg" href="account.html" data-role="primary-cta">Create a free account</a>
+          <a class="btn btn--lg" href="collection.html" data-role="secondary-cta">Try it without an account</a>
+        </div>
+        <div class="hero__stats" data-role="hero-stats">
+          <span><strong>4,214</strong> cards indexed</span>
+          <span><strong>6</strong> candidate decks scored per build</span>
+          <span><strong>6h</strong> banlist refresh</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" data-role="feature-list">
+      <div class="feature" data-role="feature">
+        <div class="feature__num">01 · COLLECTION</div>
+        <h2 class="feature__title">A ledger, not a gallery</h2>
+        <p class="feature__body">Type-ahead across the whole pool, quantity set in one click, filters on type, attribute, level and archetype. Built for the player entering four hundred cards in one sitting.</p>
+        <a class="inline-link" href="collection.html">Open collection</a>
+      </div>
+      <div class="feature" data-role="feature">
+        <div class="feature__num">02 · BUILD</div>
+        <h2 class="feature__title">Solved under real constraints</h2>
+        <p class="feature__body">20–30 main, five in the Extra, and three shared Limited allowances the solver has to spend wisely. Every build comes back with its legality reading attached.</p>
+        <a class="inline-link" href="build.html">See a build</a>
+      </div>
+      <div class="feature" data-role="feature">
+        <div class="feature__num">03 · UPGRADE</div>
+        <h2 class="feature__title">The next deck, priced</h2>
+        <p class="feature__body">Every tier deck you cannot build yet, as a diff: completion percentage, cards to acquire with their source and gem cost, cards to cut and why.</p>
+        <a class="inline-link" href="upgrade.html">See an upgrade path</a>
+      </div>
+    </section>
+
+    <section class="peek" data-role="allowance-peek">
+      <div class="peek__copy">
+        <div class="label">The constraint the whole tool is built around</div>
+        <h2 class="h1" style="margin-top:10px">Limited tiers are allowances, not per-card badges</h2>
+        <p class="feature__body" style="max-width:52ch;font-size:var(--t-15);line-height:1.55;margin-top:12px">You may run one card total from the Limited 1 pool, two from Limited 2, three from Limited 3. Picking one spends the slot for every other card in that tier. Deck Ledger shows the allowance as slots with the spent card's name written into them, on every screen, so you always know what a slot cost you.</p>
+        <a class="inline-link" href="banlist.html">Current banlist</a>
+      </div>
+
+      <div class="peek__rail allow" data-role="allowance-rail">
+        <div class="allow__head"><span>Allowance</span><span data-role="allowance-summary" style="color:var(--ochre)">5/6 SPENT</span></div>
+        <div class="allow__tier" data-role="allowance-tier" data-tier="1">
+          <div class="allow__tier-label">LIMITED 1<div class="allow__tier-count" data-role="tier-count">1/1</div></div>
+          <div class="allow__slots"><div class="allow__slot" data-role="allowance-slot">Sphere Kuriboh</div></div>
+        </div>
+        <div class="allow__tier" data-role="allowance-tier" data-tier="2">
+          <div class="allow__tier-label">LIMITED 2<div class="allow__tier-count" data-role="tier-count">2/2</div></div>
+          <div class="allow__slots">
+            <div class="allow__slot" data-role="allowance-slot">Enemy Controller</div>
+            <div class="allow__slot" data-role="allowance-slot">Book of Moon</div>
+          </div>
+        </div>
+        <div class="allow__tier" data-role="allowance-tier" data-tier="3">
+          <div class="allow__tier-label">LIMITED 3<div class="allow__tier-count" data-role="tier-count">2/3</div></div>
+          <div class="allow__slots">
+            <div class="allow__slot" data-role="allowance-slot">Cosmic Cyclone</div>
+            <div class="allow__slot" data-role="allowance-slot">Wall of Disruption</div>
+            <div class="allow__slot allow__slot--empty" data-role="allowance-slot-empty">open</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" data-role="secondary-features">
+      <div class="feature" data-role="feature">
+        <div class="feature__num">04 · STRATEGY</div>
+        <h2 class="feature__title feature__title--serif">Written guidance, not a stat dump</h2>
+        <p class="feature__body">Game plan, opening priorities, key interactions and matchup notes for every deck the solver hands you — written against the current list, with win rates from ranked play.</p>
+        <a class="inline-link" href="strategy.html">Read a guide</a>
+      </div>
+      <div class="feature" data-role="feature">
+        <div class="feature__num">05 · BANLIST</div>
+        <h2 class="feature__title">Synced, and honest when it isn't</h2>
+        <p class="feature__body">Forbidden and all three Limited pools, refreshed every six hours. When the refresh goes stale the whole tool says so rather than quietly checking your deck against an old list.</p>
+        <a class="inline-link" href="banlist.html">Banlist status</a>
+      </div>
+    </section>
+
+    <section class="closing" data-role="closing-cta">
+      <div style="flex:1 1 320px">
+        <h2 class="feature__title" style="margin:0;font-size:22px">An account keeps your collection, your builds and your banlist alerts.</h2>
+        <p class="feature__body" style="color:var(--ink-3)">Free. No card data leaves your account.</p>
+      </div>
+      <div class="cta-row" style="margin-top:0">
+        <a class="btn btn--primary btn--lg" href="account.html" data-role="primary-cta">Create account</a>
+        <a class="btn btn--lg" href="account.html" data-role="secondary-cta">Sign in</a>
+      </div>
+    </section>
+
+    <footer class="footer" data-role="footer">
+      <span>DECK LEDGER · UNOFFICIAL · NOT AFFILIATED WITH KONAMI</span>
+      <span style="flex:1"></span>
+      <a href="collection.html">COLLECTION</a>
+      <a href="build.html">BUILD</a>
+      <a href="upgrade.html">UPGRADE</a>
+      <a href="strategy.html">STRATEGY</a>
+      <a href="banlist.html">BANLIST</a>
+    </footer>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account · Deck Ledger</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+<div class="shell">
+  <div class="rail" data-role="perf-rail" aria-hidden="true"></div>
+  <div class="page">
+
+    <header class="masthead" data-role="masthead">
+      <a class="masthead__mark" href="welcome.html">DECK LEDGER</a>
+      <span class="masthead__meta">DUEL LINKS · SPEED DUEL</span>
+      <span class="masthead__spacer"></span>
+      <a class="masthead__meta" href="welcome.html" data-role="back-link" style="text-decoration:none">← BACK</a>
+    </header>
+
+    <div class="auth">
+      <main class="auth__main" data-role="auth-region">
+        <div class="auth__form-wrap">
+
+          <div class="auth__switch" role="tablist" data-role="auth-switcher">
+            <button class="auth__tab" type="button" role="tab" data-role="auth-tab" data-mode="create" aria-selected="true">Create account</button>
+            <button class="auth__tab" type="button" role="tab" data-role="auth-tab" data-mode="signin" aria-selected="false">Sign in</button>
+          </div>
+
+          <!-- Create account -------------------------------------------- -->
+          <div data-role="auth-panel" data-mode="create">
+            <h1 class="auth__title" data-role="auth-title">Start your collection</h1>
+            <p class="auth__sub" data-role="auth-subtitle">One account holds your card collection, your saved builds and your banlist alerts.</p>
+
+            <div class="notice notice--error" style="border-bottom:0;margin-bottom:18px" data-role="auth-error" hidden>
+              <div class="notice__title">That email is already registered.</div>
+              <div class="notice__body">Sign in instead, or reset the password.</div>
+            </div>
+
+            <form class="form" data-role="auth-form">
+              <label class="form__field" data-role="field">
+                <span class="form__label">Duelist name</span>
+                <input class="form__input" data-role="input-display-name" name="displayName" autocomplete="nickname" placeholder="kaiba_main">
+                <span class="form__hint" data-role="field-hint">Shown on shared deck lists. Changeable later.</span>
+              </label>
+              <label class="form__field" data-role="field">
+                <span class="form__label">Email</span>
+                <input class="form__input" data-role="input-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+              </label>
+              <label class="form__field" data-role="field">
+                <span class="form__label">Password</span>
+                <input class="form__input form__input--mono" data-role="input-password" name="password" type="password" autocomplete="new-password" placeholder="••••••••••">
+                <span class="form__error" data-role="field-error" hidden>Minimum 10 characters.</span>
+              </label>
+              <label class="form__check" data-role="field-checkbox">
+                <input data-role="input-banlist-alerts" name="banlistAlerts" type="checkbox" checked>
+                <span>Email me when the Forbidden &amp; Limited list changes and one of my decks stops being legal.</span>
+              </label>
+              <button class="btn btn--primary" type="button" data-role="submit-button" style="padding:13px 18px">Create account</button>
+              <div class="state--loading mono" data-role="submit-loading" hidden>WORKING…</div>
+              <p class="form__legal" data-role="auth-legal">By creating an account you agree to the terms and the privacy notice. Deck Ledger is unofficial and not affiliated with Konami.</p>
+            </form>
+
+            <div class="auth__alt" data-role="auth-alt">
+              Already entered your collection? <button class="link-btn" type="button" data-role="auth-alt-button" data-mode="signin">Sign in</button>
+            </div>
+          </div>
+
+          <!-- Sign in ---------------------------------------------------- -->
+          <div data-role="auth-panel" data-mode="signin" hidden>
+            <h1 class="auth__title" data-role="auth-title">Welcome back</h1>
+            <p class="auth__sub" data-role="auth-subtitle">Your collection and saved builds are where you left them.</p>
+
+            <div class="notice notice--error" style="border-bottom:0;margin-bottom:18px" data-role="auth-error" hidden>
+              <div class="notice__title">That email and password do not match.</div>
+              <div class="notice__body">Two attempts remaining before a cooldown.</div>
+            </div>
+
+            <form class="form" data-role="auth-form">
+              <label class="form__field" data-role="field">
+                <span class="form__label">Email</span>
+                <input class="form__input" data-role="input-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+              </label>
+              <label class="form__field" data-role="field">
+                <span class="form__label">Password <a href="account.html" data-role="forgot-link" style="font-size:var(--t-10);color:var(--ochre)">Forgot?</a></span>
+                <input class="form__input form__input--mono" data-role="input-password" name="password" type="password" autocomplete="current-password" placeholder="••••••••••">
+              </label>
+              <button class="btn btn--primary" type="button" data-role="submit-button" style="padding:13px 18px">Sign in</button>
+              <div class="state--loading mono" data-role="submit-loading" hidden>WORKING…</div>
+              <p class="form__legal" data-role="auth-legal">Signing in from a new device will ask for the code sent to your email.</p>
+            </form>
+
+            <div class="auth__alt" data-role="auth-alt">
+              No account yet? <button class="link-btn" type="button" data-role="auth-alt-button" data-mode="create">Create one</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <aside class="auth__side" data-role="auth-context">
+        <div class="label">What the account holds</div>
+
+        <div class="benefit" data-role="benefit-row">
+          <span class="benefit__num">01</span>
+          <span><strong style="font-size:14px">Your collection, on every device</strong><span class="benefit__body">312 distinct cards and 726 copies is an evening of typing. It syncs instead of living in one browser.</span></span>
+        </div>
+        <div class="benefit" data-role="benefit-row">
+          <span class="benefit__num">02</span>
+          <span><strong style="font-size:14px">Build history and saved targets</strong><span class="benefit__body">Keep the deck you took to Legend, and the upgrade path you are saving gems for.</span></span>
+        </div>
+        <div class="benefit" data-role="benefit-row">
+          <span class="benefit__num">03</span>
+          <span><strong style="font-size:14px">Banlist alerts</strong><span class="benefit__body">When a new list drops, you hear which of your decks broke before you queue into ranked with it.</span></span>
+        </div>
+
+        <div class="allow" style="margin-top:28px;border:1px solid var(--line)" data-role="allowance-rail">
+          <div class="allow__head"><span>Last saved build</span><span style="color:var(--ochre)">5/6 SPENT</span></div>
+          <div class="allow__tier" data-role="allowance-tier" data-tier="1">
+            <div class="allow__tier-label">LIMITED 1<div class="allow__tier-count" data-role="tier-count">1/1</div></div>
+            <div class="allow__slots"><div class="allow__slot" data-role="allowance-slot">Sphere Kuriboh</div></div>
+          </div>
+          <div class="allow__tier" data-role="allowance-tier" data-tier="2">
+            <div class="allow__tier-label">LIMITED 2<div class="allow__tier-count" data-role="tier-count">2/2</div></div>
+            <div class="allow__slots">
+              <div class="allow__slot" data-role="allowance-slot">Enemy Controller</div>
+              <div class="allow__slot" data-role="allowance-slot">Book of Moon</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="mono" style="margin:22px 0 0;font-size:var(--t-10);line-height:1.7;color:#6E7D73">UNOFFICIAL · NOT AFFILIATED WITH KONAMI<br>NO CARD DATA LEAVES YOUR ACCOUNT</p>
+      </aside>
+    </div>
+  </div>
+</div>
+<script src="ledger.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+name: Refresh data
+
+# Weekly refresh of the card pool and the Forbidden & Limited list.
+# Never runs at request time — the app only ever reads the committed JSON.
+on:
+  schedule:
+    # Mondays 04:15 UTC.
+    - cron: "15 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Chromium for the scraper
+        run: npx playwright install --with-deps chromium
+
+      # Logs the card count and diffs it against the previous run, so an upstream
+      # change to YGOPRODeck's approximate Duel Links flag is visible in the PR.
+      - name: Fetch card pool
+        id: cards
+        run: npm run fetch:cards
+
+      # Fails closed: an empty tier, a count that disagrees with the page's own
+      # declared count, or a shift over 25% aborts without touching the committed
+      # file. A bad scrape must never silently produce an empty banlist.
+      - name: Scrape banlist
+        id: banlist
+        run: npm run scrape:banlist
+
+      # The suite re-checks every authored template against the freshly scraped
+      # list: if Konami moved a card into a tier that makes a template illegal,
+      # this fails and no PR is opened.
+      - name: Verify against the new data
+        run: npm test
+
+      - name: Open a pull request if anything changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$(git status --porcelain data/)" ]; then
+            echo "No data changes."
+            exit 0
+          fi
+          branch="data-refresh/$(date -u +%Y-%m-%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add data/
+          git commit -m "chore(data): weekly card pool and banlist refresh"
+          git push -u origin "$branch"
+          gh pr create \
+            --title "chore(data): weekly card pool and banlist refresh" \
+            --body "Automated weekly refresh. Counts and the added/removed diff are in the job summary. Merge only if the diff looks like a real upstream change." \
+            --base main --head "$branch"
+
+      - name: Open an issue if the refresh failed
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Data refresh failed on $(date -u +%Y-%m-%d)" \
+            --body "The weekly refresh job failed. \`data/banlist.json\` and \`data/cards.json\` were left untouched, so the site is still serving the last known good data.
+
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          Likely causes:
+          - duellinksmeta.com redesigned, breaking the parser (the golden-file test in \`scripts/parse-banlist.test.ts\` will say so)
+          - a tier came back empty, or the list shifted by more than 25%
+          - YGOPRODeck was unreachable
+
+          If Konami has announced a change that the scrape cannot see yet, apply it by hand in \`data/banlist-override.json\`." \
+            --label "data"

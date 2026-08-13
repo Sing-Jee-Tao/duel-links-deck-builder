@@ -1,0 +1,76 @@
+{
+  "id": "dark-magician-control",
+  "name": "Dark Magician Control",
+  "tierScore": 8,
+  "coreCards": [
+    { "name": "Dark Magician", "copies": 3 },
+    { "name": "Magician's Rod", "copies": 3 },
+    { "name": "Dark Magical Circle", "copies": 3 },
+    { "name": "Magician Navigation", "copies": 2 },
+    { "name": "Illusion Magic", "copies": 1 }
+  ],
+  "flexSlots": [
+    {
+      "role": "removal",
+      "count": 2,
+      "candidates": ["Enemy Controller", "Book of Moon", "Cosmic Cyclone", "Forbidden Chalice"]
+    },
+    {
+      "role": "disruption",
+      "count": 3,
+      "candidates": [
+        "Wall of Disruption",
+        "Paleozoic Canadia",
+        "Karma Cut",
+        "Floodgate Trap Hole",
+        "Treacherous Trap Hole"
+      ]
+    },
+    {
+      "role": "recovery",
+      "count": 1,
+      "candidates": ["Fusion Recovery", "Powerful Rebirth"]
+    },
+    {
+      "role": "beater",
+      "count": 2,
+      "candidates": ["Sphere Kuriboh", "Neo the Magic Swordsman", "Alexandrite Dragon"]
+    }
+  ],
+  "extraDeck": [
+    { "name": "Dark Magician the Dragon Knight", "copies": 1 },
+    { "name": "Number 39: Utopia", "copies": 1 },
+    { "name": "Gagaga Cowboy", "copies": 1 }
+  ],
+  "strategy": {
+    "gamePlan": "You are not racing to a combo. The deck wins by keeping the board flat and the opponent's hand empty until turn four, then closing with a single 2500 body the opponent has already spent their answers on. Dark Magical Circle does the work: it looks at three cards on every Dark Magician summon and banishes the piece that would otherwise beat you. Three monster zones means one resolved backrow answer usually decides the turn, and there is no Main Phase 2 to bail you out of a bad attack.",
+    "openingPriorities": [
+      "Set a disruption trap on any hand with two or more monsters. It answers the swarm turn this deck otherwise loses to outright.",
+      "Resolve Dark Magical Circle before you commit Dark Magician. The banish is the point; the 2500 body is the payoff.",
+      "Hold Magician's Rod for the turn you can protect it. Searching Navigation into an open board is how the deck stabilises."
+    ],
+    "keyInteractions": [
+      "Book of Moon flips your own Dark Magician face-down to dodge targeted removal, then re-summons it as a fresh normal summon next turn.",
+      "Cosmic Cyclone banishes rather than destroys, which beats graveyard triggers but costs 1000 of your 4000 life points. Do not fire it on turn one against a burn deck.",
+      "Magician Navigation summons from hand at quick speed — it answers a swing and rebuilds the board in the same activation.",
+      "Illusion Magic is a hard draw two if you tribute a Dark Magician you were going to lose anyway."
+    ],
+    "matchups": [
+      {
+        "against": "Six Samurai Aggro",
+        "winRate": 58,
+        "notes": "They flood three zones early, which is exactly what Wall of Disruption taxes. Let them commit first."
+      },
+      {
+        "against": "Burn",
+        "winRate": 44,
+        "notes": "Your removal is pointed at monsters and they play almost none. Side the Cyclones in and cut a beater."
+      },
+      {
+        "against": "Normal Beatdown",
+        "winRate": 63,
+        "notes": "Bigger bodies than yours but no answers to a face-down. Trade early, land Circle, close on turn four."
+      }
+    ]
+  }
+}

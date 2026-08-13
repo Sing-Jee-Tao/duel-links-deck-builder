@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Collection · Deck Ledger</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ledger.css">
+</head>
+<body>
+<div class="shell">
+  <div class="rail" data-role="perf-rail" aria-hidden="true"></div>
+  <div class="page">
+
+    <header class="masthead" data-role="masthead">
+      <a class="masthead__mark" href="welcome.html">DECK LEDGER</a>
+      <span class="masthead__meta">DUEL LINKS · SPEED DUEL</span>
+      <span class="masthead__spacer"></span>
+      <span class="masthead__meta" data-role="format-summary">MAIN 20–30 · EXTRA 5 · LP 4000</span>
+      <details class="acct" data-role="account-menu">
+        <summary class="acct__trigger" data-role="account-trigger">
+          <span class="acct__avatar" data-role="account-avatar">KM</span>
+          <span class="acct__name" data-role="account-name">kaiba_main</span>
+          <span class="acct__caret" aria-hidden="true">▼</span>
+        </summary>
+        <div class="acct__menu" data-role="account-dropdown">
+          <div class="acct__head"><div class="acct__name">kaiba_main</div><div class="mono muted" style="font-size:var(--t-10);margin-top:2px">312 CARDS · SYNCED 14:02</div></div>
+          <a class="acct__item" href="account.html" data-role="account-link">Account</a>
+          <a class="acct__item" href="collection.html" data-role="account-link">Collection sync</a>
+          <a class="acct__item acct__item--danger" href="account.html" data-role="signout-button">Sign out</a>
+        </div>
+      </details>
+    </header>
+
+    <nav class="nav" data-role="screen-nav">
+      <a class="nav__item" href="collection.html" data-role="nav-item" aria-current="page"><span class="nav__num">01</span>Collection</a>
+      <a class="nav__item" href="build.html" data-role="nav-item"><span class="nav__num">02</span>Build</a>
+      <a class="nav__item" href="upgrade.html" data-role="nav-item"><span class="nav__num">03</span>Upgrade</a>
+      <a class="nav__item" href="strategy.html" data-role="nav-item"><span class="nav__num">04</span>Strategy</a>
+      <a class="nav__item" href="banlist.html" data-role="nav-item"><span class="nav__num">05</span>Banlist</a>
+    </nav>
+
+    <div class="body">
+      <main class="main">
+
+        <section class="search" data-role="search-region">
+          <label class="label" for="card-search" style="display:block;margin-bottom:6px">Search pool · 4,214 cards</label>
+          <input class="field field--search" id="card-search" data-role="search-input" type="search" autocomplete="off" spellcheck="false" value="enemy" placeholder="Card name, archetype or effect text">
+          <div class="typeahead" data-role="typeahead">
+            <div class="typeahead__status" data-role="typeahead-status"><span>2 MATCHES</span><span>↑↓ MOVE · 0–3 SET · ↵ ADD</span></div>
+            <button class="typeahead__result" type="button" data-role="typeahead-result" data-selected="true">
+              <span class="row__name" data-role="card-name">Enemy Controller</span>
+              <span class="row__meta" data-role="card-meta">SPELL · QUICK-PLAY</span>
+              <span class="row__limit row__limit--set" data-role="card-limit">L2</span>
+            </button>
+            <button class="typeahead__result" type="button" data-role="typeahead-result">
+              <span class="row__name" data-role="card-name">Enemy Controller (Prismatic)</span>
+              <span class="row__meta" data-role="card-meta">SPELL · QUICK-PLAY</span>
+              <span class="row__limit row__limit--set" data-role="card-limit">L2</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="filters" data-role="filter-bar">
+          <div class="field-group">
+            <label class="field-group__label" for="f-type">Type</label>
+            <select class="field" id="f-type" data-role="filter-type"><option>All</option><option>Monster</option><option>Spell</option><option>Trap</option></select>
+          </div>
+          <div class="field-group">
+            <label class="field-group__label" for="f-attr">Attribute</label>
+            <select class="field" id="f-attr" data-role="filter-attribute"><option>All</option><option>DARK</option><option>LIGHT</option><option>EARTH</option><option>WATER</option><option>FIRE</option><option>WIND</option></select>
+          </div>
+          <div class="field-group">
+            <label class="field-group__label" for="f-level">Level</label>
+            <select class="field" id="f-level" data-role="filter-level"><option>All</option><option>1–4</option><option>5–6</option><option>7+</option></select>
+          </div>
+          <div class="field-group" style="flex:1 1 160px">
+            <label class="field-group__label" for="f-arch">Archetype</label>
+            <input class="field" id="f-arch" list="arch-list" data-role="filter-archetype" placeholder="Any">
+            <datalist id="arch-list"><option value="Dark Magician"></option><option value="Blue-Eyes"></option><option value="Six Samurai"></option></datalist>
+          </div>
+          <div data-role="active-filters" style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="chip" type="button" data-role="filter-chip">OWNED ≥ 1 ×</button>
+            <button class="chip" type="button" data-role="filter-chip">DARK ×</button>
+          </div>
+        </section>
+
+        <section data-role="collection-list-region">
+          <div class="scroll" data-role="ledger-scroll">
+            <div class="ledger">
+              <div class="ledger__head cols-collection" data-role="ledger-head">
+                <span>Card</span><span>Type</span><span>Attr</span><span style="text-align:right">Lv</span><span style="text-align:right">ATK/DEF</span><span style="text-align:center">Lim</span><span style="text-align:center">Owned</span>
+              </div>
+
+              <div class="row cols-collection" data-role="card-row" data-card-id="dark-magician">
+                <span class="row__name" data-role="card-name">Dark Magician</span>
+                <span class="row__meta" data-role="card-type">MONSTER/NORMAL</span>
+                <span class="row__meta" data-role="card-attribute">DARK</span>
+                <span class="row__num" data-role="card-level">7</span>
+                <span class="row__num" data-role="card-stats">2500/2100</span>
+                <span class="row__limit" data-role="card-limit">—</span>
+                <span style="padding:0 6px">
+                  <button class="qty" type="button" data-role="owned-quantity" data-quantity="3" title="Click to cycle 0 → 3" aria-label="Owned copies of Dark Magician"><span data-role="quantity-value">3</span><span class="qty__track" data-role="quantity-track" aria-hidden="true">●●●</span></button>
+                </span>
+              </div>
+
+              <div class="row cols-collection" data-role="card-row" data-card-id="sphere-kuriboh">
+                <span class="row__name" data-role="card-name">Sphere Kuriboh</span>
+                <span class="row__meta" data-role="card-type">MONSTER/EFFECT</span>
+                <span class="row__meta" data-role="card-attribute">DARK</span>
+                <span class="row__num" data-role="card-level">1</span>
+                <span class="row__num" data-role="card-stats">300/200</span>
+                <span class="row__limit row__limit--set" data-role="card-limit">L1</span>
+                <span style="padding:0 6px">
+                  <button class="qty" type="button" data-role="owned-quantity" data-quantity="1" title="Click to cycle 0 → 3" aria-label="Owned copies of Sphere Kuriboh"><span data-role="quantity-value">1</span><span class="qty__track" data-role="quantity-track" aria-hidden="true">●○○</span></button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="state state--loading" data-role="list-loading" hidden>READING POOL…</div>
+          <div class="state state--empty" data-role="list-empty" hidden>
+            <div class="state__title">No cards match these filters.</div>
+            <div class="state__body">Clear the archetype field, or widen the level band.</div>
+          </div>
+          <div class="notice notice--error" data-role="list-error" hidden>
+            <div class="notice__title">Card pool failed to load.</div>
+            <div class="notice__body">Your owned quantities are saved locally and untouched. <button class="btn--link" type="button" data-role="retry-button">Retry</button></div>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--panel)">
+            <span class="mono muted" style="font-size:var(--t-11)" data-role="pagination-status">SHOWING 2 OF 1,208 FILTERED</span>
+            <button class="btn btn--primary" type="button" data-role="build-button">Build strongest deck →</button>
+          </div>
+        </section>
+      </main>
+
+      <aside class="side" data-role="totals-column">
+        <div class="side__sticky">
+          <div class="panel">
+            <div class="label">Collection totals</div>
+            <div style="display:flex;gap:22px;margin-top:10px">
+              <div><div class="stat" data-role="distinct-total">312</div><div class="stat__label">distinct cards</div></div>
+              <div><div class="stat" data-role="copies-total">726</div><div class="stat__label">total copies</div></div>
+            </div>
+            <div class="mono muted" style="font-size:var(--t-11);margin-top:12px;border-top:1px solid var(--rule);padding-top:8px" data-role="session-status">SAVED 14:02 · LOCAL</div>
+          </div>
+
+          <div class="allow" data-role="allowance-rail">
+            <div class="allow__head"><span>Allowance</span><span data-role="allowance-summary">5/6 SPENT</span></div>
+            <p class="allow__note">Each tier is one shared pool across the whole deck, not a per-card limit.</p>
+
+            <div class="allow__tier" data-role="allowance-tier" data-tier="1">
+              <div class="allow__tier-label">LIMITED 1<div class="allow__tier-count" data-role="tier-count">1/1</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot">Sphere Kuriboh</div>
+              </div>
+            </div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="2">
+              <div class="allow__tier-label">LIMITED 2<div class="allow__tier-count" data-role="tier-count">2/2</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot">Enemy Controller</div>
+                <div class="allow__slot" data-role="allowance-slot">Book of Moon</div>
+              </div>
+            </div>
+            <div class="allow__tier" data-role="allowance-tier" data-tier="3">
+              <div class="allow__tier-label">LIMITED 3<div class="allow__tier-count" data-role="tier-count">2/3</div></div>
+              <div class="allow__slots">
+                <div class="allow__slot" data-role="allowance-slot">Cosmic Cyclone</div>
+                <div class="allow__slot" data-role="allowance-slot">Wall of Disruption</div>
+                <div class="allow__slot allow__slot--empty" data-role="allowance-slot-empty">open</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<script src="ledger.js"></script>
+</body>
+</html>
