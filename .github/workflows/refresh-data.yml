@@ -52,7 +52,7 @@ jobs:
       - name: Verify against the new data
         run: npm test
 
-      - name: Open a pull request if anything changed
+      - name: Push the refreshed data for review
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -67,10 +67,29 @@ jobs:
           git add data/
           git commit -m "chore(data): weekly card pool and banlist refresh"
           git push -u origin "$branch"
-          gh pr create \
-            --title "chore(data): weekly card pool and banlist refresh" \
-            --body "Automated weekly refresh. Counts and the added/removed diff are in the job summary. Merge only if the diff looks like a real upstream change." \
-            --base main --head "$branch"
+
+          body="Automated weekly refresh. Counts and the added/removed diff are in the [job summary](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}). Merge only if the diff looks like a real upstream change."
+
+          # Opening a PR from a workflow needs "Allow GitHub Actions to create
+          # and approve pull requests" at BOTH org and repo level. The
+          # Sing-Jee-Tao org currently disallows it, so fall back to an issue
+          # carrying the compare link rather than failing a refresh whose real
+          # work — fetch, scrape, validate, push — already succeeded.
+          if gh pr create \
+              --title "chore(data): weekly card pool and banlist refresh" \
+              --body "$body" \
+              --base main --head "$branch"; then
+            echo "Pull request opened."
+          else
+            echo "PR creation is not permitted; opening an issue with the compare link instead."
+            gh issue create \
+              --title "Data refresh ready for review: $branch" \
+              --body "$body
+
+          Actions cannot open pull requests in this org, so the refreshed data is waiting on \`$branch\`:
+
+          ${{ github.server_url }}/${{ github.repository }}/compare/main...$branch?expand=1"
+          fi
 
       - name: Open an issue if the refresh failed
         if: failure()

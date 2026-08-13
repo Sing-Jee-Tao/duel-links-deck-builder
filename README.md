@@ -72,8 +72,12 @@ design/                   the original handoff, unmodified, for reference
 ### Data pipeline
 
 Both scripts run **weekly in CI**, never from the app
-([`.github/workflows/refresh-data.yml`](.github/workflows/refresh-data.yml)), and
-open a pull request when the data changes.
+([`.github/workflows/refresh-data.yml`](.github/workflows/refresh-data.yml)).
+When the data changes the job pushes a `data-refresh/<date>` branch and opens a
+pull request — or, where the org disallows Actions opening PRs (as Sing-Jee-Tao
+currently does), an issue carrying the compare link. To get real PRs instead,
+enable **Allow GitHub Actions to create and approve pull requests** under the
+org's Settings → Actions → General, then the same box in the repo's settings.
 
 `fetch-cards.ts` pulls YGOPRODeck's `format=duel links` endpoint once and projects
 each card down to the fields the app uses. That legality flag is approximate, so
