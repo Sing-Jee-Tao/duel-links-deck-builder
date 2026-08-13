@@ -11,6 +11,7 @@ import { Masthead, ScreenNav, Shell } from "../components/Chrome.tsx";
 import { EmptyState, ErrorNotice, LoadingState } from "../components/States.tsx";
 import { banlist } from "../data/index.ts";
 import { BanlistIndex, normalizeName } from "../engine/banlist-index.ts";
+import { buildSearchIndex, NAME_MATCH_FLOOR, rankCards } from "../engine/search.ts";
 import type { Card } from "../data/types.ts";
 import { href } from "../state/router.ts";
 import { MAX_COPIES, useStore, type Quantity } from "../state/store.tsx";
@@ -40,6 +41,19 @@ const EMPTY_FILTERS: Filters = {
   archetype: "",
   ownedOnly: false,
 };
+
+/** One active filter-bar control, reduced to a predicate it can be judged by. */
+interface Constraint {
+  label: string;
+  keep: (card: Card) => boolean;
+  clear: () => void;
+  /** Attribute and Level are monster-only fields; nothing else can satisfy them. */
+  monsterOnly?: boolean;
+}
+
+type EmptyReason =
+  | { kind: "search"; query: string; before: number }
+  | { kind: "filter"; constraint: Constraint; before: number; allNonMonsters: boolean };
 
 /** Exported so the card-pool build can prove its synthesized types parse here. */
 export function broadType(card: Card): "Monster" | "Spell" | "Trap" {
@@ -119,36 +133,105 @@ export function Collection(): JSX.Element {
   const index = useMemo(() => new BanlistIndex(banlist), []);
   const cards = pool?.cards ?? [];
 
-  const filtered = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    const archetype = filters.archetype.trim().toLowerCase();
-    return cards.filter((card) => {
-      if (needle && !card.name.toLowerCase().includes(needle) && !card.desc.toLowerCase().includes(needle)) {
-        return false;
-      }
-      if (filters.type !== "All" && broadType(card) !== filters.type) return false;
-      if (filters.attribute !== "All" && card.attribute !== filters.attribute) return false;
-      if (!matchesLevel(card, filters.level)) return false;
-      if (archetype && !(card.archetype ?? "").toLowerCase().includes(archetype)) return false;
-      if (filters.ownedOnly && !(collection.get(card.id) ?? 0)) return false;
-      return true;
-    });
-  }, [cards, collection, filters, query]);
+  // Folded once per pool, not per keystroke: the effect text alone is ~3 MB.
+  const searchable = useMemo(() => buildSearchIndex(cards), [cards]);
+  const ranked = useMemo(() => rankCards(searchable, query), [searchable, query]);
 
-  // Type-ahead is name-only and short: it is a jump target, not the ledger.
+  /** The filter bar, as one predicate per control, so the empty state can name a culprit. */
+  const constraints = useMemo((): Constraint[] => {
+    const active: Constraint[] = [];
+    if (filters.type !== "All") {
+      active.push({
+        label: filters.type.toUpperCase(),
+        keep: (card) => broadType(card) === filters.type,
+        clear: () => setFilters((f) => ({ ...f, type: "All" })),
+      });
+    }
+    if (filters.attribute !== "All") {
+      active.push({
+        label: filters.attribute,
+        keep: (card) => card.attribute === filters.attribute,
+        clear: () => setFilters((f) => ({ ...f, attribute: "All" })),
+        monsterOnly: true,
+      });
+    }
+    if (filters.level !== "All") {
+      active.push({
+        label: `LEVEL ${filters.level}`,
+        keep: (card) => matchesLevel(card, filters.level),
+        clear: () => setFilters((f) => ({ ...f, level: "All" })),
+        monsterOnly: true,
+      });
+    }
+    const archetype = filters.archetype.trim().toLowerCase();
+    if (archetype) {
+      active.push({
+        label: `ARCHETYPE “${filters.archetype.trim()}”`,
+        keep: (card) => (card.archetype ?? "").toLowerCase().includes(archetype),
+        clear: () => setFilters((f) => ({ ...f, archetype: "" })),
+      });
+    }
+    if (filters.ownedOnly) {
+      active.push({
+        label: "OWNED ≥ 1",
+        keep: (card) => (collection.get(card.id) ?? 0) > 0,
+        clear: () => setFilters((f) => ({ ...f, ownedOnly: false })),
+      });
+    }
+    return active;
+  }, [collection, filters]);
+
+  const filtered = useMemo(
+    () => ranked.map((hit) => hit.card).filter((card) => constraints.every((c) => c.keep(card))),
+    [ranked, constraints],
+  );
+
+  // Type-ahead is a jump target, not the ledger: best few name matches only, and
+  // it deliberately ignores the filter bar so it can always reach the whole pool.
   const suggestions = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    if (needle.length < 2) return [];
-    return cards.filter((card) => card.name.toLowerCase().includes(needle)).slice(0, 8);
-  }, [cards, query]);
+    if (query.trim().length < 2) return [];
+    return ranked.filter((hit) => hit.score >= NAME_MATCH_FLOOR).slice(0, 8).map((hit) => hit.card);
+  }, [ranked, query]);
+
+  /**
+   * Which constraint emptied the list. Applied in the order they appear on
+   * screen, reporting the first one that leaves nothing — so the message points
+   * at a control the player can actually clear rather than blaming the search.
+   */
+  const emptyReason = useMemo((): EmptyReason | null => {
+    if (filtered.length > 0) return null;
+    if (cards.length === 0) return null;
+
+    let surviving = ranked.map((hit) => hit.card);
+    if (surviving.length === 0) {
+      return { kind: "search", query: query.trim(), before: cards.length };
+    }
+    for (const constraint of constraints) {
+      const next = surviving.filter(constraint.keep);
+      if (next.length === 0) {
+        return {
+          kind: "filter",
+          constraint,
+          before: surviving.length,
+          // Attribute and Level only exist on monsters, so pointing at the count
+          // is useless if what actually happened is that they are all Spells.
+          allNonMonsters: constraint.monsterOnly === true && surviving.every((c) => broadType(c) !== "Monster"),
+        };
+      }
+      surviving = next;
+    }
+    return null;
+  }, [cards, ranked, constraints, filtered, query]);
 
   useEffect(() => setVisible(PAGE_SIZE), [query, filters]);
   useEffect(() => setCursor(0), [query]);
 
   const archetypes = useMemo(() => {
+    // No cap: the pool carries 469 archetypes, and the old slice(0, 400) silently
+    // dropped the tail of the alphabet from the suggestion list.
     const set = new Set<string>();
     for (const card of cards) if (card.archetype) set.add(card.archetype);
-    return [...set].sort((a, b) => a.localeCompare(b)).slice(0, 400);
+    return [...set].sort((a, b) => a.localeCompare(b));
   }, [cards]);
 
   const setCardQuantity = useCallback(
@@ -362,8 +445,46 @@ export function Collection(): JSX.Element {
             )}
 
             {status === "ready" && filtered.length === 0 && (
-              <EmptyState title="No cards match these filters.">
-                Clear the archetype field, or widen the level band.
+              <EmptyState
+                title={
+                  emptyReason?.kind === "search"
+                    ? `Nothing in the pool matches “${emptyReason.query}”.`
+                    : "No cards match these filters."
+                }
+              >
+                {emptyReason?.kind === "search" && (
+                  <>
+                    Every word has to appear somewhere in the card — its name, archetype or effect text. Try fewer
+                    words, or check the spelling.
+                  </>
+                )}
+                {emptyReason?.kind === "filter" && (
+                  <>
+                    {emptyReason.allNonMonsters ? (
+                      <>
+                        {emptyReason.before.toLocaleString("en-GB")}{" "}
+                        {emptyReason.before === 1 ? "card matches" : "cards match"} so far, but they are all Spells and
+                        Traps — which have no attribute or level, so <strong>{emptyReason.constraint.label}</strong>{" "}
+                        excludes every one of them.
+                      </>
+                    ) : (
+                      <>
+                        {emptyReason.before.toLocaleString("en-GB")}{" "}
+                        {emptyReason.before === 1 ? "card matches" : "cards match"} so far, but none of them survive{" "}
+                        <strong>{emptyReason.constraint.label}</strong>.
+                      </>
+                    )}{" "}
+                    <button
+                      className="chip"
+                      type="button"
+                      data-role="clear-culprit"
+                      onClick={emptyReason.constraint.clear}
+                    >
+                      Clear {emptyReason.constraint.label} ×
+                    </button>
+                  </>
+                )}
+                {emptyReason === null && <>Clear the archetype field, or widen the level band.</>}
               </EmptyState>
             )}
 
