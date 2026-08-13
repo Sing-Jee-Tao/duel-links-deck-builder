@@ -225,11 +225,12 @@ export function Build(): JSX.Element {
                 data-role="legality-status"
                 data-state={validation?.legal ? "legal" : "illegal"}
               >
-                {!build
-                  ? "Waiting for a build"
-                  : validation?.legal
+                {/* An empty collection is not an illegal deck — it is no deck. */}
+                {!build || !validation || mainCount === 0
+                  ? "No deck yet"
+                  : validation.legal
                     ? "Legal · ranked play"
-                    : `Illegal · ${validation?.violations.length} issue${validation?.violations.length === 1 ? "" : "s"}`}
+                    : `Illegal · ${validation.violations.length} issue${validation.violations.length === 1 ? "" : "s"}`}
               </div>
               <div style={{ marginTop: 12 }} data-role="deck-size-meter">
                 <div
@@ -265,20 +266,25 @@ export function Build(): JSX.Element {
               </div>
             )}
 
-            {validation?.violations.map((violation) => (
-              <div className="notice notice--error" data-role="legality-error" key={violation.code + violation.message}>
-                <div className="notice__title">
-                  {violation.code === "tier-budget"
-                    ? `Illegal: Limited ${violation.tier} over budget`
-                    : violation.code === "forbidden"
-                      ? "Illegal: Forbidden card"
-                      : violation.code === "copy-limit"
-                        ? "Illegal: too many copies"
-                        : "Deck size"}
+            {mainCount > 0 &&
+              validation?.violations.map((violation) => (
+                <div
+                  className="notice notice--error"
+                  data-role="legality-error"
+                  key={violation.code + violation.message}
+                >
+                  <div className="notice__title">
+                    {violation.code === "tier-budget"
+                      ? `Illegal: Limited ${violation.tier} over budget`
+                      : violation.code === "forbidden"
+                        ? "Illegal: Forbidden card"
+                        : violation.code === "copy-limit"
+                          ? "Illegal: too many copies"
+                          : "Deck size"}
+                  </div>
+                  <div className="notice__body">{violation.message}</div>
                 </div>
-                <div className="notice__body">{violation.message}</div>
-              </div>
-            ))}
+              ))}
 
             {validation && <AllowanceRail allowance={validation.allowance} note={ALLOWANCE_NOTE} />}
 

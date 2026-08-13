@@ -13,7 +13,8 @@
     "typecheck": "tsc -b --force",
     "fetch:cards": "tsx scripts/fetch-cards.ts",
     "scrape:banlist": "tsx scripts/scrape-banlist.ts",
-    "scrape:banlist:snapshot": "tsx scripts/scrape-banlist.ts --snapshot"
+    "scrape:banlist:snapshot": "tsx scripts/scrape-banlist.ts --snapshot",
+    "fetch:fonts": "tsx scripts/fetch-fonts.ts"
   },
   "dependencies": {
     "react": "^18.3.1",

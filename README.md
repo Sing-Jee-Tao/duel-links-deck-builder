@@ -4,7 +4,8 @@ Enter the Yu-Gi-Oh! Duel Links cards you own; the engine assembles the strongest
 **legal** deck out of them and shows what the deck becomes with a handful more.
 
 Static site. No backend, no accounts, and **zero third-party requests at
-runtime** — the card pool and the Forbidden & Limited list ship with the build.
+runtime** — the card pool, the Forbidden & Limited list and the three typefaces
+all ship with the build. A loaded page contacts nothing but its own origin.
 Your collection lives in your browser (IndexedDB) and exports to a JSON file you
 keep.
 
@@ -22,6 +23,7 @@ npm run dev
 | Refresh card pool | `npm run fetch:cards` |
 | Refresh banlist | `npm run scrape:banlist` |
 | Refresh banlist + golden fixture | `npm run scrape:banlist:snapshot` |
+| Re-download the self-hosted fonts | `npm run fetch:fonts` |
 
 ## The rule everything is built around
 
@@ -63,6 +65,7 @@ src/
   state/                  IndexedDB persistence, store, hash router
   components/             chrome, allowance rail, states
   screens/                the seven screens
+  fonts/                  self-hosted woff2 (OFL) + generated fonts.css
 design/                   the original handoff, unmodified, for reference
 ```
 
@@ -154,5 +157,9 @@ data, and card images. There are no images, icons or SVG anywhere.
   refreshed weekly, as their guidance asks.
 - Forbidden & Limited list: [Duel Links Meta](https://www.duellinksmeta.com/forbidden-limited-list),
   scraped weekly under a descriptive User-Agent, `robots.txt` honoured.
+- Typefaces: Archivo, IBM Plex Mono and Newsreader, downloaded once by
+  `npm run fetch:fonts` and committed under `src/fonts/`. All three are SIL Open
+  Font License 1.1 (`src/fonts/OFL.txt`); latin and latin-ext subsets only,
+  364 kB total.
 
 Unofficial. Not affiliated with or endorsed by Konami.

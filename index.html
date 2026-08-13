@@ -9,11 +9,8 @@
 <!-- Deliberately empty: the design ships no images, icons or SVG. This only
      stops the browser requesting a favicon that does not exist. -->
 <link rel="icon" href="data:,">
-<!-- Fonts are self-hosted in production per the handoff; loaded from Google Fonts
-     here, which is the only third-party request the page makes. No app data is
-     fetched from anywhere but this origin. -->
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<!-- Fonts are self-hosted (src/fonts, refreshed by `npm run fetch:fonts`), so the
+     page makes no third-party requests at all — data or otherwise. -->
 </head>
 <body>
 <div id="root"></div>
