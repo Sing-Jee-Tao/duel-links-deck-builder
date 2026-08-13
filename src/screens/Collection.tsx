@@ -41,7 +41,8 @@ const EMPTY_FILTERS: Filters = {
   ownedOnly: false,
 };
 
-function broadType(card: Card): "Monster" | "Spell" | "Trap" {
+/** Exported so the card-pool build can prove its synthesized types parse here. */
+export function broadType(card: Card): "Monster" | "Spell" | "Trap" {
   if (card.type.includes("Spell")) return "Spell";
   if (card.type.includes("Trap")) return "Trap";
   return "Monster";

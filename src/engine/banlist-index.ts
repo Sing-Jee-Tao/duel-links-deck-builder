@@ -1,9 +1,20 @@
 import type { Banlist } from "../data/types.ts";
 
-/** Card names are the join key between the banlist and the card pool, and the
- *  two sources do not agree on casing or whitespace. Normalize on both sides. */
+/**
+ * Card names are the join key between the banlist and the card pool, and the two
+ * sources do not agree on casing, whitespace or typography. duellinksmeta renders
+ * "Battlin’ Boxing Cross Counter" and "Vaylantz Wave – Master Phase" with a curly
+ * apostrophe and an en dash where YGOPRODeck uses ASCII; an unfolded key silently
+ * fails to match, and a forbidden card that fails to match validates as legal.
+ */
 export function normalizeName(name: string): string {
-  return name.trim().replace(/\s+/g, " ").toLowerCase();
+  return name
+    .replace(/[‘’ʼ]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[‐-―−]/g, "-")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLowerCase();
 }
 
 export type TierNumber = 1 | 2 | 3;

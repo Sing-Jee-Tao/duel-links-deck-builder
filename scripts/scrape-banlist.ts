@@ -28,7 +28,11 @@ import {
 } from "./lib/paths.ts";
 import { parseBanlistHtml, totalEntries, type ParsedTiers } from "./lib/parse-banlist.ts";
 import { buildBanlist, mergeOverride } from "./lib/merge-override.ts";
+import { isPathAllowed } from "./lib/robots.ts";
 import type { Banlist, BanlistOverride } from "../src/data/types.ts";
+
+// Shared with the card-pool fetch, which hits the same host.
+export { isPathAllowed } from "./lib/robots.ts";
 
 const PAGE_URL = "https://www.duellinksmeta.com/forbidden-limited-list";
 const ROBOTS_URL = "https://www.duellinksmeta.com/robots.txt";
@@ -37,27 +41,6 @@ export const MAX_SHIFT = 0.25;
 export const goldenFixturePath = path.join(fixturesDir, "duellinksmeta-forbidden-limited.html");
 
 class ScrapeError extends Error {}
-
-/** Minimal robots.txt check for the `*` group covering our path. */
-export function isPathAllowed(robotsTxt: string, pathname: string): boolean {
-  const lines = robotsTxt.split(/\r?\n/).map((l) => l.replace(/#.*$/, "").trim());
-  let inStar = false;
-  let allowed = true;
-  for (const line of lines) {
-    const [rawKey, ...rest] = line.split(":");
-    if (!rawKey || rest.length === 0) continue;
-    const key = rawKey.trim().toLowerCase();
-    const value = rest.join(":").trim();
-    if (key === "user-agent") {
-      inStar = value === "*";
-    } else if (inStar && key === "disallow" && value && pathname.startsWith(value)) {
-      allowed = false;
-    } else if (inStar && key === "allow" && value && pathname.startsWith(value)) {
-      allowed = true;
-    }
-  }
-  return allowed;
-}
 
 /**
  * Decides whether a freshly parsed list may replace the committed one.

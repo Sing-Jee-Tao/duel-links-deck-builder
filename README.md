@@ -52,13 +52,14 @@ allowance was spent *on*.
 
 ```
 data/                     committed pipeline output — the app reads only this
-  cards.json              8,123 Duel Links cards, sorted by name
+  cards.json              10,644 Duel Links cards, sorted by name
   banlist.json            scraped Forbidden & Limited list, overrides applied
   banlist-override.json   hand-applied changes, merged on top of the scrape
   templates/*.json        four hand-authored deck templates
 scripts/
-  fetch-cards.ts          YGOPRODeck → data/cards.json
+  fetch-cards.ts          duellinksmeta + YGOPRODeck → data/cards.json
   scrape-banlist.ts       duellinksmeta.com → data/banlist.json (Playwright)
+  lib/duel-links-pool.ts  pure merge of the two card sources
   lib/parse-banlist.ts    pure parser over the rendered HTML
   __fixtures__/           golden copy of the rendered page
 src/
@@ -81,10 +82,27 @@ currently does), an issue carrying the compare link. To get real PRs instead,
 enable **Allow GitHub Actions to create and approve pull requests** under the
 org's Settings → Actions → General, then the same box in the repo's settings.
 
-`fetch-cards.ts` pulls YGOPRODeck's `format=duel links` endpoint once and projects
-each card down to the fields the app uses. That legality flag is approximate, so
-the script logs the card count and the added/removed diff against the previous
-run, into the PR's job summary.
+`fetch-cards.ts` builds the pool from **two** sources. duellinksmeta's
+`/api/v1/cards` decides membership — it carries a real per-card Duel Links release
+date — and YGOPRODeck supplies the printed detail, because its `type` strings are
+the vocabulary the app parses. YGOPRODeck's own `format=duel links` flag is not
+enough on its own: in August 2026 it was missing ~2,500 released cards, including
+everything from that year's boxes, and 78 names on the scraped Forbidden/Limited
+list did not exist in the pool at all.
+
+The two sets are **unioned**, not swapped. duellinksmeta's release field has false
+negatives, and dropping a card a player owns is worse than showing one that is not
+out yet, so cards YGOPRODeck flags but duellinksmeta has no release for are kept
+and listed in the job summary for review. The script also **fails closed**: an
+empty result from either source, or a pool that shrank more than 25%, aborts and
+leaves `data/cards.json` untouched.
+
+Where the two disagree on a name for the same card, the pool takes the name Duel
+Links shows in game (TCG "Synchronized Realm" ships as "Synch Realm", rebalanced
+to 250 damage). That is the name the scraped banlist joins on, and an unmatched
+forbidden card would validate as legal. Duel Links–exclusive cards have no Konami
+passcode, so they get a stable synthetic id at or above 100000000 — saved
+collections key on that id, so it must not drift between runs.
 
 `scrape-banlist.ts` renders duellinksmeta.com's Forbidden/Limited page with
 Playwright (it is a Svelte app — the raw HTML has no list) and parses the rendered

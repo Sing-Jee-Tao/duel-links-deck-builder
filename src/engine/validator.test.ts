@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { validateDeck, computeAllowance, countCopies } from "./validator.ts";
-import { BanlistIndex } from "./banlist-index.ts";
+import { BanlistIndex, normalizeName } from "./banlist-index.ts";
 import { DEFAULT_CONFIG, type Deck, type ValidationResult } from "./types.ts";
 import type { Banlist } from "../data/types.ts";
 
@@ -251,5 +251,33 @@ describe("BanlistIndex", () => {
     expect(index.maxCopiesIgnoringPool("Enemy Controller", 3)).toBe(2);
     expect(index.maxCopiesIgnoringPool("Cosmic Cyclone", 3)).toBe(3);
     expect(index.maxCopiesIgnoringPool("Dark Magician", 3)).toBe(3);
+  });
+});
+
+describe("normalizeName", () => {
+  it("folds casing and whitespace", () => {
+    expect(normalizeName("  Dark   Magician ")).toBe("dark magician");
+  });
+
+  it("folds the typography the two sources disagree on", () => {
+    // duellinksmeta writes these with curly punctuation, YGOPRODeck with ASCII.
+    // They have to land on the same key or the banlist entry matches nothing.
+    expect(normalizeName("Battlin’ Boxing Cross Counter")).toBe(
+      normalizeName("Battlin' Boxing Cross Counter"),
+    );
+    expect(normalizeName("Vaylantz Wave – Master Phase")).toBe(
+      normalizeName("Vaylantz Wave - Master Phase"),
+    );
+  });
+
+  it("resolves every shipped banlist entry against the shipped card pool", async () => {
+    // A forbidden card whose name does not resolve is silently treated as legal,
+    // so this guards the join itself rather than any one card. Runs against the
+    // real committed data, not the fixture above.
+    const pool = (await import("../../data/cards.json")).default as { cards: { name: string }[] };
+    const list = (await import("../../data/banlist.json")).default as Banlist;
+    const names = new Set(pool.cards.map((c) => normalizeName(c.name)));
+    const listed = [...list.forbidden, ...list.limited1, ...list.limited2, ...list.limited3];
+    expect(listed.filter((name) => !names.has(normalizeName(name)))).toEqual([]);
   });
 });

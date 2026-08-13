@@ -5,11 +5,20 @@
  * files as static assets; it never contacts a third party at runtime.
  */
 
-/** A card projected down from the YGOPRODeck payload. */
+/**
+ * A card in the Duel Links pool. duellinksmeta decides membership; YGOPRODeck
+ * supplies the detail wherever it knows the card. See
+ * `scripts/lib/duel-links-pool.ts`.
+ */
 export interface Card {
+  /**
+   * The Konami passcode. Duel Links–exclusive cards have never had a printed
+   * passcode, so they get a stable synthetic id at or above 100000000 — this is
+   * the key a player's saved collection is stored under, so it must not drift.
+   */
   id: number;
   name: string;
-  /** Raw upstream type, e.g. "Effect Monster", "Spell Card", "XYZ Monster". */
+  /** YGOPRODeck's type vocabulary, e.g. "Effect Monster", "Spell Card", "XYZ Monster". */
   type: string;
   race: string;
   attribute?: string;
