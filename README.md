@@ -1,5 +1,7 @@
 # Deck Ledger — Duel Links deck builder
 
+**Live: https://sing-jee-tao.github.io/duel-links-deck-builder/**
+
 Enter the Yu-Gi-Oh! Duel Links cards you own; the engine assembles the strongest
 **legal** deck out of them and shows what the deck becomes with a handful more.
 
@@ -121,18 +123,24 @@ and the swap list are two views of the same diff.
 
 ## Deploying
 
-The build uses a relative base, so it works from any path.
+Deployed to **GitHub Pages** at
+<https://sing-jee-tao.github.io/duel-links-deck-builder/> by
+[`deploy-pages.yml`](.github/workflows/deploy-pages.yml) on every push to `main`.
+Pages is free because this repo is public; on a private repo it needs a paid org
+plan. The build uses a relative base and hash routing, so it works from a
+subpath with no rewrite rules.
 
-- **Netlify** (recommended, shortest URL): connect the repo — [`netlify.toml`](netlify.toml)
-  has the build config. Set the site name to `duellinksdeckbuilder` under Site
-  settings → Change site name for `https://duellinksdeckbuilder.netlify.app`.
-  That name was unclaimed as of 12 Aug 2026; `duellinksdeckbuilder.vercel.app`
-  was too, if you prefer Vercel.
-- **GitHub Pages**: [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) is
-  manual-only, because Pages on a private repo needs a paid org plan. To use it,
-  enable Settings → Pages → Source: GitHub Actions, then run the workflow (or
-  restore its `push` trigger). Serves at
-  `https://<org>.github.io/duel-links-deck-builder/`.
+[`netlify.toml`](netlify.toml) is kept for an alternative Netlify deploy — note
+that Netlify's Git integration gates *private* organization repos behind its Pro
+plan, which is why Pages won here.
+
+### A note on storage and the shared github.io origin
+
+Browser storage is scoped to an **origin** (scheme + host), not a path. On
+`sing-jee-tao.github.io` every project site shares one origin, so any other Pages
+site under this org can read this app's IndexedDB. Nothing secret lives there —
+it is a list of card names and counts — but a collection is not isolated from
+other org project sites. A custom domain, or a repo-per-domain, would isolate it.
 
 ## Deviations from the design handoff
 
