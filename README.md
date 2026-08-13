@@ -124,9 +124,11 @@ The build uses a relative base, so it works from any path.
   settings → Change site name for `https://duellinksdeckbuilder.netlify.app`.
   That name was unclaimed as of 12 Aug 2026; `duellinksdeckbuilder.vercel.app`
   was too, if you prefer Vercel.
-- **GitHub Pages**: enable Settings → Pages → Source: GitHub Actions.
-  [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) does the rest, serving
-  at `https://<org>.github.io/duel-links-deck-builder/`.
+- **GitHub Pages**: [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) is
+  manual-only, because Pages on a private repo needs a paid org plan. To use it,
+  enable Settings → Pages → Source: GitHub Actions, then run the workflow (or
+  restore its `push` trigger). Serves at
+  `https://<org>.github.io/duel-links-deck-builder/`.
 
 ## Deviations from the design handoff
 

@@ -1,11 +1,14 @@
 name: Deploy to GitHub Pages
 
-# Alternative to the Netlify deploy. Enable under Settings → Pages → Source:
-# GitHub Actions. Serves at https://<org>.github.io/<repo>/ — the build uses a
-# relative base, so it works from a subpath without further configuration.
+# Alternative to the Netlify deploy, and OFF by default: this repo is private,
+# where Pages needs a paid org plan, so running it on every push would fail the
+# build on main for a deploy target nobody has enabled.
+#
+# To use it: Settings → Pages → Source: GitHub Actions, then either run this
+# workflow manually or add the `push` trigger back. It serves at
+# https://<org>.github.io/<repo>/ — the build uses a relative base, so it works
+# from a subpath without further configuration.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
