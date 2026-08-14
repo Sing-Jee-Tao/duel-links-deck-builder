@@ -22,6 +22,7 @@ import {
   classifyRole,
   deriveTemplates,
   MAX_DRIFT,
+  median,
   tallyDeck,
   TemplateError,
   tierScoreFor,
@@ -100,8 +101,6 @@ describe("deriveTemplates against the golden corpus", () => {
 
   it("marks templates as derived and records their provenance", () => {
     const traptrix = byName("Traptrix");
-    expect(traptrix?.source).toBe("meta");
-    expect(traptrix?.strategy).toBeUndefined();
     expect(traptrix?.id).toBe("meta-traptrix");
     expect(traptrix?.meta?.deckCount).toBe(6);
     expect(traptrix?.meta?.windowDays).toBe(180);
@@ -111,6 +110,20 @@ describe("deriveTemplates against the golden corpus", () => {
     for (const entry of traptrix?.coreCards ?? []) {
       expect(traptrix?.meta?.inclusion[entry.name]).toBeGreaterThan(0);
     }
+  });
+
+  it("promotes the Skill the deck is actually played with", () => {
+    // A Duel Links deck without its Skill is a different deck, so the one Skill
+    // is first-class rather than buried in the distribution.
+    expect(byName("Traptrix")?.meta?.skill).toEqual({ name: "Traptrix Territory", share: 1 });
+    expect(byName("ABC")?.meta?.skill).toEqual({ name: "Hyper Cannon Activation", share: 1 });
+  });
+
+  it("takes the median gem price, not the mean", () => {
+    // Traptrix: 52000 52000 63500 72000 78000 85000 -> (63500 + 72000) / 2
+    expect(byName("Traptrix")?.meta?.gemsPrice).toBe(67750);
+    // ABC: 28500 40000 41000 49500 57000 -> the middle one
+    expect(byName("ABC")?.meta?.gemsPrice).toBe(41000);
   });
 
   it("measures synergy over the surviving lists only", () => {
@@ -170,6 +183,24 @@ describe("tallyDeck", () => {
   });
 });
 
+describe("median", () => {
+  it("takes the middle of an odd sample", () => {
+    expect(median([5, 1, 3])).toBe(3);
+  });
+
+  it("averages the two middles of an even sample", () => {
+    expect(median([1, 2, 3, 4])).toBe(3);
+  });
+
+  it("is unmoved by a single wild outlier, unlike a mean", () => {
+    expect(median([50, 52, 54, 1_000_000])).toBe(53);
+  });
+
+  it("is 0 for an empty sample", () => {
+    expect(median([])).toBe(0);
+  });
+});
+
 describe("tierScoreFor", () => {
   it("prefers duellinksmeta's stated tier where it has one", () => {
     expect(tierScoreFor({ name: "a", tier: 1 }, 0)).toBe(10);
@@ -211,18 +242,31 @@ describe("classifyRole", () => {
 describe("buildFlexSlots", () => {
   const cards = new Map(pool.map((c) => [c.name.toLowerCase(), c]));
 
-  it("sizes the slots so core plus flex reaches the target list size", () => {
+  it("sizes the slots toward the target list size", () => {
+    // Eight names across two roles can supply the whole eight-copy budget.
+    const flex = Array.from({ length: 8 }, (_, i) => ({
+      name: i % 2 === 0 ? "Forbidden Droplet" : "Nibiru, the Primal Being",
+      inclusion: 0.6,
+      avgCopies: 2,
+    }));
+    expect(buildFlexSlots(flex, 16, 24, cards).reduce((sum, s) => sum + s.count, 0)).toBe(8);
+  });
+
+  it("never asks a slot for more copies than its candidates can supply", () => {
+    // Two names, so at most six copies however big the budget looks.
     const flex = [
       { name: "Forbidden Droplet", inclusion: 0.6, avgCopies: 2 },
       { name: "Nibiru, the Primal Being", inclusion: 0.4, avgCopies: 1 },
     ];
     const slots = buildFlexSlots(flex, 16, 24, cards);
-    expect(slots.reduce((sum, s) => sum + s.count, 0)).toBe(8);
+    expect(slots.reduce((sum, s) => sum + s.count, 0)).toBeLessThanOrEqual(6);
+    for (const slot of slots) expect(slot.count).toBeLessThanOrEqual(slot.candidates.length * 3);
   });
 
-  it("clamps a target below the legal minimum up to it", () => {
+  it("clamps a target below the legal minimum up to it, still within the cap", () => {
     const flex = [{ name: "Forbidden Droplet", inclusion: 0.6, avgCopies: 2 }];
-    expect(buildFlexSlots(flex, 10, 12, cards).reduce((sum, s) => sum + s.count, 0)).toBe(10);
+    // Budget would be 10, but one candidate can only ever supply three copies.
+    expect(buildFlexSlots(flex, 10, 12, cards).reduce((sum, s) => sum + s.count, 0)).toBe(3);
   });
 
   it("returns nothing when the core already fills the deck", () => {

@@ -44,6 +44,17 @@ export interface DlmTopDeck {
   deckType?: { name?: string } | null;
   main?: DlmDeckCard[];
   extra?: DlmDeckCard[];
+  /** What the list costs in gems. Absent on a handful of older entries. */
+  gemsPrice?: number;
+}
+
+/** Middle value, or the mean of the two middles. 0 for an empty sample. */
+export function median(values: number[]): number {
+  const sorted = values.filter((v) => Number.isFinite(v)).sort((a, b) => a - b);
+  if (sorted.length === 0) return 0;
+  const mid = Math.floor(sorted.length / 2);
+  if (sorted.length % 2 === 1) return sorted[mid] as number;
+  return Math.round((((sorted[mid - 1] as number) + (sorted[mid] as number)) / 2));
 }
 
 export interface DeriveOptions {
@@ -219,11 +230,14 @@ export function buildFlexSlots(
     }
   }
 
-  return ROLE_ORDER.filter((role) => counts.has(role)).map((role) => ({
-    role,
-    count: counts.get(role) ?? 1,
-    candidates: (byRole.get(role) ?? []).map((s) => s.name),
-  }));
+  return ROLE_ORDER.filter((role) => counts.has(role)).map((role) => {
+    const candidates = (byRole.get(role) ?? []).map((s) => s.name);
+    // A slot can never ask for more copies than its candidates could legally
+    // supply. Proportional sizing does not know how many candidates a role has,
+    // so without this a role with one candidate could be handed four slots and
+    // the template would describe a deck nobody can build.
+    return { role, count: Math.min(counts.get(role) ?? 1, candidates.length * MAX_COPIES), candidates };
+  });
 }
 
 // --- tier score -------------------------------------------------------------
@@ -405,6 +419,12 @@ export function deriveTemplates(
     // template to derive from that.
     if (coreCopies > MAX_MAIN) continue;
 
+    // No card in three quarters of the lists means the group has no shared
+    // identity — duellinksmeta's "Other" bucket, or a strategy like Burn whose
+    // lists agree on nothing. Such a template cannot anchor a build or be
+    // "ready", so it is not a deck target worth offering.
+    if (coreCards.length === 0) continue;
+
     const targetMain = Math.round(deckType?.deckBreakdown?.avgMainSize ?? MIN_MAIN);
     const flexSlots = buildFlexSlots(flex, coreCopies, targetMain, cards);
     if (coreCopies + flexSlots.reduce((sum, s) => sum + s.count, 0) < MIN_MAIN) continue;
@@ -432,6 +452,14 @@ export function deriveTemplates(
       const name = deck.skill?.name;
       if (name) skills.set(name, (skills.get(name) ?? 0) + 1);
     }
+    const rankedSkills = [...skills]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "en"))
+      .map(([name, count]) => ({ name, count }));
+    const topSkill = rankedSkills[0];
+
+    const gemsPrice = median(
+      decks.map((d) => d.gemsPrice).filter((g): g is number => typeof g === "number" && g > 0),
+    );
 
     templates.push({
       id: slug(typeName),
@@ -440,15 +468,15 @@ export function deriveTemplates(
       coreCards,
       flexSlots,
       extraDeck,
-      source: "meta",
       meta: {
         deckCount: decks.length,
         windowDays: opts.windowDays,
         sampleUrl: decks.find((d) => d.url)?.url ?? "",
-        skills: [...skills]
-          .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "en"))
-          .slice(0, 5)
-          .map(([name, count]) => ({ name, count })),
+        skills: rankedSkills.slice(0, 5),
+        ...(topSkill
+          ? { skill: { name: topSkill.name, share: Math.round((topSkill.count / decks.length) * 100) / 100 } }
+          : {}),
+        gemsPrice,
         inclusion,
       },
     });

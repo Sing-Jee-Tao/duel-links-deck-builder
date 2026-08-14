@@ -22,9 +22,11 @@ import {
   type DeckEntry,
   type DiffEntry,
   type OwnedCounts,
+  type Shortfall,
   type SynergyIndex,
   type TemplateScore,
 } from "./types.ts";
+import type { CardRarity } from "../data/types.ts";
 
 export { DeckBuilder };
 
@@ -215,6 +217,25 @@ function pad(
 /** How many decks a build run assembles. */
 export const MAX_BUILDS = 5;
 
+const EMPTY_SHORTFALL: Shortfall = { byRarity: {}, copies: 0, cards: 0 };
+
+/**
+ * Buckets a diff's missing cards by rarity.
+ *
+ * "Six URs short" is the sentence a Duel Links player can act on; "eleven cards
+ * short" is not, because a box rations URs and hands out Ns freely.
+ */
+export function shortfallOf(missing: DiffEntry[], cards: CardIndex): Shortfall {
+  const byRarity: Partial<Record<CardRarity, number>> = {};
+  let copies = 0;
+  for (const entry of missing) {
+    copies += entry.copies;
+    const rarity = cards.get(normalizeName(entry.name))?.rarity;
+    if (rarity) byRarity[rarity] = (byRarity[rarity] ?? 0) + entry.copies;
+  }
+  return { byRarity, copies, cards: missing.length };
+}
+
 /**
  * Assembles one ranked template into a finished, validated deck.
  *
@@ -246,11 +267,19 @@ export function buildTemplate(
       `Every remaining owned card is Forbidden, already at 3 copies, or blocked by a spent Limited allowance.`;
   }
 
+  // The gap against the finished list. Same pair the Upgrade screen runs, done
+  // once here so both screens read one number rather than computing their own.
+  const ideal = idealDeck(score.template, index, inputs.cards, inputs.config);
+  const shortfall = shortfallOf(diffDecks(deck, ideal).toAcquire, inputs.cards);
+
   return {
     template: score.template,
     deck,
     mainCount,
     powerScore: Math.round(score.template.tierScore * score.completion * 10 * 10) / 10,
+    ready: score.missingCore.length === 0 && !partial,
+    shortfall,
+    gemsPrice: score.template.meta?.gemsPrice ?? 0,
     validation,
     partial,
     ...(reason ? { reason } : {}),
@@ -267,6 +296,9 @@ function buildFallback(inputs: BuildInputs, index: BanlistIndex, candidates: Tem
     deck,
     mainCount: built,
     powerScore: 0,
+    ready: false,
+    shortfall: EMPTY_SHORTFALL,
+    gemsPrice: 0,
     validation: validateDeck(deck, index, inputs.config),
     partial: true,
     reason:
@@ -323,7 +355,10 @@ export function buildDecks(inputs: BuildInputs, limit = MAX_BUILDS): BuildResult
   );
   if (synthesized.mainCount > 0 && !duplicated) results.push(synthesized);
 
-  results.sort((a, b) => b.powerScore - a.powerScore);
+  // Playable first, then strongest. This is the ordering that makes the Build
+  // screen answer "what can I field tonight" rather than "what scores highest",
+  // which is the question duellinksmeta already answers better.
+  results.sort((a, b) => Number(b.ready) - Number(a.ready) || b.powerScore - a.powerScore);
   return results.length > 0 ? results : [buildFallback(inputs, index, candidates)];
 }
 
@@ -409,5 +444,20 @@ export function idealDeck(template: DeckTemplate, index: BanlistIndex, cards: Ca
       if (room > 0) filled += builder.tryAdd(name, room);
     }
   }
+
+  // The pooled Limited budgets can block a copy the template asked for — three
+  // Tachyon cards drawing on one shared allowance, say — leaving the target list
+  // a card or two under the legal minimum. Top it back up from the template's
+  // own candidates so the list a player is aiming at is a deck they could
+  // actually sit down with.
+  if (countCopies(builder.snapshot().main) < config.minMain) {
+    for (const name of template.flexSlots.flatMap((slot) => slot.candidates)) {
+      if (countCopies(builder.snapshot().main) >= config.minMain) break;
+      const maxCopies = index.maxCopiesIgnoringPool(name, config.maxCopies);
+      const room = maxCopies - builder.copiesOf(name);
+      if (room > 0) builder.tryAdd(name, room);
+    }
+  }
+
   return builder.snapshot();
 }

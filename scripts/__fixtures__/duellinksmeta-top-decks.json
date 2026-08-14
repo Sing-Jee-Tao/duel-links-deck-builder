@@ -9,6 +9,7 @@
     "deckType": {
       "name": "Traptrix"
     },
+    "gemsPrice": 85000,
     "main": [
       {
         "amount": 3,
@@ -144,6 +145,7 @@
     "deckType": {
       "name": "Traptrix"
     },
+    "gemsPrice": 72000,
     "main": [
       {
         "amount": 3,
@@ -285,6 +287,7 @@
     "deckType": {
       "name": "Traptrix"
     },
+    "gemsPrice": 52000,
     "main": [
       {
         "amount": 2,
@@ -420,6 +423,7 @@
     "deckType": {
       "name": "Traptrix"
     },
+    "gemsPrice": 52000,
     "main": [
       {
         "amount": 2,
@@ -555,6 +559,7 @@
     "deckType": {
       "name": "Traptrix"
     },
+    "gemsPrice": 78000,
     "main": [
       {
         "amount": 3,
@@ -678,6 +683,7 @@
     "deckType": {
       "name": "Traptrix"
     },
+    "gemsPrice": 63500,
     "main": [
       {
         "amount": 3,
@@ -807,6 +813,7 @@
     "deckType": {
       "name": "ABC"
     },
+    "gemsPrice": 28500,
     "main": [
       {
         "amount": 1,
@@ -972,6 +979,7 @@
     "deckType": {
       "name": "ABC"
     },
+    "gemsPrice": 49500,
     "main": [
       {
         "amount": 1,
@@ -1155,6 +1163,7 @@
     "deckType": {
       "name": "ABC"
     },
+    "gemsPrice": 57000,
     "main": [
       {
         "amount": 1,
@@ -1320,6 +1329,7 @@
     "deckType": {
       "name": "ABC"
     },
+    "gemsPrice": 41000,
     "main": [
       {
         "amount": 1,
@@ -1497,6 +1507,7 @@
     "deckType": {
       "name": "ABC"
     },
+    "gemsPrice": 40000,
     "main": [
       {
         "amount": 1,
@@ -1662,6 +1673,7 @@
     "deckType": {
       "name": "Spellcasters"
     },
+    "gemsPrice": 25000,
     "main": [
       {
         "amount": 3,
@@ -1785,6 +1797,7 @@
     "deckType": {
       "name": "Spellcasters"
     },
+    "gemsPrice": 0,
     "main": [
       {
         "amount": 3,
@@ -1920,6 +1933,7 @@
     "deckType": {
       "name": "Spellcasters"
     },
+    "gemsPrice": 28000,
     "main": [
       {
         "amount": 3,
@@ -2043,6 +2057,7 @@
     "deckType": {
       "name": "Spellcasters"
     },
+    "gemsPrice": 30000,
     "main": [
       {
         "amount": 2,
@@ -2184,6 +2199,7 @@
     "deckType": {
       "name": "Dinos"
     },
+    "gemsPrice": 44000,
     "main": [
       {
         "amount": 1,
@@ -2355,6 +2371,7 @@
     "deckType": {
       "name": "Dinos"
     },
+    "gemsPrice": 57000,
     "main": [
       {
         "amount": 2,

@@ -4,7 +4,6 @@ import fs from "node:fs";
 
 export const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
 export const dataDir = path.join(repoRoot, "data");
-export const templatesDir = path.join(dataDir, "templates");
 export const fixturesDir = path.join(repoRoot, "scripts", "__fixtures__");
 
 export const cardsPath = path.join(dataDir, "cards.json");

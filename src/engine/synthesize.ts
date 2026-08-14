@@ -277,6 +277,12 @@ export function synthesizeDeck(inputs: SynthesizeInputs): BuildResult {
     deck,
     mainCount,
     powerScore: Math.round(density * 100 * 10) / 10,
+    // Built only from cards the player already owns, so there is nothing to
+    // acquire and no list to fall short of. It is ready the moment it is legal.
+    ready: !partial && mainCount > 0,
+    shortfall: { byRarity: {}, copies: 0, cards: 0 },
+    // No corpus price: this deck does not exist upstream to have been costed.
+    gemsPrice: 0,
     validation,
     partial,
     ...(reason ? { reason } : {}),

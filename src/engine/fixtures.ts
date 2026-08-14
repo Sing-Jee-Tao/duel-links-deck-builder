@@ -74,7 +74,15 @@ export const template: DeckTemplate = {
   id: "test-deck",
   name: "Test Deck",
   tierScore: 8,
-  source: "authored",
+  meta: {
+    deckCount: 12,
+    windowDays: 180,
+    sampleUrl: "/king-of-games/test/",
+    skills: [{ name: "Test Skill", count: 12 }],
+    skill: { name: "Test Skill", share: 1 },
+    gemsPrice: 40000,
+    inclusion: {},
+  },
   coreCards: [
     { name: "Core One", copies: 3 },
     { name: "Core Two", copies: 3 },
@@ -87,12 +95,6 @@ export const template: DeckTemplate = {
     { role: "draw", count: 3, candidates: ["Free Spell", "Filler D"] },
   ],
   extraDeck: [{ name: "Extra Body", copies: 1 }],
-  strategy: {
-    gamePlan: "Test.",
-    openingPriorities: ["Test."],
-    keyInteractions: ["Test."],
-    matchups: [{ against: "Other", notes: "Test." }],
-  },
 };
 
 export const weakerTemplate: DeckTemplate = {

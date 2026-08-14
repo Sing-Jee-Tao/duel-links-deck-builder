@@ -16,7 +16,7 @@
  * out yet. Cards YGOPRODeck flags but duellinksmeta has no release for are
  * reported for human review instead of being removed.
  */
-import type { Card } from "../../src/data/types.ts";
+import { RARITY_ORDER, type Card, type CardRarity } from "../../src/data/types.ts";
 
 /** YGOPRODeck's payload, narrowed to the fields we read. */
 export interface YgoCard {
@@ -51,6 +51,10 @@ export interface DlmCard {
   release?: string;
   /** Rush Duel cards share the endpoint but are a different game mode. */
   rush?: boolean;
+  /** "UR" | "SR" | "R" | "N". Only duellinksmeta knows this; YGOPRODeck does not. */
+  rarity?: string;
+  /** Every way the card can be got. We keep the first; see `attachAcquisition`. */
+  obtain?: { amount?: number; type?: string; source?: { type?: string; name?: string } }[];
 }
 
 const EXTRA_DECK_MARKERS = ["fusion", "synchro", "xyz", "link"];
@@ -200,6 +204,48 @@ export interface MergedPool {
   unreleasedPerDlm: Card[];
   /** Cards taking the name Duel Links shows instead of YGOPRODeck's printed one. */
   renamed: { from: string; to: string }[];
+  /** How many pool cards came away with a rarity, for the CI summary. */
+  rarityCovered: number;
+}
+
+const RARITIES = new Set<string>(RARITY_ORDER);
+
+/**
+ * Copies rarity and acquisition source off the duellinksmeta record.
+ *
+ * YGOPRODeck has neither — rarity is a Duel Links property, not a printed one —
+ * so this is the only place either can come from. It runs after the in-game
+ * renames are applied, because the rename makes the pool's name match
+ * duellinksmeta's and the join is by name.
+ *
+ * Only the FIRST `obtain` entry is kept. Cards commonly list several sources and
+ * the full array would add megabytes to a 5.4 MB asset without changing any
+ * decision a player makes: they want to know where to go, not every place the
+ * card has ever appeared.
+ */
+export function attachAcquisition(cards: Card[], dlm: DlmCard[]): number {
+  const byName = new Map<string, DlmCard>();
+  for (const card of dlm) {
+    const key = byNameKey(card.name);
+    // First writer wins, matching the fixed sort order callers feed in.
+    if (!byName.has(key)) byName.set(key, card);
+  }
+
+  let covered = 0;
+  for (const card of cards) {
+    const match = byName.get(byNameKey(card.name));
+    if (!match) continue;
+
+    if (match.rarity && RARITIES.has(match.rarity)) {
+      card.rarity = match.rarity as CardRarity;
+      covered += 1;
+    }
+    const source = (match.obtain ?? []).find((entry) => entry.source?.name)?.source;
+    if (source?.name) {
+      card.obtainedFrom = { type: source.type ?? "Unknown", name: source.name };
+    }
+  }
+  return covered;
 }
 
 function byNameKey(name: string): string {
@@ -211,7 +257,18 @@ function byNameKey(name: string): string {
  * consulted only to dress a duellinksmeta card that YGOPRODeck knows about but
  * has not flagged for Duel Links.
  */
-export function mergePool(ygoDuelLinks: YgoCard[], ygoFull: YgoCard[], dlm: DlmCard[]): MergedPool {
+export function mergePool(
+  ygoDuelLinks: YgoCard[],
+  ygoFull: YgoCard[],
+  dlm: DlmCard[],
+  /**
+   * The unfiltered duellinksmeta list, used only for rarity and acquisition
+   * data. A card YGOPRODeck flags but duellinksmeta has no release date for is
+   * still kept in the pool, and it still has a rarity worth showing — so the
+   * lookup must not be limited to the released subset.
+   */
+  dlmAll: DlmCard[] = dlm,
+): MergedPool {
   // Tokens are not deckable and only pad the pool.
   const seed = ygoDuelLinks.filter((raw) => raw.type !== "Token").map(projectCard);
 
@@ -299,7 +356,8 @@ export function mergePool(ygoDuelLinks: YgoCard[], ygoFull: YgoCard[], dlm: DlmC
   );
 
   const cards = [...seed, ...addedFromDlm].sort((a, b) => a.name.localeCompare(b.name, "en"));
-  return { cards, addedFromDlm, unreleasedPerDlm, renamed };
+  const rarityCovered = attachAcquisition(cards, dlmAll);
+  return { cards, addedFromDlm, unreleasedPerDlm, renamed, rarityCovered };
 }
 
 /** A shrink larger than this share of the previous total is treated as a bad pull. */

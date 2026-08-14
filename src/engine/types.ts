@@ -1,4 +1,4 @@
-import type { Banlist, Card, DeckTemplate, FlexRole, SynergyCard } from "../data/types.ts";
+import type { Banlist, Card, CardRarity, DeckTemplate, FlexRole, SynergyCard } from "../data/types.ts";
 
 /** One card name and how many copies of it sit in a deck. */
 export interface DeckEntry {
@@ -107,6 +107,21 @@ export interface BuildResult {
   powerScore: number;
   /** Set on a synthesized deck: the archetype its spine was seeded from. */
   archetype?: string;
+  /**
+   * Every core card is owned — this deck is playable as built, not a legal 20
+   * cards standing in for one. Kept separate from `powerScore` because the two
+   * answer different questions and conflating them hid the difference between a
+   * finished tier-6 deck and a gutted tier-10 one.
+   */
+  ready: boolean;
+  /** What is still missing before the deck matches the list it is built from. */
+  shortfall: Shortfall;
+  /**
+   * Median gem cost of the WHOLE list per the corpus — not the cost of the
+   * shortfall. Per-card gem prices do not exist upstream, so apportioning this
+   * across missing cards would be an invented number.
+   */
+  gemsPrice: number;
   validation: ValidationResult;
   /** True when the deck could not legally reach `minMain`. */
   partial: boolean;
@@ -114,6 +129,22 @@ export interface BuildResult {
   reason?: string;
   /** Every template scored against the collection, ranked — the upgrade targets. */
   candidates: TemplateScore[];
+}
+
+/**
+ * The gap between a build and the list it came from, counted in copies and
+ * bucketed by rarity.
+ *
+ * Rarity is the bucket that matters: Duel Links players think in "three URs
+ * away", not "eleven cards away", because URs are what a box actually rations.
+ */
+export interface Shortfall {
+  /** Missing copies by rarity, e.g. `{ UR: 6, SR: 2 }`. */
+  byRarity: Partial<Record<CardRarity, number>>;
+  /** Total missing copies. */
+  copies: number;
+  /** Distinct cards missing at least one copy. */
+  cards: number;
 }
 
 export interface DiffEntry extends DeckEntry {

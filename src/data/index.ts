@@ -1,9 +1,8 @@
 /**
  * Static data access. Nothing here touches a third party at runtime:
- * `data/banlist.json` and the four hand-authored templates are bundled, and the
- * three large files — the card pool, the derived templates and the synergy
- * statistics — are emitted as same-origin assets and fetched from the app's own
- * URL.
+ * `data/banlist.json` is bundled, and the three large files — the card pool, the
+ * derived templates and the synergy statistics — are emitted as same-origin
+ * assets and fetched from the app's own URL.
  */
 import banlistJson from "@data/banlist.json";
 import cardsUrl from "@data/cards.json?url";
@@ -23,20 +22,6 @@ import type { CardIndex, SynergyIndex } from "../engine/types.ts";
 
 export const banlist = banlistJson as Banlist;
 
-const templateModules = import.meta.glob<{ default: DeckTemplate }>("../../data/templates/*.json", {
-  eager: true,
-});
-
-/**
- * The hand-authored templates, bundled because they are small and because they
- * are the only ones that carry strategy prose. Derived templates arrive with
- * `loadAppData`.
- */
-export const authoredTemplates: DeckTemplate[] = Object.keys(templateModules)
-  .sort()
-  .map((key) => templateModules[key]!.default)
-  .sort((a, b) => b.tierScore - a.tierScore || a.name.localeCompare(b.name));
-
 export interface CardPool {
   cards: Card[];
   index: CardIndex;
@@ -48,7 +33,7 @@ export type { SynergyIndex };
 
 export interface AppData {
   pool: CardPool;
-  /** Authored and derived together, ranked. */
+  /** Every deck target, ranked. */
   templates: DeckTemplate[];
   synergy: SynergyIndex;
   /** When the tournament corpus behind the derived templates was last pulled. */
@@ -86,7 +71,7 @@ export function loadAppData(): Promise<AppData> {
 
     return {
       pool,
-      templates: rankTemplateList([...authoredTemplates, ...deckFile.templates]),
+      templates: rankTemplateList(deckFile.templates),
       synergy,
       decksFetchedAt: deckFile.fetchedAt,
       corpusDeckCount: synergyFile.deckCount,

@@ -86,6 +86,8 @@ interface StoreValue {
   distinctOwned: number;
   totalCopies: number;
   setQuantity: (id: number, name: string, copies: Quantity) => void;
+  /** Bulk add from a pasted list. Never lowers a count. Returns cards changed. */
+  mergeCollection: (rows: StoredCard[]) => number;
   clearCollection: () => void;
 
   profile: Profile;
@@ -218,6 +220,40 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
         flush(next, profile);
         return next;
       });
+    },
+    [flush, profile],
+  );
+
+  /**
+   * Adds a pasted list in one write.
+   *
+   * Keeps the HIGHER of what is already recorded and what the list claims, so
+   * importing a second decklist adds to the collection instead of contradicting
+   * it, and re-running the same paste is a no-op rather than a doubling.
+   *
+   * Deliberately not a loop over `setQuantity`: that would queue a debounced
+   * IndexedDB write and a re-render per card, which on a 200-line paste is 200
+   * of each.
+   */
+  const mergeCollection = useCallback(
+    (rows: StoredCard[]): number => {
+      let changed = 0;
+      setCollection((previous) => {
+        const next = new Map(previous);
+        for (const row of rows) {
+          const copies = Math.min(MAX_COPIES, Math.max(0, row.copies));
+          if (copies <= 0) continue;
+          names.current.set(row.id, row.name);
+          const existing = next.get(row.id) ?? 0;
+          if (copies > existing) {
+            next.set(row.id, copies);
+            changed += 1;
+          }
+        }
+        flush(next, profile);
+        return next;
+      });
+      return changed;
     },
     [flush, profile],
   );
@@ -370,6 +406,7 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       distinctOwned: collection.size,
       totalCopies,
       setQuantity,
+      mergeCollection,
       clearCollection,
       profile,
       updateProfile,
@@ -387,7 +424,8 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       importCollection,
     }),
     [
-      status, error, retry, pool, data, collection, ownedByName, totalCopies, setQuantity, clearCollection,
+      status, error, retry, pool, data, collection, ownedByName, totalCopies, setQuantity, mergeCollection,
+      clearCollection,
       profile, updateProfile, saveState, savedAt, config, setExtraDeckSize, builds, build,
       selectedBuildId, selectBuild, buildStatus, rebuild, exportCollection, importCollection,
     ],

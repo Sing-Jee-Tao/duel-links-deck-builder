@@ -15,20 +15,50 @@ import { Masthead, ScreenNav, Shell } from "../components/Chrome.tsx";
 import { EmptyState, ErrorNotice, LoadingState, Meter } from "../components/States.tsx";
 import { banlist } from "../data/index.ts";
 import { BanlistIndex, normalizeName } from "../engine/banlist-index.ts";
-import { diffDecks, idealDeck } from "../engine/build.ts";
+import { diffDecks, idealDeck, shortfallOf } from "../engine/build.ts";
+import { RARITY_ORDER } from "../data/types.ts";
 import { foldForSearch, tokenize } from "../engine/search.ts";
 import { computeAllowance } from "../engine/validator.ts";
 import { href } from "../state/router.ts";
 import { useStore } from "../state/store.tsx";
-import { typeLabel } from "./Collection.tsx";
+import type { Card } from "../data/types.ts";
+import type { TemplateScore } from "../engine/types.ts";
 
 function copyLabel(entries: { copies: number }[]): string {
   const total = entries.reduce((sum, e) => sum + e.copies, 0);
   return `${total} ${total === 1 ? "copy" : "copies"}`;
 }
 
+/** Compact enough for a tab: 31500 → "32k gems". */
+function shortGems(gems: number): string {
+  return `${Math.round(gems / 1000)}k gems`;
+}
+
+/** Rarity and where the card comes from — the two facts that decide the chase. */
+function sourceLabel(card: Card | undefined): string {
+  if (!card) return "NOT IN POOL";
+  const rarity = card.rarity ?? "—";
+  return card.obtainedFrom ? `${rarity} · ${card.obtainedFrom.name.toUpperCase()}` : rarity;
+}
+
 /** How many candidates the strip shows before the filter has to narrow them. */
 const VISIBLE_CANDIDATES = 12;
+
+/**
+ * The three questions a player actually arrives with. Ordering by strength alone
+ * is what duellinksmeta already does; "what can I nearly build" and "what is
+ * cheapest to finish" are the ones only this app can answer.
+ */
+const SORTS = {
+  closest: { label: "Closest to done", of: (c: TemplateScore) => -c.completion },
+  strongest: { label: "Strongest", of: (c: TemplateScore) => -c.rank },
+  // Named for what it measures. There are no per-card gem prices upstream, so
+  // this is the cost of the whole list, not the cost of your remaining gap —
+  // calling it "cheapest to finish" would promise a number we cannot compute.
+  cheapest: { label: "Cheapest list", of: (c: TemplateScore) => c.template.meta?.gemsPrice ?? Infinity },
+} as const;
+
+type SortKey = keyof typeof SORTS;
 
 export function Upgrade({ selected }: { selected: string | null }): JSX.Element {
   const { status, retry, pool, builds, build, buildStatus, collection, config } = useStore();
@@ -36,6 +66,7 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
   const candidates = build?.candidates ?? [];
   const [chosen, setChosen] = useState<string | null>(selected);
   const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<SortKey>("closest");
   const activeId = chosen ?? candidates[0]?.template.id ?? null;
   const active = candidates.find((c) => c.template.id === activeId) ?? candidates[0] ?? null;
 
@@ -51,8 +82,11 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
       const name = foldForSearch(candidate.template.name);
       return tokens.every((token) => name.includes(token));
     });
-    return matches.slice(0, VISIBLE_CANDIDATES);
-  }, [activeId, candidates, query]);
+    const key = SORTS[sort].of;
+    return [...matches]
+      .sort((a, b) => key(a) - key(b) || a.template.name.localeCompare(b.template.name))
+      .slice(0, VISIBLE_CANDIDATES);
+  }, [activeId, candidates, query, sort]);
 
   const loading = status === "loading" || buildStatus === "loading";
 
@@ -74,7 +108,12 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
     if (!pool || !from || !active) return null;
     const target = idealDeck(active.template, index, pool.index, config);
     const diff = diffDecks(from.deck, target);
-    return { target, diff, allowance: computeAllowance(target, index) };
+    return {
+      target,
+      diff,
+      shortfall: shortfallOf(diff.toAcquire, pool.index),
+      allowance: computeAllowance(target, index),
+    };
   }, [active, from, config, index, pool]);
 
   // Which allowance slots the upgrade keeps, and which are new.
@@ -106,17 +145,41 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
         <div className="search" style={{ paddingBottom: "var(--s-3)" }}>
           <div className="field-group">
             <label className="field-group__label" htmlFor="candidate-filter">
-              Filter {candidates.length} scored decks
+              Browse {candidates.length} decks
             </label>
             <input
               id="candidate-filter"
               className="field field--search"
               type="search"
               data-role="candidate-filter"
-              placeholder="Traptrix, Branded, Six Samurai…"
+              placeholder="Traptrix, Branded, Vaalmonica…"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
             />
+          </div>
+          {/*
+            Without this the decks are reachable only by typing a name you
+            already know. Sorting by what you can nearly build, or by what costs
+            least to finish, is the whole reason to browse at all.
+          */}
+          <div
+            style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: "var(--s-2)" }}
+            data-role="candidate-sort"
+          >
+            {(Object.keys(SORTS) as SortKey[]).map((key) => (
+              <button
+                className="chip"
+                type="button"
+                key={key}
+                data-role="sort-option"
+                data-sort={key}
+                aria-pressed={sort === key}
+                style={sort === key ? { fontWeight: 600, borderWidth: 2 } : undefined}
+                onClick={() => setSort(key)}
+              >
+                {SORTS[key].label}
+              </button>
+            ))}
           </div>
         </div>
       )}
@@ -136,6 +199,7 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
             <span className="tab__name">{candidate.template.name}</span>
             <span className="tab__meta">
               {Math.round(candidate.completion * 100)}% · tier {candidate.template.tierScore}
+              {candidate.template.meta?.gemsPrice ? ` · ${shortGems(candidate.template.meta.gemsPrice)}` : ""}
             </span>
           </button>
         ))}
@@ -233,7 +297,7 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
                             {entry.name}
                           </span>
                           <span className="row__meta" data-role="card-source">
-                            {card ? typeLabel(card) : "NOT IN POOL"}
+                            {sourceLabel(card)}
                           </span>
                           <span className="row__num" data-role="card-cost">
                             OWN {ownedCopies(entry.name)}/{entry.inTarget}
@@ -294,6 +358,30 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
                   copies still missing, across {view.diff.toAcquire.length} card
                   {view.diff.toAcquire.length === 1 ? "" : "s"}
                 </div>
+                {/*
+                  Bucketed by rarity, because that is what a box actually rations.
+                  The gem figure is the whole list's median cost from the corpus,
+                  not an apportioned share — per-card gem prices do not exist.
+                */}
+                {view.shortfall.copies > 0 && (
+                  <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    {RARITY_ORDER.filter((rarity) => view.shortfall.byRarity[rarity]).map((rarity) => (
+                      <span className="chip" key={rarity} data-role="shortfall-rarity" data-rarity={rarity}>
+                        {view.shortfall.byRarity[rarity]} {rarity}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {(active.template.meta?.gemsPrice ?? 0) > 0 && (
+                  <div className="stat__label" style={{ marginTop: 10 }} data-role="deck-gem-price">
+                    Whole list ≈ {(active.template.meta?.gemsPrice ?? 0).toLocaleString("en-GB")} gems from nothing
+                  </div>
+                )}
+                {active.template.meta?.skill && (
+                  <div className="stat__label" style={{ marginTop: 6 }} data-role="target-skill">
+                    Skill · {active.template.meta.skill.name}
+                  </div>
+                )}
               </div>
 
               <AllowanceRail

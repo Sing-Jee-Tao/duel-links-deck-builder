@@ -1,8 +1,8 @@
 {
-  "fetchedAt": "2026-08-14T01:10:26.541Z",
+  "fetchedAt": "2026-08-14T07:13:16.411Z",
   "source": "https://www.duellinksmeta.com/api/v1/top-decks + https://www.duellinksmeta.com/api/v1/deck-types",
   "windowDays": 180,
-  "count": 71,
+  "count": 69,
   "templates": [
     {
       "id": "meta-branded",
@@ -116,15 +116,14 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
-        "deckCount": 248,
+        "deckCount": 246,
         "windowDays": 180,
         "sampleUrl": "/community-tournaments/suisen-weekly/214/branded/tichhb/9iz-m/",
         "skills": [
           {
             "name": "Theater of the Branded's Opening",
-            "count": 97
+            "count": 95
           },
           {
             "name": "Beasts from the Abyss",
@@ -143,6 +142,11 @@
             "count": 3
           }
         ],
+        "skill": {
+          "name": "Theater of the Branded's Opening",
+          "share": 0.39
+        },
+        "gemsPrice": 51500,
         "inclusion": {
           "Fallen of Albaz": 1,
           "Branded Fusion": 0.98,
@@ -151,19 +155,19 @@
           "Branded Lost": 0.9,
           "Branded in Red": 0.89,
           "Aluber the Jester of Despia": 0.82,
-          "Despian Tragedy": 0.75,
+          "Despian Tragedy": 0.74,
           "Ad Libitum of Despia": 0.74,
           "Despia, Theater of the Branded": 0.72,
-          "Branded Opening": 0.66,
+          "Branded Opening": 0.65,
           "Albion the Shrouded Dragon": 0.56,
           "Forbidden Droplet": 0.54,
           "Despian Comedy": 0.52,
           "Dramaturge of Despia": 0.5,
-          "Springans Kitt": 0.47,
-          "Super Polymerization": 0.38,
+          "Springans Kitt": 0.48,
+          "Super Polymerization": 0.39,
           "Shaddoll Dragon": 0.3,
-          "Bystial Saronir": 0.29,
-          "The Bystial Lubellion": 0.29,
+          "Bystial Saronir": 0.3,
+          "The Bystial Lubellion": 0.3,
           "Infinite Impermanence": 0.29,
           "Blazing Cartesia, the Virtuous": 0.29,
           "Bystial Druiswurm": 0.29,
@@ -178,7 +182,7 @@
           "Lubellion the Searing Dragon": 0.98,
           "Predaplant Dragostapelia": 0.87,
           "Despian Quaeritis": 0.77,
-          "Masquerade the Blazing Dragon": 0.75,
+          "Masquerade the Blazing Dragon": 0.74,
           "Brigrand the Glory Dragon": 0.71
         }
       }
@@ -290,7 +294,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 109,
         "windowDays": 180,
@@ -301,6 +304,11 @@
             "count": 109
           }
         ],
+        "skill": {
+          "name": "Whispers of Good and Evil",
+          "share": 1
+        },
+        "gemsPrice": 31500,
         "inclusion": {
           "Angello Vaalmonica": 1,
           "Dimonno Vaalmonica": 1,
@@ -458,7 +466,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 33,
         "windowDays": 180,
@@ -469,6 +476,11 @@
             "count": 33
           }
         ],
+        "skill": {
+          "name": "Eyes of Sovereign Defiance",
+          "share": 1
+        },
+        "gemsPrice": 47500,
         "inclusion": {
           "Snake-Eye Ash": 1,
           "Diabellstar the Black Witch": 1,
@@ -622,7 +634,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 336,
         "windowDays": 180,
@@ -641,6 +652,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Therion Battle Royale",
+          "share": 0.99
+        },
+        "gemsPrice": 45000,
         "inclusion": {
           "Therion \"Lily\" Borea": 1,
           "Therion \"Empress\" Alasia": 1,
@@ -774,7 +790,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 234,
         "windowDays": 180,
@@ -789,6 +804,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Traptrix Territory",
+          "share": 0.99
+        },
+        "gemsPrice": 65500,
         "inclusion": {
           "Traptrix Pudica": 1,
           "Traptrix Holeutea": 1,
@@ -958,7 +978,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 90,
         "windowDays": 180,
@@ -969,6 +988,11 @@
             "count": 90
           }
         ],
+        "skill": {
+          "name": "Beetrooper Raid",
+          "share": 1
+        },
+        "gemsPrice": 31250,
         "inclusion": {
           "Beetrooper Sting Lancer": 1,
           "Beetrooper Scout Buggy": 1,
@@ -1139,7 +1163,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 10,
         "windowDays": 180,
@@ -1154,6 +1177,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Beasts from the Abyss",
+          "share": 0.9
+        },
+        "gemsPrice": 49750,
         "inclusion": {
           "Bystial Saronir": 1,
           "The Bystial Lubellion": 1,
@@ -1304,7 +1332,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 81,
         "windowDays": 180,
@@ -1323,6 +1350,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "The Courage to Rise",
+          "share": 0.78
+        },
+        "gemsPrice": 49000,
         "inclusion": {
           "Stand Up Centur-Ion!": 1,
           "Centur-Ion Trudea": 1,
@@ -1479,21 +1511,25 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
-        "deckCount": 71,
+        "deckCount": 70,
         "windowDays": 180,
         "sampleUrl": "/king-of-games/august-2026/dark-magician/coolsy101/SAqDP/",
         "skills": [
           {
             "name": "The Eye of the United Dragon",
-            "count": 41
+            "count": 40
           },
           {
             "name": "Master of the Dark & Chaos",
             "count": 30
           }
         ],
+        "skill": {
+          "name": "The Eye of the United Dragon",
+          "share": 0.57
+        },
+        "gemsPrice": 57250,
         "inclusion": {
           "Illusion of Chaos": 1,
           "Dark Magician": 1,
@@ -1505,23 +1541,23 @@
           "Magicians' Souls": 0.97,
           "Magician's Rod": 0.97,
           "Dark Magical Circle": 0.97,
-          "Forbidden Droplet": 0.77,
+          "Forbidden Droplet": 0.79,
           "Preparation of Rites": 0.76,
           "Magician's Salvation": 0.76,
-          "Dark Magic Attack": 0.58,
-          "Grandtusk Dragon": 0.46,
-          "Dark Magic Expanded": 0.38,
-          "Magicians' Combination": 0.38,
-          "Lava Golem": 0.31,
-          "Droll & Lock Bird": 0.25,
+          "Dark Magic Attack": 0.57,
+          "Grandtusk Dragon": 0.47,
+          "Dark Magic Expanded": 0.39,
+          "Magicians' Combination": 0.37,
+          "Lava Golem": 0.3,
+          "Droll & Lock Bird": 0.26,
           "D.D. Crow": 0.21,
           "Red-Eyes Dark Dragoon": 1,
           "Master of Chaos": 0.93,
           "Dark Magician the Dragon Knight": 0.89,
-          "Super Starslayer TY-PHON - Sky Crisis": 0.75,
-          "The Dark Magicians": 0.61,
-          "Underworld Goddess of the Closed World": 0.58,
-          "Hieratic Seal of the Heavenly Spheres": 0.52,
+          "Super Starslayer TY-PHON - Sky Crisis": 0.74,
+          "The Dark Magicians": 0.6,
+          "Underworld Goddess of the Closed World": 0.57,
+          "Hieratic Seal of the Heavenly Spheres": 0.53,
           "Protector Whelp of the Destruction Swordsman": 0.51
         }
       }
@@ -1649,7 +1685,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 318,
         "windowDays": 180,
@@ -1672,6 +1707,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "The Power of D: Weaving the Future",
+          "share": 0.99
+        },
+        "gemsPrice": 60000,
         "inclusion": {
           "Destiny HERO - Malicious": 1,
           "Destiny HERO - Plasma": 1,
@@ -1822,7 +1862,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 79,
         "windowDays": 180,
@@ -1841,6 +1880,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Number Galaxy",
+          "share": 0.96
+        },
+        "gemsPrice": 31000,
         "inclusion": {
           "Galaxy-Eyes Photon Dragon": 1,
           "Galaxy-Eyes Tachyon Primal": 1,
@@ -1987,7 +2031,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 73,
         "windowDays": 180,
@@ -1998,6 +2041,11 @@
             "count": 73
           }
         ],
+        "skill": {
+          "name": "Dark Stirring of the Dreadful Dolls",
+          "share": 1
+        },
+        "gemsPrice": 62500,
         "inclusion": {
           "Gimmick Puppet Rouge Doll": 1,
           "Gimmick Puppet Little Soldiers": 1,
@@ -2084,8 +2132,8 @@
             "Infernity Patriarch",
             "Infernity Wildcat",
             "Hey, Trunade!",
-            "Book of Eclipse",
-            "Dark Hole"
+            "Dark Hole",
+            "Book of Eclipse"
           ]
         },
         {
@@ -2134,21 +2182,25 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
-        "deckCount": 29,
+        "deckCount": 30,
         "windowDays": 180,
-        "sampleUrl": "/king-of-games/august-2026/infernity/alv.fbx/Bw3EP/",
+        "sampleUrl": "/king-of-games/august-2026/infernity/samu-el/NaV7l/",
         "skills": [
           {
             "name": "Infernity Revival",
-            "count": 25
+            "count": 26
           },
           {
             "name": "Rescue Rabbit Call",
             "count": 4
           }
         ],
+        "skill": {
+          "name": "Infernity Revival",
+          "share": 0.87
+        },
+        "gemsPrice": 46250,
         "inclusion": {
           "Infernity Launcher": 1,
           "Infernity Necromancer": 1,
@@ -2157,25 +2209,25 @@
           "Infernity Break": 1,
           "Infernity Barrier": 1,
           "Forbidden Droplet": 0.9,
-          "Infernity Mirage": 0.86,
-          "This Creepy Little Punk": 0.86,
-          "Infernity Suppression": 0.86,
-          "Infernity Conjurer": 0.69,
-          "Infernity General": 0.62,
-          "Infernity Patriarch": 0.62,
-          "Infernity Wildcat": 0.62,
-          "Hey, Trunade!": 0.41,
-          "Book of Eclipse": 0.21,
-          "Dark Hole": 0.21,
+          "Infernity Mirage": 0.87,
+          "This Creepy Little Punk": 0.87,
+          "Infernity Suppression": 0.87,
+          "Infernity Conjurer": 0.67,
+          "Infernity General": 0.63,
+          "Infernity Patriarch": 0.63,
+          "Infernity Wildcat": 0.6,
+          "Hey, Trunade!": 0.4,
+          "Dark Hole": 0.23,
+          "Book of Eclipse": 0.2,
           "Chimera the King of Phantom Beasts": 1,
           "Trishula, Dragon of the Ice Barrier": 1,
           "Unchained Abomination": 0.97,
           "Underworld Goddess of the Closed World": 0.97,
           "I:P Masquerena": 0.93,
-          "Proxy F Magician": 0.86,
-          "Reprodocus": 0.86,
-          "Abyss Dweller": 0.55,
-          "Black Rose Dragon": 0.52
+          "Proxy F Magician": 0.87,
+          "Reprodocus": 0.87,
+          "Abyss Dweller": 0.57,
+          "Black Rose Dragon": 0.5
         }
       }
     },
@@ -2302,7 +2354,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 93,
         "windowDays": 180,
@@ -2317,6 +2368,11 @@
             "count": 3
           }
         ],
+        "skill": {
+          "name": "Invincible Crimson Star",
+          "share": 0.97
+        },
+        "gemsPrice": 53500,
         "inclusion": {
           "Soul Resonator": 1,
           "Crimson Gaia": 1,
@@ -2462,7 +2518,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 451,
         "windowDays": 180,
@@ -2481,6 +2536,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Bonds of the Converging Stars",
+          "share": 0.9
+        },
+        "gemsPrice": 47250,
         "inclusion": {
           "Stardust Trail": 0.9,
           "Stardust Synchron": 0.9,
@@ -2631,7 +2691,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 111,
         "windowDays": 180,
@@ -2650,6 +2709,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Intertwining Memories",
+          "share": 0.97
+        },
+        "gemsPrice": 58000,
         "inclusion": {
           "The Golden Swordsoul": 1,
           "Swordsoul of Taia": 1,
@@ -2705,11 +2769,11 @@
           "copies": 2
         },
         {
-          "name": "Tachyon Transmigration",
+          "name": "Nebula Dragon",
           "copies": 1
         },
         {
-          "name": "Nebula Dragon",
+          "name": "Tachyon Transmigration",
           "copies": 1
         },
         {
@@ -2749,7 +2813,8 @@
             "Infinite Impermanence",
             "Forbidden Droplet",
             "Ghost Mourner & Moonlit Chill",
-            "Lord of the Tachyon Galaxy"
+            "Lord of the Tachyon Galaxy",
+            "Ghost Belle & Haunted Mansion"
           ]
         },
         {
@@ -2792,15 +2857,14 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
-        "deckCount": 192,
+        "deckCount": 190,
         "windowDays": 180,
         "sampleUrl": "/king-of-games/august-2026/tachyon/andrewc22/STECb/",
         "skills": [
           {
             "name": "Barian Battlemorph! Galaxy-Eyes",
-            "count": 178
+            "count": 176
           },
           {
             "name": "The Power of All Creation",
@@ -2819,28 +2883,34 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Barian Battlemorph! Galaxy-Eyes",
+          "share": 0.93
+        },
+        "gemsPrice": 51000,
         "inclusion": {
           "Schwarzschild Infinity Dragon": 1,
           "Galaxy-Eyes Tachyon Primal": 1,
           "Galactic Spiral Dragon": 0.99,
           "Tachyon Spiral Galaxy": 0.96,
           "Tachyon Cloudragon": 0.94,
-          "Tachyon Transmigration": 0.92,
           "Nebula Dragon": 0.92,
+          "Tachyon Transmigration": 0.92,
           "Rank-Up-Magic - The Seventh One": 0.92,
           "Starliege Seyfert": 0.8,
-          "Seventh Tachyon": 0.79,
+          "Seventh Tachyon": 0.78,
           "Chaos Dragon Levianeer": 0.78,
           "Effect Veiler": 0.77,
           "Nibiru, the Primal Being": 0.74,
           "Infinite Impermanence": 0.55,
-          "Book of Eclipse": 0.49,
+          "Book of Eclipse": 0.48,
           "Forbidden Droplet": 0.44,
           "Droll & Lock Bird": 0.39,
-          "Ghost Mourner & Moonlit Chill": 0.36,
+          "Ghost Mourner & Moonlit Chill": 0.37,
           "Lord of the Tachyon Galaxy": 0.28,
           "D.D. Crow": 0.27,
           "Schwarzschild Limit Dragon": 0.22,
+          "Ghost Belle & Haunted Mansion": 0.2,
           "Number 107: Galaxy-Eyes Tachyon Dragon": 0.99,
           "Divine Golden Shadow Dragon Dragluxion": 0.98,
           "Galaxy Satellite Dragon": 0.92,
@@ -2971,7 +3041,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 50,
         "windowDays": 180,
@@ -2982,6 +3051,11 @@
             "count": 50
           }
         ],
+        "skill": {
+          "name": "Hyper Cannon Activation",
+          "share": 1
+        },
+        "gemsPrice": 53250,
         "inclusion": {
           "Forbidden Droplet": 1,
           "B-Buster Drake": 1,
@@ -3118,7 +3192,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 56,
         "windowDays": 180,
@@ -3145,6 +3218,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Dark",
+          "share": 0.46
+        },
+        "gemsPrice": 33000,
         "inclusion": {
           "Mirror Swordknight": 1,
           "Cornfield Coatl": 1,
@@ -3277,9 +3355,8 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
-        "deckCount": 62,
+        "deckCount": 61,
         "windowDays": 180,
         "sampleUrl": "/king-of-games/august-2026/dinos/eli-)/r96hw/",
         "skills": [
@@ -3300,10 +3377,15 @@
             "count": 8
           },
           {
-            "name": "Destiny Draw Leading to Dragon Master Knight",
-            "count": 7
+            "name": "Barian's Chaos Draw",
+            "count": 6
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Dark",
+          "share": 0.25
+        },
+        "gemsPrice": 59500,
         "inclusion": {
           "Fossil Dig": 1,
           "Miscellaneousaurus": 1,
@@ -3312,24 +3394,24 @@
           "Ultimate Conductor Tyranno": 1,
           "Double Evolution Pill": 1,
           "Animadorned Archosaur": 1,
-          "Giant Rex": 0.94,
+          "Giant Rex": 0.93,
           "Overtex Qoatlus": 0.77,
-          "Dogoran, the Mad Flame Kaiju": 0.61,
+          "Dogoran, the Mad Flame Kaiju": 0.62,
           "Forbidden Droplet": 0.56,
-          "Petiteranodon": 0.45,
+          "Petiteranodon": 0.46,
           "Book of Eclipse": 0.44,
           "Effect Veiler": 0.39,
-          "Infinite Impermanence": 0.26,
-          "Ghost Belle & Haunted Mansion": 0.26,
+          "Infinite Impermanence": 0.25,
+          "Ghost Belle & Haunted Mansion": 0.25,
           "Nibiru, the Primal Being": 0.23,
           "Evolzar Laggia": 0.92,
           "Evolzar Dolkka": 0.9,
           "Linkuriboh": 0.89,
           "Underworld Goddess of the Closed World": 0.84,
           "Knightmare Phoenix": 0.69,
-          "Decode Talker Heatsoul": 0.6,
-          "Security Dragon": 0.58,
-          "S-Force Justify": 0.55
+          "Decode Talker Heatsoul": 0.61,
+          "Security Dragon": 0.59,
+          "S-Force Justify": 0.56
         }
       }
     },
@@ -3456,7 +3538,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 53,
         "windowDays": 180,
@@ -3475,6 +3556,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Starry Slumbering Memories",
+          "share": 0.62
+        },
+        "gemsPrice": 52250,
         "inclusion": {
           "Drytron Zeta Aldhibah": 1,
           "Drytron Alpha Thuban": 1,
@@ -3620,7 +3706,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 51,
         "windowDays": 180,
@@ -3631,6 +3716,11 @@
             "count": 51
           }
         ],
+        "skill": {
+          "name": "Sanctuary of the King's Treasures",
+          "share": 1
+        },
+        "gemsPrice": 43000,
         "inclusion": {
           "Eldlich the Golden Lord": 1,
           "Apophis the Swamp Deity": 0.98,
@@ -3777,7 +3867,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 40,
         "windowDays": 180,
@@ -3804,6 +3893,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Dark",
+          "share": 0.48
+        },
+        "gemsPrice": 54000,
         "inclusion": {
           "Arianna the Labrynth Servant": 1,
           "Big Welcome Labrynth": 1,
@@ -3923,7 +4017,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 59,
         "windowDays": 180,
@@ -3950,6 +4043,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Princess Adena's Protection",
+          "share": 0.61
+        },
+        "gemsPrice": 37500,
         "inclusion": {
           "Noh-P.U.N.K. Ze Amin": 1,
           "Noh-P.U.N.K. Rising Scale": 1,
@@ -4105,7 +4203,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 50,
         "windowDays": 180,
@@ -4120,6 +4217,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Reign of Shadows",
+          "share": 0.96
+        },
+        "gemsPrice": 34250,
         "inclusion": {
           "Reeshaddoll Wendi": 1,
           "El Shaddoll Fusion": 1,
@@ -4257,7 +4359,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 64,
         "windowDays": 180,
@@ -4272,6 +4373,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Barian Battlemorph! Leader of the Seven",
+          "share": 0.98
+        },
+        "gemsPrice": 37500,
         "inclusion": {
           "Abyss Shark": 1,
           "Surfacing Big Jaws": 1,
@@ -4379,7 +4485,6 @@
           "candidates": [
             "Galaxy-Eyes Tachyon Primal",
             "Nibiru, the Primal Being",
-            "Gadarla, the Mystery Dust Kaiju",
             "Lava Golem",
             "Droll & Lock Bird"
           ]
@@ -4419,17 +4524,21 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
-        "deckCount": 45,
+        "deckCount": 44,
         "windowDays": 180,
         "sampleUrl": "/king-of-games/july-2026/blue-eyes/makarov/Ugtg6/",
         "skills": [
           {
             "name": "Master of Blue-Eyes",
-            "count": 45
+            "count": 44
           }
         ],
+        "skill": {
+          "name": "Master of Blue-Eyes",
+          "share": 1
+        },
+        "gemsPrice": 44250,
         "inclusion": {
           "Blue-Eyes White Dragon": 1,
           "Blue-Eyes Alternative White Dragon": 1,
@@ -4439,27 +4548,26 @@
           "Kaibaman the Legend": 0.98,
           "Bingo Machine, Go!!!": 0.98,
           "Blue-Eyes Jet Dragon": 0.98,
-          "The Melody of Awakening Dragon": 0.96,
+          "The Melody of Awakening Dragon": 0.95,
           "Blue-Eyes Chaos Dragon": 0.91,
-          "Forbidden Droplet": 0.76,
-          "Tachyon Transmigration": 0.53,
-          "Galaxy-Eyes Tachyon Primal": 0.51,
-          "Effect Veiler": 0.44,
-          "Nibiru, the Primal Being": 0.38,
-          "Book of Eclipse": 0.36,
-          "Infinite Impermanence": 0.29,
-          "Trade-In": 0.22,
-          "Gadarla, the Mystery Dust Kaiju": 0.2,
+          "Forbidden Droplet": 0.77,
+          "Tachyon Transmigration": 0.55,
+          "Galaxy-Eyes Tachyon Primal": 0.52,
+          "Effect Veiler": 0.43,
+          "Nibiru, the Primal Being": 0.36,
+          "Book of Eclipse": 0.34,
+          "Infinite Impermanence": 0.3,
+          "Trade-In": 0.23,
           "Lava Golem": 0.2,
           "Droll & Lock Bird": 0.2,
           "Blue-Eyes Tyrant Dragon": 0.98,
-          "Blue-Eyes Spirit Dragon": 0.96,
+          "Blue-Eyes Spirit Dragon": 0.95,
           "Lightstorm Dragon": 0.82,
-          "Black Rose Moonlight Dragon": 0.76,
-          "Dingirsu, the Orcust of the Evening Star": 0.71,
-          "Divine Golden Shadow Dragon Dragluxion": 0.58,
-          "Number 38: Hope Harbinger Dragon Titanic Galaxy": 0.53,
-          "Number 90: Galaxy-Eyes Photon Lord": 0.51
+          "Black Rose Moonlight Dragon": 0.75,
+          "Dingirsu, the Orcust of the Evening Star": 0.7,
+          "Divine Golden Shadow Dragon Dragluxion": 0.59,
+          "Number 38: Hope Harbinger Dragon Titanic Galaxy": 0.55,
+          "Number 90: Galaxy-Eyes Photon Lord": 0.52
         }
       }
     },
@@ -4573,7 +4681,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 44,
         "windowDays": 180,
@@ -4596,6 +4703,11 @@
             "count": 3
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Dark",
+          "share": 0.48
+        },
+        "gemsPrice": 40750,
         "inclusion": {
           "Parlor Dragonmaid": 1,
           "Dragonmaid Tidying": 1,
@@ -4716,7 +4828,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 41,
         "windowDays": 180,
@@ -4739,6 +4850,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Wind",
+          "share": 0.56
+        },
+        "gemsPrice": 42500,
         "inclusion": {
           "Floowandereeze & Robina": 1,
           "Floowandereeze and the Advent of Adventure": 1,
@@ -4860,7 +4976,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 38,
         "windowDays": 180,
@@ -4887,6 +5002,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Light",
+          "share": 0.45
+        },
+        "gemsPrice": 69500,
         "inclusion": {
           "Live☆Twin Ki-sikil": 1,
           "Forbidden Droplet": 1,
@@ -5010,7 +5130,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 41,
         "windowDays": 180,
@@ -5025,6 +5144,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Wind",
+          "share": 0.98
+        },
+        "gemsPrice": 31500,
         "inclusion": {
           "Lyrilusc - Beryl Canary": 1,
           "Lyrilusc - Turquoise Warbler": 1,
@@ -5141,7 +5265,6 @@
         }
       ],
       "extraDeck": [],
-      "source": "meta",
       "meta": {
         "deckCount": 35,
         "windowDays": 180,
@@ -5152,6 +5275,11 @@
             "count": 35
           }
         ],
+        "skill": {
+          "name": "The Unsealed Forbidden Door",
+          "share": 1
+        },
+        "gemsPrice": 52000,
         "inclusion": {
           "Jizukiru, the Star Destroying Kaiju": 1,
           "Machina Ruinforce": 1,
@@ -5269,7 +5397,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 46,
         "windowDays": 180,
@@ -5280,6 +5407,11 @@
             "count": 46
           }
         ],
+        "skill": {
+          "name": "Red-Eyes Armament",
+          "share": 1
+        },
+        "gemsPrice": 23000,
         "inclusion": {
           "Red-Eyes Insight": 1,
           "Red-Eyes Black Dragon": 1,
@@ -5415,7 +5547,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 34,
         "windowDays": 180,
@@ -5426,6 +5557,11 @@
             "count": 34
           }
         ],
+        "skill": {
+          "name": "Sky Striker Ace Defying Fate",
+          "share": 1
+        },
+        "gemsPrice": 46250,
         "inclusion": {
           "Sky Striker Mobilize - Engage!": 1,
           "Sky Striker Mecha - Widow Anchor": 1,
@@ -5558,7 +5694,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 23,
         "windowDays": 180,
@@ -5577,6 +5712,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Makyura's Judgment",
+          "share": 0.83
+        },
+        "gemsPrice": 61000,
         "inclusion": {
           "Exosister Elis": 1,
           "Exosister Pax": 1,
@@ -5691,7 +5831,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 31,
         "windowDays": 180,
@@ -5718,6 +5857,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Princess Adena's Protection",
+          "share": 0.48
+        },
+        "gemsPrice": 39500,
         "inclusion": {
           "Imsety, Glory of Horus": 1,
           "King's Sarcophagus": 1,
@@ -5862,7 +6006,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 27,
         "windowDays": 180,
@@ -5873,6 +6016,11 @@
             "count": 27
           }
         ],
+        "skill": {
+          "name": "Fiendish Gourmet Recipe",
+          "share": 1
+        },
+        "gemsPrice": 41000,
         "inclusion": {
           "Concours de Cuisine (Culinary Confrontation)": 1,
           "Poissonniere de Nouvelles": 1,
@@ -5933,7 +6081,7 @@
         },
         {
           "name": "Predaplant Ophrys Scorpio",
-          "copies": 1
+          "copies": 2
         },
         {
           "name": "Predaplant Chlamydosundew",
@@ -5986,7 +6134,7 @@
         },
         {
           "role": "disruption",
-          "count": 2,
+          "count": 1,
           "candidates": [
             "Effect Veiler"
           ]
@@ -6033,15 +6181,14 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
-        "deckCount": 25,
+        "deckCount": 24,
         "windowDays": 180,
         "sampleUrl": "/king-of-games/august-2026/predaplant/lexbel/xypji/",
         "skills": [
           {
             "name": "Predaprime Invasion",
-            "count": 13
+            "count": 12
           },
           {
             "name": "Starving Venom Invasion",
@@ -6052,6 +6199,11 @@
             "count": 4
           }
         ],
+        "skill": {
+          "name": "Predaprime Invasion",
+          "share": 0.5
+        },
+        "gemsPrice": 47000,
         "inclusion": {
           "Predaplant Byblisp": 1,
           "Predaplant Sarraceniant": 1,
@@ -6064,25 +6216,25 @@
           "Predaplanet": 0.92,
           "Fusion Substitute": 0.92,
           "Fusion Recycling Plant": 0.88,
-          "Forbidden Droplet": 0.84,
-          "Predapruning": 0.84,
-          "Predaprime Fusion": 0.6,
-          "Polymerization": 0.52,
-          "Droll & Lock Bird": 0.48,
-          "Predaplant Drosophyllum Hydra": 0.48,
-          "Predapractice": 0.4,
-          "Super Polymerization": 0.4,
-          "Fusion Recovery": 0.28,
-          "Effect Veiler": 0.24,
-          "D.D. Crow": 0.24,
+          "Forbidden Droplet": 0.83,
+          "Predapruning": 0.83,
+          "Predaprime Fusion": 0.58,
+          "Droll & Lock Bird": 0.5,
+          "Polymerization": 0.5,
+          "Predaplant Drosophyllum Hydra": 0.5,
+          "Predapractice": 0.42,
+          "Super Polymerization": 0.42,
+          "Fusion Recovery": 0.29,
+          "D.D. Crow": 0.25,
+          "Effect Veiler": 0.21,
           "Predaplant Dragostapelia": 1,
           "Predaplant Ambulomelides": 1,
           "Predaplant Triphyoverutum": 1,
           "Starving Venom Fusion Dragon": 1,
-          "Starving Venom Predapower Fusion Dragon": 0.84,
-          "Greedy Venom Fusion Dragon": 0.76,
-          "Predaplant Chimerafflesia": 0.64,
-          "Lyrilusc - Ensemblue Robin": 0.6
+          "Starving Venom Predapower Fusion Dragon": 0.83,
+          "Greedy Venom Fusion Dragon": 0.75,
+          "Predaplant Chimerafflesia": 0.63,
+          "Lyrilusc - Ensemblue Robin": 0.58
         }
       }
     },
@@ -6191,7 +6343,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 28,
         "windowDays": 180,
@@ -6210,6 +6361,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Water",
+          "share": 0.86
+        },
+        "gemsPrice": 47000,
         "inclusion": {
           "Rikka Konkon": 1,
           "Rikka Princess": 1,
@@ -6349,7 +6505,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 33,
         "windowDays": 180,
@@ -6364,6 +6519,11 @@
             "count": 15
           }
         ],
+        "skill": {
+          "name": "Doom Ushering Gale",
+          "share": 0.55
+        },
+        "gemsPrice": 51500,
         "inclusion": {
           "Quick Launch": 1,
           "Forbidden Droplet": 1,
@@ -6490,7 +6650,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 30,
         "windowDays": 180,
@@ -6517,6 +6676,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Princess Adena's Protection",
+          "share": 0.53
+        },
+        "gemsPrice": 49000,
         "inclusion": {
           "Thunder Dragondark": 1,
           "Thunder Dragonhawk": 1,
@@ -6649,7 +6813,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 22,
         "windowDays": 180,
@@ -6672,6 +6835,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Princess Adena's Protection",
+          "share": 0.55
+        },
+        "gemsPrice": 46000,
         "inclusion": {
           "Adamancipator Analyzer": 1,
           "Adamancipator Seeker": 1,
@@ -6800,7 +6968,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 22,
         "windowDays": 180,
@@ -6811,6 +6978,11 @@
             "count": 22
           }
         ],
+        "skill": {
+          "name": "Ancient Gear Engineering",
+          "share": 1
+        },
+        "gemsPrice": 35500,
         "inclusion": {
           "Ancient Gear Tanker": 1,
           "Ancient Gear Statue": 1,
@@ -6953,7 +7125,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 12,
         "windowDays": 180,
@@ -6964,6 +7135,11 @@
             "count": 12
           }
         ],
+        "skill": {
+          "name": "Wings to the Heavens",
+          "share": 1
+        },
+        "gemsPrice": 64000,
         "inclusion": {
           "Blackwing - Chinook the Snow Blast": 1,
           "Blackwing - Shamal the Sandstorm": 1,
@@ -7110,7 +7286,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 14,
         "windowDays": 180,
@@ -7125,6 +7300,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "D/D Secondment",
+          "share": 0.93
+        },
+        "gemsPrice": 50000,
         "inclusion": {
           "D/D Savant Kepler": 1,
           "Dark Contract with the Gate": 1,
@@ -7274,7 +7454,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 13,
         "windowDays": 180,
@@ -7285,6 +7464,11 @@
             "count": 13
           }
         ],
+        "skill": {
+          "name": "Guardian Angel's Charity",
+          "share": 1
+        },
+        "gemsPrice": 48000,
         "inclusion": {
           "Guardian Angel Joan": 1,
           "Luster Dragon": 1,
@@ -7412,7 +7596,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 18,
         "windowDays": 180,
@@ -7427,6 +7610,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Dragonic Contact",
+          "share": 0.89
+        },
+        "gemsPrice": 57500,
         "inclusion": {
           "Elemental HERO Stratos": 0.94,
           "Super Polymerization": 0.94,
@@ -7556,7 +7744,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 23,
         "windowDays": 180,
@@ -7567,6 +7754,11 @@
             "count": 23
           }
         ],
+        "skill": {
+          "name": "Shinato's Judgment",
+          "share": 1
+        },
+        "gemsPrice": 36500,
         "inclusion": {
           "Shinobird's Calling": 1,
           "Book of Eclipse": 1,
@@ -7689,7 +7881,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 21,
         "windowDays": 180,
@@ -7704,6 +7895,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Sun God's Flare",
+          "share": 0.95
+        },
+        "gemsPrice": 50000,
         "inclusion": {
           "The True Sun God": 1,
           "The Winged Dragon of Ra": 1,
@@ -7825,7 +8021,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 15,
         "windowDays": 180,
@@ -7844,6 +8039,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Dark",
+          "share": 0.67
+        },
+        "gemsPrice": 47500,
         "inclusion": {
           "Zombie World": 1,
           "Doomking Balerdroch": 0.93,
@@ -7973,7 +8173,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 9,
         "windowDays": 180,
@@ -8000,6 +8199,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Princess Adena's Protection",
+          "share": 0.33
+        },
+        "gemsPrice": 51000,
         "inclusion": {
           "Bone Archfiend": 0.89,
           "Archfiend Heiress": 0.89,
@@ -8037,107 +8241,6 @@
           "Red Dragon Archfiend": 0.78,
           "Underworld Goddess of the Closed World": 0.67,
           "Knightmare Phoenix": 0.56
-        }
-      }
-    },
-    {
-      "id": "meta-burn",
-      "name": "Burn",
-      "tierScore": 3,
-      "coreCards": [],
-      "flexSlots": [
-        {
-          "role": "draw",
-          "count": 10,
-          "candidates": [
-            "Trade-In",
-            "Into the Void",
-            "Allure of Darkness",
-            "Banishment of the Darklords",
-            "Darklord Ixchel",
-            "Spellbook of Knowledge"
-          ]
-        },
-        {
-          "role": "removal",
-          "count": 5,
-          "candidates": [
-            "Galaxy Wave",
-            "Zoma the Spirit",
-            "Eldlich the Golden Lord",
-            "Lord of the Heavenly Prison"
-          ]
-        },
-        {
-          "role": "disruption",
-          "count": 10,
-          "candidates": [
-            "The Winged Dragon of Ra - Sphere Mode",
-            "Jizukiru, the Star Destroying Kaiju",
-            "Tenyi Spirit - Mapura",
-            "Apophis the Swamp Deity",
-            "Statue of Anguish Pattern",
-            "Silhouhatte Trick",
-            "Skull Invitation",
-            "Darklord Asmodeus"
-          ]
-        },
-        {
-          "role": "beater",
-          "count": 5,
-          "candidates": [
-            "Lava Golem",
-            "Dynatherium"
-          ]
-        }
-      ],
-      "extraDeck": [
-        {
-          "name": "Super Starslayer TY-PHON - Sky Crisis",
-          "copies": 1
-        }
-      ],
-      "source": "meta",
-      "meta": {
-        "deckCount": 9,
-        "windowDays": 180,
-        "sampleUrl": "/spicy-win-streaks/july-2026/burn/suptueur/53vii/",
-        "skills": [
-          {
-            "name": "Princess Adena's Protection",
-            "count": 4
-          },
-          {
-            "name": "Sanctuary of the King's Treasures",
-            "count": 4
-          },
-          {
-            "name": "Deck Master: \"Shinato, King of a Higher Plane\"",
-            "count": 1
-          }
-        ],
-        "inclusion": {
-          "Lava Golem": 0.67,
-          "Trade-In": 0.44,
-          "Into the Void": 0.44,
-          "The Winged Dragon of Ra - Sphere Mode": 0.44,
-          "Galaxy Wave": 0.33,
-          "Jizukiru, the Star Destroying Kaiju": 0.33,
-          "Allure of Darkness": 0.33,
-          "Banishment of the Darklords": 0.33,
-          "Darklord Ixchel": 0.33,
-          "Dynatherium": 0.33,
-          "Spellbook of Knowledge": 0.33,
-          "Tenyi Spirit - Mapura": 0.33,
-          "Apophis the Swamp Deity": 0.22,
-          "Statue of Anguish Pattern": 0.22,
-          "Zoma the Spirit": 0.22,
-          "Silhouhatte Trick": 0.22,
-          "Skull Invitation": 0.22,
-          "Darklord Asmodeus": 0.22,
-          "Eldlich the Golden Lord": 0.22,
-          "Lord of the Heavenly Prison": 0.22,
-          "Super Starslayer TY-PHON - Sky Crisis": 0.56
         }
       }
     },
@@ -8242,7 +8345,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 10,
         "windowDays": 180,
@@ -8253,6 +8355,11 @@
             "count": 10
           }
         ],
+        "skill": {
+          "name": "The Eye of the United Dragon",
+          "share": 1
+        },
+        "gemsPrice": 72500,
         "inclusion": {
           "Timaeus the United Dragon": 1,
           "Illusion of Chaos": 1,
@@ -8366,7 +8473,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 11,
         "windowDays": 180,
@@ -8385,6 +8491,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Mikanko's Grand Stage",
+          "share": 0.64
+        },
+        "gemsPrice": 33500,
         "inclusion": {
           "Ohime the Manifested Mikanko": 1,
           "Mikanko Water Arabesque": 1,
@@ -8535,7 +8646,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 9,
         "windowDays": 180,
@@ -8550,6 +8660,11 @@
             "count": 3
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Dark",
+          "share": 0.67
+        },
+        "gemsPrice": 38750,
         "inclusion": {
           "Orcust Harp Horror": 1,
           "Orcust Cymbal Skeleton": 1,
@@ -8584,81 +8699,6 @@
           "Orcustrion": 0.78,
           "Super Starslayer TY-PHON - Sky Crisis": 0.78,
           "I:P Masquerena": 0.67
-        }
-      }
-    },
-    {
-      "id": "meta-other",
-      "name": "Other",
-      "tierScore": 3,
-      "coreCards": [],
-      "flexSlots": [
-        {
-          "role": "removal",
-          "count": 11,
-          "candidates": [
-            "Book of Eclipse",
-            "Hey, Trunade!",
-            "Kiteroid",
-            "Cosmic Cyclone",
-            "Book of Moon"
-          ]
-        },
-        {
-          "role": "disruption",
-          "count": 5,
-          "candidates": [
-            "Spiritualism",
-            "Forbidden Droplet",
-            "Ultimate Slayer"
-          ]
-        },
-        {
-          "role": "beater",
-          "count": 4,
-          "candidates": [
-            "Lava Golem"
-          ]
-        }
-      ],
-      "extraDeck": [],
-      "source": "meta",
-      "meta": {
-        "deckCount": 12,
-        "windowDays": 180,
-        "sampleUrl": "/duel-links-grand-prix/147/other/symbols-/GKrQ7/",
-        "skills": [
-          {
-            "name": "Barian Battlemorph! The Power That Guides the World",
-            "count": 5
-          },
-          {
-            "name": "Joan's Guidance",
-            "count": 2
-          },
-          {
-            "name": "Precious Cards of the Dark",
-            "count": 2
-          },
-          {
-            "name": "Elements Unite!",
-            "count": 1
-          },
-          {
-            "name": "Rescue Rabbit Call",
-            "count": 1
-          }
-        ],
-        "inclusion": {
-          "Book of Eclipse": 0.58,
-          "Lava Golem": 0.5,
-          "Hey, Trunade!": 0.5,
-          "Spiritualism": 0.42,
-          "Kiteroid": 0.42,
-          "Cosmic Cyclone": 0.42,
-          "Book of Moon": 0.25,
-          "Forbidden Droplet": 0.25,
-          "Ultimate Slayer": 0.25
         }
       }
     },
@@ -8775,7 +8815,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 11,
         "windowDays": 180,
@@ -8794,6 +8833,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Indestructible Spright",
+          "share": 0.82
+        },
+        "gemsPrice": 45000,
         "inclusion": {
           "Nimble Beaver": 1,
           "Forbidden Droplet": 1,
@@ -8820,6 +8864,173 @@
           "Onibimaru Soul Sweeper": 0.73,
           "Knightmare Unicorn": 0.64,
           "Number 65: Djinn Buster": 0.64
+        }
+      }
+    },
+    {
+      "id": "meta-virtual-world",
+      "name": "Virtual World",
+      "tierScore": 3,
+      "coreCards": [
+        {
+          "name": "Virtual World Gate - Qinglong",
+          "copies": 3
+        },
+        {
+          "name": "Virtual World Mai-Hime - Lulu",
+          "copies": 3
+        },
+        {
+          "name": "Virtual World Xiezhi - Jiji",
+          "copies": 2
+        },
+        {
+          "name": "Virtual World Gate - Chuche",
+          "copies": 2
+        },
+        {
+          "name": "Virtual World Roshi - Laolao",
+          "copies": 2
+        },
+        {
+          "name": "Virtual World Hime - Nyannyan",
+          "copies": 2
+        },
+        {
+          "name": "Virtual World Gate - Xuanwu",
+          "copies": 1
+        },
+        {
+          "name": "Effect Veiler",
+          "copies": 3
+        },
+        {
+          "name": "Book of Eclipse",
+          "copies": 3
+        },
+        {
+          "name": "Virtual World Kirin - Lili",
+          "copies": 2
+        },
+        {
+          "name": "Emergency Teleport",
+          "copies": 1
+        }
+      ],
+      "flexSlots": [
+        {
+          "role": "removal",
+          "count": 2,
+          "candidates": [
+            "Necroworld Banshee",
+            "Zombie World",
+            "D.D. Crow"
+          ]
+        },
+        {
+          "role": "disruption",
+          "count": 2,
+          "candidates": [
+            "Doomking Balerdroch",
+            "Dark Ruler No More"
+          ]
+        },
+        {
+          "role": "beater",
+          "count": 2,
+          "candidates": [
+            "Droll & Lock Bird"
+          ]
+        }
+      ],
+      "extraDeck": [
+        {
+          "name": "Virtual World Kyubi - Shenshen",
+          "copies": 1
+        },
+        {
+          "name": "Constellar Ptolemy M7",
+          "copies": 1
+        },
+        {
+          "name": "Golden Cloud Beast - Malong",
+          "copies": 1
+        },
+        {
+          "name": "Stardust Charge Warrior",
+          "copies": 1
+        },
+        {
+          "name": "Swordsoul Supreme Sovereign - Chengying",
+          "copies": 1
+        },
+        {
+          "name": "Virtual World Beast - Jiujiu",
+          "copies": 1
+        },
+        {
+          "name": "Vermillion Dragon Mech",
+          "copies": 1
+        },
+        {
+          "name": "Beatrice, Lady of the Eternal",
+          "copies": 1
+        },
+        {
+          "name": "Coral Dragon",
+          "copies": 1
+        }
+      ],
+      "meta": {
+        "deckCount": 9,
+        "windowDays": 180,
+        "sampleUrl": "/king-of-games/july-2026/virtual-world/timaeus222/7rvty/",
+        "skills": [
+          {
+            "name": "Princess Adena's Protection",
+            "count": 7
+          },
+          {
+            "name": "Makyura's Judgment",
+            "count": 1
+          },
+          {
+            "name": "Precious Cards of the Dark",
+            "count": 1
+          }
+        ],
+        "skill": {
+          "name": "Princess Adena's Protection",
+          "share": 0.78
+        },
+        "gemsPrice": 62500,
+        "inclusion": {
+          "Virtual World Gate - Qinglong": 1,
+          "Virtual World Mai-Hime - Lulu": 1,
+          "Virtual World Xiezhi - Jiji": 1,
+          "Virtual World Gate - Chuche": 1,
+          "Virtual World Roshi - Laolao": 1,
+          "Virtual World Hime - Nyannyan": 1,
+          "Virtual World Gate - Xuanwu": 1,
+          "Effect Veiler": 0.89,
+          "Book of Eclipse": 0.89,
+          "Virtual World Kirin - Lili": 0.89,
+          "Emergency Teleport": 0.78,
+          "Doomking Balerdroch": 0.67,
+          "Necroworld Banshee": 0.67,
+          "Zombie World": 0.67,
+          "Droll & Lock Bird": 0.56,
+          "Dark Ruler No More": 0.33,
+          "D.D. Crow": 0.22,
+          "Virtual World Kyubi - Shenshen": 1,
+          "Constellar Ptolemy M7": 0.89,
+          "Golden Cloud Beast - Malong": 0.89,
+          "Stardust Charge Warrior": 0.89,
+          "Swordsoul Supreme Sovereign - Chengying": 0.89,
+          "Virtual World Beast - Jiujiu": 0.89,
+          "Vermillion Dragon Mech": 0.78,
+          "Beatrice, Lady of the Eternal": 0.67,
+          "Coral Dragon": 0.67
         }
       }
     },
@@ -8916,7 +9127,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 7,
         "windowDays": 180,
@@ -8927,6 +9137,11 @@
             "count": 7
           }
         ],
+        "skill": {
+          "name": "Crystal Radiance",
+          "share": 1
+        },
+        "gemsPrice": 53500,
         "inclusion": {
           "Crystal Beast Rainbow Dragon": 1,
           "Crystal Beast Sapphire Pegasus": 1,
@@ -9081,7 +9296,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 6,
         "windowDays": 180,
@@ -9092,6 +9306,11 @@
             "count": 6
           }
         ],
+        "skill": {
+          "name": "Icejade Ripple",
+          "share": 1
+        },
+        "gemsPrice": 61000,
         "inclusion": {
           "Icejade Tremora": 1,
           "Icejade Aegirine": 1,
@@ -9247,7 +9466,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 7,
         "windowDays": 180,
@@ -9262,6 +9480,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Might of the True World",
+          "share": 0.71
+        },
+        "gemsPrice": 47000,
         "inclusion": {
           "Libromancer Geek Boy": 1,
           "Libromancer Agent": 1,
@@ -9392,7 +9615,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 6,
         "windowDays": 180,
@@ -9407,6 +9629,11 @@
             "count": 3
           }
         ],
+        "skill": {
+          "name": "Precious Cards of the Dark",
+          "share": 0.5
+        },
+        "gemsPrice": 37500,
         "inclusion": {
           "Lunalight Kaleido Chick": 1,
           "Lunalight Black Sheep": 1,
@@ -9508,7 +9735,6 @@
         }
       ],
       "extraDeck": [],
-      "source": "meta",
       "meta": {
         "deckCount": 6,
         "windowDays": 180,
@@ -9519,6 +9745,11 @@
             "count": 6
           }
         ],
+        "skill": {
+          "name": "The Unsealed Forbidden Door",
+          "share": 1
+        },
+        "gemsPrice": 41000,
         "inclusion": {
           "Forbidden Droplet": 1,
           "Machina Fortress": 1,
@@ -9655,7 +9886,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 6,
         "windowDays": 180,
@@ -9670,6 +9900,11 @@
             "count": 2
           }
         ],
+        "skill": {
+          "name": "Crystal Clear Wing Acceleration",
+          "share": 0.67
+        },
+        "gemsPrice": 45500,
         "inclusion": {
           "Speedroid Marble Machine": 1,
           "Speedroid Den-Den Daiko Duke": 1,
@@ -9818,7 +10053,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 6,
         "windowDays": 180,
@@ -9829,6 +10063,11 @@
             "count": 6
           }
         ],
+        "skill": {
+          "name": "Intertwining Memories",
+          "share": 1
+        },
+        "gemsPrice": 62250,
         "inclusion": {
           "Tri-Brigade Fraktall": 1,
           "Tri-Brigade Mercourier": 1,
@@ -9968,7 +10207,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 8,
         "windowDays": 180,
@@ -9979,6 +10217,11 @@
             "count": 8
           }
         ],
+        "skill": {
+          "name": "ZEXAL II – Power the Future",
+          "share": 1
+        },
+        "gemsPrice": 36000,
         "inclusion": {
           "ZS - Armed Sage": 1,
           "ZS - Ascended Sage": 1,
@@ -10011,169 +10254,6 @@
           "Tornado Dragon": 0.63,
           "Number 103: Ragnazero": 0.5,
           "Photon Papilloperative": 0.5
-        }
-      }
-    },
-    {
-      "id": "meta-virtual-world",
-      "name": "Virtual World",
-      "tierScore": 2,
-      "coreCards": [
-        {
-          "name": "Virtual World Gate - Qinglong",
-          "copies": 3
-        },
-        {
-          "name": "Virtual World Mai-Hime - Lulu",
-          "copies": 3
-        },
-        {
-          "name": "Virtual World Xiezhi - Jiji",
-          "copies": 2
-        },
-        {
-          "name": "Virtual World Gate - Chuche",
-          "copies": 2
-        },
-        {
-          "name": "Virtual World Roshi - Laolao",
-          "copies": 2
-        },
-        {
-          "name": "Virtual World Hime - Nyannyan",
-          "copies": 2
-        },
-        {
-          "name": "Virtual World Gate - Xuanwu",
-          "copies": 1
-        },
-        {
-          "name": "Effect Veiler",
-          "copies": 3
-        },
-        {
-          "name": "Book of Eclipse",
-          "copies": 3
-        },
-        {
-          "name": "Virtual World Kirin - Lili",
-          "copies": 2
-        },
-        {
-          "name": "Emergency Teleport",
-          "copies": 1
-        }
-      ],
-      "flexSlots": [
-        {
-          "role": "removal",
-          "count": 2,
-          "candidates": [
-            "Necroworld Banshee",
-            "Zombie World",
-            "D.D. Crow"
-          ]
-        },
-        {
-          "role": "disruption",
-          "count": 2,
-          "candidates": [
-            "Doomking Balerdroch",
-            "Dark Ruler No More"
-          ]
-        },
-        {
-          "role": "beater",
-          "count": 2,
-          "candidates": [
-            "Droll & Lock Bird"
-          ]
-        }
-      ],
-      "extraDeck": [
-        {
-          "name": "Virtual World Kyubi - Shenshen",
-          "copies": 1
-        },
-        {
-          "name": "Constellar Ptolemy M7",
-          "copies": 1
-        },
-        {
-          "name": "Golden Cloud Beast - Malong",
-          "copies": 1
-        },
-        {
-          "name": "Stardust Charge Warrior",
-          "copies": 1
-        },
-        {
-          "name": "Swordsoul Supreme Sovereign - Chengying",
-          "copies": 1
-        },
-        {
-          "name": "Virtual World Beast - Jiujiu",
-          "copies": 1
-        },
-        {
-          "name": "Vermillion Dragon Mech",
-          "copies": 1
-        },
-        {
-          "name": "Beatrice, Lady of the Eternal",
-          "copies": 1
-        },
-        {
-          "name": "Coral Dragon",
-          "copies": 1
-        }
-      ],
-      "source": "meta",
-      "meta": {
-        "deckCount": 9,
-        "windowDays": 180,
-        "sampleUrl": "/king-of-games/july-2026/virtual-world/timaeus222/7rvty/",
-        "skills": [
-          {
-            "name": "Princess Adena's Protection",
-            "count": 7
-          },
-          {
-            "name": "Makyura's Judgment",
-            "count": 1
-          },
-          {
-            "name": "Precious Cards of the Dark",
-            "count": 1
-          }
-        ],
-        "inclusion": {
-          "Virtual World Gate - Qinglong": 1,
-          "Virtual World Mai-Hime - Lulu": 1,
-          "Virtual World Xiezhi - Jiji": 1,
-          "Virtual World Gate - Chuche": 1,
-          "Virtual World Roshi - Laolao": 1,
-          "Virtual World Hime - Nyannyan": 1,
-          "Virtual World Gate - Xuanwu": 1,
-          "Effect Veiler": 0.89,
-          "Book of Eclipse": 0.89,
-          "Virtual World Kirin - Lili": 0.89,
-          "Emergency Teleport": 0.78,
-          "Doomking Balerdroch": 0.67,
-          "Necroworld Banshee": 0.67,
-          "Zombie World": 0.67,
-          "Droll & Lock Bird": 0.56,
-          "Dark Ruler No More": 0.33,
-          "D.D. Crow": 0.22,
-          "Virtual World Kyubi - Shenshen": 1,
-          "Constellar Ptolemy M7": 0.89,
-          "Golden Cloud Beast - Malong": 0.89,
-          "Stardust Charge Warrior": 0.89,
-          "Swordsoul Supreme Sovereign - Chengying": 0.89,
-          "Virtual World Beast - Jiujiu": 0.89,
-          "Vermillion Dragon Mech": 0.78,
-          "Beatrice, Lady of the Eternal": 0.67,
-          "Coral Dragon": 0.67
         }
       }
     },
@@ -10303,7 +10383,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 5,
         "windowDays": 180,
@@ -10318,6 +10397,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "Hero's Awakening",
+          "share": 0.8
+        },
+        "gemsPrice": 44500,
         "inclusion": {
           "Water Enchantress of the Temple": 1,
           "Rite of Aramesir": 1,
@@ -10452,7 +10536,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 5,
         "windowDays": 180,
@@ -10463,6 +10546,11 @@
             "count": 5
           }
         ],
+        "skill": {
+          "name": "Sanctuary of the King's Treasures",
+          "share": 1
+        },
+        "gemsPrice": 33000,
         "inclusion": {
           "Altergeist Emulatelf": 1,
           "Altergeist Marionetter": 1,
@@ -10627,7 +10715,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 5,
         "windowDays": 180,
@@ -10642,6 +10729,11 @@
             "count": 1
           }
         ],
+        "skill": {
+          "name": "The Unsealed Forbidden Door",
+          "share": 0.8
+        },
+        "gemsPrice": 40000,
         "inclusion": {
           "B.E.S. Derringer Core": 1,
           "Boss on Parade": 1,
@@ -10780,7 +10872,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 5,
         "windowDays": 180,
@@ -10791,6 +10882,11 @@
             "count": 5
           }
         ],
+        "skill": {
+          "name": "Barian's Chaos Draw",
+          "share": 1
+        },
+        "gemsPrice": 42500,
         "inclusion": {
           "Fire Hand": 1,
           "Ice Hand": 1,
@@ -10898,7 +10994,6 @@
           "copies": 1
         }
       ],
-      "source": "meta",
       "meta": {
         "deckCount": 5,
         "windowDays": 180,
@@ -10909,6 +11004,11 @@
             "count": 5
           }
         ],
+        "skill": {
+          "name": "Zoodiac Conclave",
+          "share": 1
+        },
+        "gemsPrice": 63500,
         "inclusion": {
           "Zoodiac Barrage": 1,
           "Zoodiac Whiptail": 1,

@@ -8,10 +8,12 @@ import {
   MAX_BUILDS,
   rankTemplates,
   scoreTemplate,
+  shortfallOf,
 } from "./build.ts";
 import { validateDeck, countCopies } from "./validator.ts";
 import { BanlistIndex } from "./banlist-index.ts";
-import { DEFAULT_CONFIG, type Deck } from "./types.ts";
+import { DEFAULT_CONFIG, type CardIndex, type Deck } from "./types.ts";
+import type { Card, CardRarity } from "../data/types.ts";
 import { banlist, cards, collection, fullCollection, template, weakerTemplate } from "./fixtures.ts";
 
 const config = DEFAULT_CONFIG;
@@ -219,6 +221,84 @@ describe("buildBest", () => {
     const result = buildBest({ owned: fullCollection(), templates: [narrow], banlist, cards, config });
     expect(copiesOf(result.deck, "Free Spell")).toBeGreaterThan(0);
     expect(result.validation.allowance.tiers[0].used).toBeLessThanOrEqual(1);
+  });
+});
+
+describe("shortfallOf", () => {
+  const rare = (name: string, rarity: CardRarity): CardIndex => {
+    const base = cards.get(name.toLowerCase()) as Card;
+    return new Map([[name.toLowerCase(), { ...base, rarity }]]);
+  };
+
+  it("buckets missing copies by rarity", () => {
+    const index = rare("Core One", "UR");
+    const result = shortfallOf([{ name: "Core One", copies: 3, inCurrent: 0, inTarget: 3 }], index);
+    expect(result.byRarity).toEqual({ UR: 3 });
+    expect(result.copies).toBe(3);
+    expect(result.cards).toBe(1);
+  });
+
+  it("still counts copies for a card with no rarity on record", () => {
+    const result = shortfallOf([{ name: "Core One", copies: 2, inCurrent: 0, inTarget: 2 }], cards);
+    expect(result.copies).toBe(2);
+    expect(result.byRarity).toEqual({});
+  });
+
+  it("is empty for a deck that is missing nothing", () => {
+    expect(shortfallOf([], cards)).toEqual({ byRarity: {}, copies: 0, cards: 0 });
+  });
+});
+
+describe("readiness", () => {
+  it("marks a deck ready when every core card is owned", () => {
+    const result = build(fullCollection());
+    expect(result.ready).toBe(true);
+    expect(result.shortfall.copies).toBe(0);
+  });
+
+  it("does not mark a deck ready when a core card is missing", () => {
+    const owned = fullCollection() as Map<string, number>;
+    owned.set("core one", 0);
+    const result = build(owned);
+    expect(result.ready).toBe(false);
+    expect(result.shortfall.copies).toBeGreaterThan(0);
+  });
+
+  it("puts a finished weaker deck ahead of a gutted stronger one", () => {
+    // Owns the weaker template outright, and only part of the stronger one's core.
+    const owned = collection({
+      "Core One": 1,
+      "Filler A": 3,
+      "Filler B": 3,
+      "Filler C": 3,
+      "Filler D": 3,
+      "Filler E": 3,
+      "Free Spell": 3,
+      "Trio Slot A": 3,
+    });
+    const results = buildDecks({ owned, templates: [template, weakerTemplate], banlist, cards, config });
+    const ready = results.filter((r) => r.ready);
+    if (ready.length > 0 && ready.length < results.length) {
+      expect(results[0]?.ready).toBe(true);
+    }
+    // Whatever the collection allows, ready decks never sort below unready ones.
+    const readyFlags = results.map((r) => Number(r.ready));
+    expect(readyFlags).toEqual([...readyFlags].sort((a, b) => b - a));
+  });
+
+  it("carries the corpus gem price through from the template", () => {
+    const priced = {
+      ...template,
+      meta: {
+        deckCount: 9,
+        windowDays: 180,
+        sampleUrl: "/x/",
+        skills: [],
+        gemsPrice: 41000,
+        inclusion: {},
+      },
+    };
+    expect(buildBest({ owned: fullCollection(), templates: [priced], banlist, cards, config }).gemsPrice).toBe(41000);
   });
 });
 
