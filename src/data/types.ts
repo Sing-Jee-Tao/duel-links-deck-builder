@@ -77,16 +77,79 @@ export const TIER_BUDGET: Record<Exclude<LimitTier, "forbidden">, number> = {
 
 export const LIMITED_TIERS = ["limited1", "limited2", "limited3"] as const;
 
-/** A hand-authored target deck in `data/templates/*.json`. */
+/**
+ * A target deck. Either hand-authored in `data/templates/*.json`, or derived
+ * from duellinksmeta's tournament corpus into `data/decks.json` — see
+ * `scripts/lib/derive-templates.ts`.
+ */
 export interface DeckTemplate {
   id: string;
   name: string;
-  /** 1–10, authored. */
+  /** 1–10. Authored for hand-written decks, derived from meta share otherwise. */
   tierScore: number;
   coreCards: { name: string; copies: number }[];
   flexSlots: FlexSlot[];
   extraDeck: { name: string; copies: number }[];
-  strategy: DeckStrategy;
+  source: TemplateSource;
+  /**
+   * Only hand-authored decks carry prose. A derived template has none, and
+   * inventing it would be worse than the data guide the Strategy screen builds
+   * from `meta` instead.
+   */
+  strategy?: DeckStrategy;
+  /** Present exactly when `source` is `"meta"`. */
+  meta?: TemplateProvenance;
+}
+
+export type TemplateSource = "authored" | "meta";
+
+/** What the tournament corpus said about a derived template, shown verbatim. */
+export interface TemplateProvenance {
+  /** Tournament lists this template was derived from. */
+  deckCount: number;
+  /** How far back those lists were drawn from. */
+  windowDays: number;
+  /** One real list on duellinksmeta, as a path. */
+  sampleUrl: string;
+  /** The Skills those lists ran, most common first. */
+  skills: { name: string; count: number }[];
+  /** Card name → share of lists containing it, 0–1. */
+  inclusion: Record<string, number>;
+}
+
+/** `data/decks.json` — the derived templates. */
+export interface DeckFile {
+  fetchedAt: string;
+  source: string;
+  windowDays: number;
+  count: number;
+  templates: DeckTemplate[];
+}
+
+/**
+ * How often cards are played and which cards are played together, measured
+ * across the same corpus. Keyed by `Card.id`. This is what lets the engine
+ * assemble a deck for a collection that matches no template: the pool carries
+ * effect text only as prose, but co-occurrence across thousands of real lists
+ * is a usable synergy signal without parsing a single ruling.
+ */
+export interface SynergyCard {
+  /** Lists containing this card. */
+  play: number;
+  /** Distinct deck types running it — high spread means a generic staple. */
+  spread: number;
+  /** Top co-occurring partners as [card id, shared lists]. */
+  partners: [number, number][];
+}
+
+/** `data/synergy.json` */
+export interface SynergyFile {
+  fetchedAt: string;
+  source: string;
+  windowDays: number;
+  /** Lists the statistics were measured over. */
+  deckCount: number;
+  cards: Record<number, SynergyCard>;
 }
 
 export type FlexRole =

@@ -1,4 +1,4 @@
-import type { Banlist, Card, DeckTemplate, FlexRole } from "../data/types.ts";
+import type { Banlist, Card, DeckTemplate, FlexRole, SynergyCard } from "../data/types.ts";
 
 /** One card name and how many copies of it sit in a deck. */
 export interface DeckEntry {
@@ -82,6 +82,9 @@ export type OwnedCounts = ReadonlyMap<string, number>;
 /** Card metadata, looked up by normalized name. */
 export type CardIndex = ReadonlyMap<string, Card>;
 
+/** Play rate, deck-type spread and co-occurring partners, by card id. */
+export type SynergyIndex = ReadonlyMap<number, SynergyCard>;
+
 export interface TemplateScore {
   template: DeckTemplate;
   /** 0–1, weighted core+flex completion. */
@@ -96,14 +99,20 @@ export interface BuildResult {
   template: DeckTemplate | null;
   deck: Deck;
   mainCount: number;
-  /** 0–100, `tierScore × completion × 10`. */
+  /**
+   * 0–100. For a templated deck, `tierScore × completion × 10`. For a deck the
+   * solver assembled without a template, the share of its card pairs that real
+   * tournament lists play together — a different measurement on the same axis.
+   */
   powerScore: number;
+  /** Set on a synthesized deck: the archetype its spine was seeded from. */
+  archetype?: string;
   validation: ValidationResult;
   /** True when the deck could not legally reach `minMain`. */
   partial: boolean;
   /** Why the build is partial or empty. Never thrown, always explained. */
   reason?: string;
-  /** Top 3 templates by rank, for the upgrade screen. */
+  /** Every template scored against the collection, ranked — the upgrade targets. */
   candidates: TemplateScore[];
 }
 
@@ -130,6 +139,11 @@ export interface BuildInputs {
   banlist: Banlist;
   cards: CardIndex;
   config: BuildConfig;
+  /**
+   * Play rates and co-occurrence from the tournament corpus. Optional: without
+   * it the template-free solver still runs, but on card kind and ATK alone.
+   */
+  synergy?: SynergyIndex;
 }
 
 export type { FlexRole };

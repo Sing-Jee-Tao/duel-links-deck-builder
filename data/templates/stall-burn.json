@@ -2,6 +2,7 @@
   "id": "stall-burn",
   "name": "Stall Burn",
   "tierScore": 6,
+  "source": "authored",
   "coreCards": [
     { "name": "Wave-Motion Cannon", "copies": 3 },
     { "name": "Secret Barrel", "copies": 3 },

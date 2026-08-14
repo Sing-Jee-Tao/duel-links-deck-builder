@@ -8,13 +8,19 @@ import { EmptyState, ErrorNotice, LoadingState } from "../components/States.tsx"
 import { banlist } from "../data/index.ts";
 import type { Card } from "../data/types.ts";
 import { BanlistIndex, normalizeName } from "../engine/banlist-index.ts";
+import { synthesizedName } from "../engine/synthesize.ts";
 import { countCopies } from "../engine/validator.ts";
-import type { DeckEntry } from "../engine/types.ts";
+import type { BuildResult, DeckEntry } from "../engine/types.ts";
 import { href } from "../state/router.ts";
-import { useStore } from "../state/store.tsx";
+import { buildId, useStore } from "../state/store.tsx";
 import { limitLabel, typeLabel } from "./Collection.tsx";
 
 type Group = "monster" | "spell" | "trap";
+
+/** A deck the solver assembled without a template still needs a name. */
+export function deckName(result: BuildResult): string {
+  return result.template?.name ?? synthesizedName(result);
+}
 
 function groupOf(card: Card | undefined): Group {
   if (!card) return "monster";
@@ -49,8 +55,21 @@ function DeckRow({ entry, card, index }: { entry: DeckEntry; card: Card | undefi
 }
 
 export function Build(): JSX.Element {
-  const { status, retry, pool, build, buildStatus, rebuild, config, setExtraDeckSize, totalCopies } = useStore();
+  const {
+    status,
+    retry,
+    pool,
+    builds,
+    build,
+    selectBuild,
+    buildStatus,
+    rebuild,
+    config,
+    setExtraDeckSize,
+    totalCopies,
+  } = useStore();
   const index = useMemo(() => new BanlistIndex(banlist), []);
+  const activeId = build ? buildId(build) : null;
 
   const grouped = useMemo(() => {
     const groups: Record<Group, DeckEntry[]> = { monster: [], spell: [], trap: [] };
@@ -80,6 +99,51 @@ export function Build(): JSX.Element {
       <Masthead />
       <ScreenNav current="build" />
 
+      {/*
+        A collection almost never maps onto one archetype. The engine assembles
+        every deck it legally can and the player picks; the panel below reads
+        from whichever tab is selected.
+      */}
+      {!loading && builds.length > 1 && (
+        <div className="tabs" role="tablist" data-role="deck-switcher">
+          {builds.map((result) => {
+            const id = buildId(result);
+            return (
+              <button
+                className="tab"
+                type="button"
+                role="tab"
+                key={id}
+                data-role="deck-tab"
+                data-deck={id}
+                aria-selected={id === activeId}
+                onClick={() => selectBuild(id)}
+              >
+                <span className="tab__name">{deckName(result)}</span>
+                <span className="tab__meta">
+                  {result.powerScore.toFixed(1)} · {result.mainCount} cards
+                  {result.partial ? " · partial" : ""}
+                </span>
+              </button>
+            );
+          })}
+          <div
+            className="mono muted"
+            style={{
+              flex: 1,
+              minWidth: 120,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              padding: "0 16px",
+              fontSize: "var(--t-11)",
+            }}
+          >
+            {builds.length} DECKS BUILT
+          </div>
+        </div>
+      )}
+
       <div
         className="panel"
         style={{ display: "flex", flexWrap: "wrap", gap: "14px 28px", alignItems: "flex-end", padding: "16px 20px" }}
@@ -88,7 +152,7 @@ export function Build(): JSX.Element {
         <div>
           <div className="label">Assembled from your collection</div>
           <h1 className="h1" style={{ marginTop: 6 }} data-role="deck-name">
-            {build?.template?.name ?? "No deck yet"}
+            {build && build.mainCount > 0 ? deckName(build) : "No deck yet"}
           </h1>
         </div>
         <span style={{ flex: 1 }} />
@@ -136,6 +200,26 @@ export function Build(): JSX.Element {
               The engine needs at least {config.minMain} owned copies.{" "}
               <a href={href("collection")}>Enter your collection.</a>
             </EmptyState>
+          )}
+
+          {/*
+            The score on a synthesized deck is measured differently from a
+            template's, and the deck was assembled by statistics rather than by
+            reading card text. Both are worth saying plainly rather than letting
+            the number imply more than it means.
+          */}
+          {!loading && build && !build.template && build.mainCount > 0 && (
+            <div className="notice" data-role="synthesized-note">
+              <div className="notice__title">Built from your cards alone — no deck list involved</div>
+              <div className="notice__body">
+                {build.archetype
+                  ? `Seeded from the ${build.archetype} cards you own, then grown by `
+                  : "Grown by "}
+                how often real tournament lists play these cards together. Nothing here reads a card's
+                effect text. The score is that measured overlap, so it answers a different question from a
+                template's power score.
+              </div>
+            </div>
           )}
 
           {!loading && build?.partial && build.mainCount > 0 && (

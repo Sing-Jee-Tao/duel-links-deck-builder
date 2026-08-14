@@ -2,6 +2,7 @@
   "id": "dark-magician-control",
   "name": "Dark Magician Control",
   "tierScore": 8,
+  "source": "authored",
   "coreCards": [
     { "name": "Dark Magician", "copies": 3 },
     { "name": "Magician's Rod", "copies": 3 },

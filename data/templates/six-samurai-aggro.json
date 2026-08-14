@@ -2,6 +2,7 @@
   "id": "six-samurai-aggro",
   "name": "Six Samurai Aggro",
   "tierScore": 7,
+  "source": "authored",
   "coreCards": [
     { "name": "Legendary Six Samurai - Kizan", "copies": 3 },
     { "name": "Legendary Six Samurai - Kageki", "copies": 3 },

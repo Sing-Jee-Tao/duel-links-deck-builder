@@ -46,6 +46,14 @@ jobs:
         id: banlist
         run: npm run scrape:banlist
 
+      # Must run AFTER fetch:cards: every card name in a derived template is
+      # resolved against data/cards.json, and the run aborts below a 95% join
+      # rate. Against a stale pool that gate fires on cards that are simply too
+      # new, so a fresh pool is a precondition, not a coincidence of ordering.
+      - name: Derive deck templates
+        id: decks
+        run: npm run fetch:decks
+
       # The suite re-checks every authored template against the freshly scraped
       # list: if Konami moved a card into a tier that makes a template illegal,
       # this fails and no PR is opened.
@@ -65,7 +73,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
           git add data/
-          git commit -m "chore(data): weekly card pool and banlist refresh"
+          git commit -m "chore(data): weekly card pool, banlist and deck template refresh"
           git push -u origin "$branch"
 
           body="Automated weekly refresh. Counts and the added/removed diff are in the [job summary](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}). Merge only if the diff looks like a real upstream change."
@@ -76,7 +84,7 @@ jobs:
           # carrying the compare link rather than failing a refresh whose real
           # work — fetch, scrape, validate, push — already succeeded.
           if gh pr create \
-              --title "chore(data): weekly card pool and banlist refresh" \
+              --title "chore(data): weekly card pool, banlist and deck template refresh" \
               --body "$body" \
               --base main --head "$branch"; then
             echo "Pull request opened."
@@ -98,13 +106,14 @@ jobs:
         run: |
           gh issue create \
             --title "Data refresh failed on $(date -u +%Y-%m-%d)" \
-            --body "The weekly refresh job failed. \`data/banlist.json\` and \`data/cards.json\` were left untouched, so the site is still serving the last known good data.
+            --body "The weekly refresh job failed. \`data/banlist.json\`, \`data/cards.json\`, \`data/decks.json\` and \`data/synergy.json\` were left untouched, so the site is still serving the last known good data.
 
           Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
           Likely causes:
-          - duellinksmeta.com redesigned, breaking the parser (the golden-file test in \`scripts/parse-banlist.test.ts\` will say so)
+          - duellinksmeta.com redesigned, breaking the parser (the golden-file tests in \`scripts/parse-banlist.test.ts\` and \`scripts/derive-templates.test.ts\` will say so)
           - a tier came back empty, or the list shifted by more than 25%
+          - the template count drifted more than 25%, or card names stopped resolving against the pool
           - YGOPRODeck was unreachable
 
           If Konami has announced a change that the scrape cannot see yet, apply it by hand in \`data/banlist-override.json\`." \

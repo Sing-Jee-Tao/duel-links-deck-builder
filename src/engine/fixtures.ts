@@ -74,6 +74,7 @@ export const template: DeckTemplate = {
   id: "test-deck",
   name: "Test Deck",
   tierScore: 8,
+  source: "authored",
   coreCards: [
     { name: "Core One", copies: 3 },
     { name: "Core Two", copies: 3 },

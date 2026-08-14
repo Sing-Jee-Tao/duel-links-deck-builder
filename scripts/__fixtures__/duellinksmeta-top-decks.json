@@ -1,0 +1,2489 @@
+[
+  {
+    "_id": "6a78eabfce145dc2b882407c",
+    "created": "2026-08-09T21:01:31.135Z",
+    "url": "/community-tournaments/starry-cup/163/traptrix/shushu/3IuNx/",
+    "skill": {
+      "name": "Traptrix Territory"
+    },
+    "deckType": {
+      "name": "Traptrix"
+    },
+    "main": [
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Myrmeleo"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Droll & Lock Bird"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "D.D. Crow"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Pudica"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Dionaea"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Mind Control"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Hey, Trunade!"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrip Garden"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Holeutea"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Floodgate Trap Hole"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Terrifying Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Trap Hole Nightmare"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Super Starslayer TY-PHON - Sky Crisis"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Pinguicula"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Abyss Dweller"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Atypus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Cularia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Security Dragon"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Sera"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a7696f5f321576c0524bfa0",
+    "created": "2026-08-08T02:39:27.184Z",
+    "url": "/king-of-games/august-2026/traptrix/vicent/OGeZC/",
+    "skill": {
+      "name": "Traptrix Territory"
+    },
+    "deckType": {
+      "name": "Traptrix"
+    },
+    "main": [
+      {
+        "amount": 3,
+        "card": {
+          "name": "Nibiru, the Primal Being"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Lord of the Heavenly Prison"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Myrmeleo"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Ghost Belle & Haunted Mansion"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "D.D. Crow"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Pudica"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Dionaea"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrip Garden"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Holeutea"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Infinite Impermanence"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Terrifying Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Time-Space Trap Hole"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Super Starslayer TY-PHON - Sky Crisis"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Pinguicula"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Gallant Granite"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Atypus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Cularia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Security Dragon"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Sera"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a743e6411bec48d4438e17c",
+    "created": "2026-08-06T11:57:00.000Z",
+    "url": "/spicy-win-streaks/august-2026/traptrix/nat/3g8bs/",
+    "skill": {
+      "name": "Traptrix Territory"
+    },
+    "deckType": {
+      "name": "Traptrix"
+    },
+    "main": [
+      {
+        "amount": 2,
+        "card": {
+          "name": "Nibiru, the Primal Being"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Myrmeleo"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Ghost Belle & Haunted Mansion"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Droll & Lock Bird"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Pudica"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Dionaea"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrip Garden"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Holeutea"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Infinite Impermanence"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Terrifying Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Void Trap Hole"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Pinguicula"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Gallant Granite"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evilswarm Exciton Knight"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Atypus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Cularia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Security Dragon"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Sera"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a729af3da57d834f84f7c88",
+    "created": "2026-08-05T02:07:22.161Z",
+    "url": "/king-of-games/august-2026/traptrix/nat/Bi-cG/",
+    "skill": {
+      "name": "Traptrix Territory"
+    },
+    "deckType": {
+      "name": "Traptrix"
+    },
+    "main": [
+      {
+        "amount": 2,
+        "card": {
+          "name": "Nibiru, the Primal Being"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Myrmeleo"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Ghost Belle & Haunted Mansion"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Droll & Lock Bird"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Pudica"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Dionaea"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrip Garden"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Holeutea"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Infinite Impermanence"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Terrifying Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Void Trap Hole"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Pinguicula"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Gallant Granite"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evilswarm Exciton Knight"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Atypus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Cularia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Security Dragon"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Sera"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a725230914ce150d0dc7016",
+    "created": "2026-08-04T20:57:09.903Z",
+    "url": "/king-of-games/august-2026/traptrix/light/emQ7a/",
+    "skill": {
+      "name": "Traptrix Territory"
+    },
+    "deckType": {
+      "name": "Traptrix"
+    },
+    "main": [
+      {
+        "amount": 3,
+        "card": {
+          "name": "Nibiru, the Primal Being"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Myrmeleo"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Droll & Lock Bird"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Pudica"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Dionaea"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrip Garden"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Holeutea"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Bottomless Trap Hole"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Terrifying Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Trap Hole Nightmare"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Pinguicula"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Abyss Dweller"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Atypus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Moon of the Closed Heaven"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "I:P Masquerena"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Security Dragon"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Sera"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a6d4110f2c4f46b56994528",
+    "created": "2026-07-31T20:41:00.000Z",
+    "url": "/king-of-games/july-2026/traptrix/✇anselmo✇/cyWze/",
+    "skill": {
+      "name": "Traptrix Territory"
+    },
+    "deckType": {
+      "name": "Traptrix"
+    },
+    "main": [
+      {
+        "amount": 3,
+        "card": {
+          "name": "Nibiru, the Primal Being"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Myrmeleo"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Ghost Belle & Haunted Mansion"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Pudica"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Dionaea"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Forbidden Droplet"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrip Garden"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Traptrix Holeutea"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Terrifying Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Trap Hole Nightmare"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Void Trap Hole"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Super Starslayer TY-PHON - Sky Crisis"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Pinguicula"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Abyss Dweller"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Atypus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Traptrix Cularia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Security Dragon"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Traptrix Sera"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a7662c16dee2c66a91e394a",
+    "created": "2026-08-07T22:56:19.749Z",
+    "url": "/king-of-games/august-2026/abc/isracm/uJCDc/",
+    "skill": {
+      "name": "Hyper Cannon Activation"
+    },
+    "deckType": {
+      "name": "ABC"
+    },
+    "main": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "X-Cross Cannon"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "B-Buster Drake"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Heavy Mech Support Armor"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Y-Yare Head"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Torque Tune Gear"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "A-Assault Core"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "C-Crush Wyvern"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Z-Zillion Tank"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Final Bringer of the End Times"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Forbidden Droplet"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Union Activation"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Union Hangar"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Book of Eclipse"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Unauthorized Reactivation"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Union Scramble"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Magic Deflector"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "XYZ-Hyper Dragon Cannon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Herald of the Arc Light"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "F.A. Dawn Dragster"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Cyber Dragon Infinity"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Cyber Dragon Nova"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Tellarknight Ptolemaeus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Platinum Gadget"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Qliphort Genius"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a622d5e8e343adc76425951",
+    "created": "2026-07-23T15:03:47.121Z",
+    "url": "/community-tournaments/suisen-weekly/211/abc/ヒラシャイン/KA9Id/",
+    "skill": {
+      "name": "Hyper Cannon Activation"
+    },
+    "deckType": {
+      "name": "ABC"
+    },
+    "main": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sauravis, the Ancient and Ascended"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "X-Cross Cannon"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "B-Buster Drake"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Heavy Mech Support Armor"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Droll & Lock Bird"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Y-Yare Head"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Torque Tune Gear"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "A-Assault Core"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "C-Crush Wyvern"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Z-Zillion Tank"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Ultimate Slayer"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Forbidden Droplet"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Galaxy Cyclone"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Union Hangar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Book of Eclipse"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Galaxy Journey"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Emblema Oath"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Union Scramble"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Centur-Ion Phalanx"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "XYZ-Hyper Dragon Cannon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Herald of the Arc Light"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Centur-Ion Primera Primus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Number 90: Galaxy-Eyes Photon Lord"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Galaxy Photon Dragon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evilswarm Exciton Knight"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Platinum Gadget"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Knightmare Phoenix"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a2a58c7d2d44ae4bde911bf",
+    "created": "2026-06-11T06:41:01.333Z",
+    "url": "/wcs-dlv.-max/june-2026/abc/a-level/DUM8c/",
+    "skill": {
+      "name": "Hyper Cannon Activation"
+    },
+    "deckType": {
+      "name": "ABC"
+    },
+    "main": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sauravis, the Ancient and Ascended"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "X-Cross Cannon"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "B-Buster Drake"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Heavy Mech Support Armor"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Effect Veiler"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "D.D. Crow"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Y-Yare Head"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Torque Tune Gear"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "A-Assault Core"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "C-Crush Wyvern"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Z-Zillion Tank"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Forbidden Droplet"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Union Hangar"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Galaxy Journey"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Unauthorized Reactivation"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Union Scramble"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "XYZ-Hyper Dragon Cannon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "ABC-Dragon Buster"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Herald of the Arc Light"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Galaxy Photon Dragon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evilswarm Exciton Knight"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Hieratic Seal of the Heavenly Spheres"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Platinum Gadget"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Protector Whelp of the Destruction Swordsman"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a27a20af4d71a240936fafb",
+    "created": "2026-06-09T05:16:02.683Z",
+    "url": "/wcs-dlv.-max/june-2026/abc/ashura/k5kFG/",
+    "skill": {
+      "name": "Hyper Cannon Activation"
+    },
+    "deckType": {
+      "name": "ABC"
+    },
+    "main": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sauravis, the Ancient and Ascended"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "X-Cross Cannon"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "B-Buster Drake"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Heavy Mech Support Armor"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Y-Yare Head"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Torque Tune Gear"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Union Driver"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "A-Assault Core"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "C-Crush Wyvern"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Z-Zillion Tank"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Final Bringer of the End Times"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Forbidden Droplet"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Dark Ruler No More"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Union Hangar"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Soundproofed"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Unauthorized Reactivation"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Union Scramble"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "A-to-Z Energy Load"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "XYZ-Hyper Dragon Cannon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Herald of the Arc Light"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "F.A. Dawn Dragster"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Cyber Dragon Infinity"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Cyber Dragon Nova"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Tellarknight Ptolemaeus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Number 91: Thunder Spark Dragon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Platinum Gadget"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Hip Hoshiningen"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a1b72982482e5cddf51429c",
+    "created": "2026-05-30T23:28:02.734Z",
+    "url": "/king-of-games/may-2026/abc/nero_walker/mtHoo/",
+    "skill": {
+      "name": "Hyper Cannon Activation"
+    },
+    "deckType": {
+      "name": "ABC"
+    },
+    "main": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "X-Cross Cannon"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "B-Buster Drake"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Effect Veiler"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Y-Yare Head"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Torque Tune Gear"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "A-Assault Core"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "C-Crush Wyvern"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Z-Zillion Tank"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Forbidden Droplet"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Dark Ruler No More"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Union Activation"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Union Hangar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Unauthorized Reactivation"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Mask of Restrict"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Union Scramble"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "A-to-Z Energy Load"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "XYZ-Hyper Dragon Cannon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "ABC-Dragon Buster"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "F.A. Dawn Dragster"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Cyber Dragon Infinity"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Cyber Dragon Nova"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Tellarknight Ptolemaeus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Platinum Gadget"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Knightmare Phoenix"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a517dc9bf66774bab8e848e",
+    "created": "2026-07-10T23:17:58.933Z",
+    "url": "/king-of-games/july-2026/spellcasters/yuya-sakaki/1eZU7/",
+    "skill": {
+      "name": "Master Accel Road"
+    },
+    "deckType": {
+      "name": "Spellcasters"
+    },
+    "main": [
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Road Magician"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Sevens Fear Magician"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Road Witch"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Magical Swordsman of Roadstar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Amazing Dealer"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Straynge Witch"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Swordsman of Roadstar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Wonder Fusion"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Pot of Greed"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Magical Stream"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Fusion"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Widespread Ruin"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Shiny Shady"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Road Ultima Witch"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Master of the Sevens Road"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Sevens Paladin"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Roadstar Gladimagia"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Sevens Road Charmy Witch"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a4d697f6ef9bbeb9990e8ea",
+    "created": "2026-07-07T21:01:57.768Z",
+    "url": "/community-tournaments/rush-duel-links-weekly/72/spellcasters/ghrian(happyryax)/j2suv/",
+    "skill": {
+      "name": "Master Accel Road"
+    },
+    "deckType": {
+      "name": "Spellcasters"
+    },
+    "main": [
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Road Magician"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Fear Magician"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Road Witch"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Magical Swordsman of Roadstar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Straynge Witch"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Mystic Dealer"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Luster Dragon"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Swordsman of Roadstar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Straynge Cat"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Pot of Greed"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Magical Stream"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Talismanic Seal Array"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Fusion"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Star Protector's Protection"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Trap Hole"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Master of the Sevens Road"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Paladin"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Roadstar Gladimagia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Road Charmy Witch"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Straynge Clowder"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a4813e5970a0ed9984b4ca3",
+    "created": "2026-07-03T19:56:12.542Z",
+    "url": "/community-tournaments/rush-duel-dynasty/44/spellcasters/soliman/Xbsyb/",
+    "skill": {
+      "name": "Master Accel Road"
+    },
+    "deckType": {
+      "name": "Spellcasters"
+    },
+    "main": [
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Road Magician"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Road Witch"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Amazing Dealer"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Straynge Witch"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Swordsman of Roadstar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Wonder Fusion"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Pot of Greed"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Magical Stream"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Curse of the Rising Light"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Fusion"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Star Protector's Protection"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Widespread Ruin"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Shiny Shady"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Road Ultima Witch"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Master of the Sevens Road"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Sevens Paladin"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Roadstar Gladimagia"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Sevens Road Charmy Witch"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a473db6e427fb1641761f8c",
+    "created": "2026-07-03T04:41:26.255Z",
+    "url": "/king-of-games/july-2026/spellcasters/ghostbeacon/jCPgc/",
+    "skill": {
+      "name": "Master Accel Road"
+    },
+    "deckType": {
+      "name": "Spellcasters"
+    },
+    "main": [
+      {
+        "amount": 2,
+        "card": {
+          "name": "Sevens Road Magician"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Road Magician"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Fear Magician"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Road Witch"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Sevens Road Witch"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Magical Swordsman of Roadstar"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Amazing Dealer"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Straynge Witch"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Luster Dragon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Bombing Bird"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Swordsman of Roadstar"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Wonder Fusion"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Pot of Greed"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Magical Stream"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Fusion"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Star Protector's Protection"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Road Ultima Witch"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Master of the Sevens Road"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Sevens Paladin"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Roadstar Gladimagia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Sevens Road Charmy Witch"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a7cdf2b3ce32b79601d4fc2",
+    "created": "2026-08-12T21:01:01.645Z",
+    "url": "/king-of-games/august-2026/dinos/eli-)/r96hw/",
+    "skill": {
+      "name": "Power Engraved in Ancient Memories"
+    },
+    "deckType": {
+      "name": "Dinos"
+    },
+    "main": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Transcendosaurus Meteorus"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Ultimate Conductor Tyranno"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Souleating Oviraptor"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Miscellaneousaurus"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Xeno Meteorus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evolsaur Lios"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Animadorned Archosaur"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Petiteranodon"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Babycerasaurus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evoltile Megachirella"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Fire Opal Head"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Fossil Dig"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Forbidden Droplet"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Double Evolution Pill"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Ground Xeno"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Book of Eclipse"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evo-Singularity"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Abyss Dweller"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evolzar Lars"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evolzar Dolkka"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Salamangreat Sunlight Wolf"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Promethean Princess, Bestower of Flames"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Gaia Saber, the Lightning Shadow"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Moon of the Closed Heaven"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Knightmare Phoenix"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "6a777a696f83ae2764dd5d75",
+    "created": "2026-08-08T18:49:56.944Z",
+    "url": "/community-tournaments/pro-arab-tournament/13/dinos/léon-cord/JnRdw/",
+    "skill": {
+      "name": "Precious Cards of the Dark"
+    },
+    "deckType": {
+      "name": "Dinos"
+    },
+    "main": [
+      {
+        "amount": 2,
+        "card": {
+          "name": "Ultimate Conductor Tyranno"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Dogoran, the Mad Flame Kaiju"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Souleating Oviraptor"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Miscellaneousaurus"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Giant Rex"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Effect Veiler"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Overtex Qoatlus"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Animadorned Archosaur"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Babycerasaurus"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Fossil Dig"
+        }
+      },
+      {
+        "amount": 2,
+        "card": {
+          "name": "Double Evolution Pill"
+        }
+      },
+      {
+        "amount": 3,
+        "card": {
+          "name": "Book of Eclipse"
+        }
+      }
+    ],
+    "extra": [
+      {
+        "amount": 1,
+        "card": {
+          "name": "Abyss Dweller"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evolzar Dolkka"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Evolzar Laggia"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Decode Talker Heatsoul"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Linkuriboh"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Underworld Goddess of the Closed World"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "S-Force Justify"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Knightmare Phoenix"
+        }
+      },
+      {
+        "amount": 1,
+        "card": {
+          "name": "Security Dragon"
+        }
+      }
+    ]
+  }
+]

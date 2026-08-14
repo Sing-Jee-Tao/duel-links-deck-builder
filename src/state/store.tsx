@@ -15,9 +15,17 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { banlist, loadCardPool, resetCardPool, templates, type CardPool } from "../data/index.ts";
+import {
+  banlist,
+  loadAppData,
+  resetAppData,
+  type AppData,
+  type CardPool,
+  type SynergyIndex,
+} from "../data/index.ts";
+import type { DeckTemplate } from "../data/types.ts";
 import { normalizeName } from "../engine/banlist-index.ts";
-import { buildBest } from "../engine/build.ts";
+import { buildDecks } from "../engine/build.ts";
 import { DEFAULT_CONFIG, type BuildConfig, type BuildResult, type OwnedCounts } from "../engine/types.ts";
 import {
   DEFAULT_PROFILE,
@@ -36,6 +44,22 @@ export type Quantity = 0 | 1 | 2 | 3;
 const SAVE_DEBOUNCE_MS = 600;
 export const EXPORT_FORMAT = "deck-ledger-collection";
 
+/** Stable identities, so a null-data render does not invalidate every consumer. */
+const EMPTY_TEMPLATES: DeckTemplate[] = [];
+const EMPTY_SYNERGY: SynergyIndex = new Map();
+const EMPTY_BUILDS: BuildResult[] = [];
+
+/**
+ * The id a deck is addressed by in the UI. A templated deck is its template; a
+ * deck the solver assembled from the collection alone has no template, so it
+ * gets a reserved id.
+ */
+export const SYNTHESIZED_BUILD_ID = "your-collection";
+
+export function buildId(result: BuildResult): string {
+  return result.template?.id ?? SYNTHESIZED_BUILD_ID;
+}
+
 export interface CollectionExport {
   format: typeof EXPORT_FORMAT;
   version: 1;
@@ -49,6 +73,12 @@ interface StoreValue {
   error: string | null;
   retry: () => void;
   pool: CardPool | null;
+  /** Hand-authored and corpus-derived templates together, ranked. */
+  templates: DeckTemplate[];
+  synergy: SynergyIndex;
+  /** Provenance for the derived templates, shown on the Strategy screen. */
+  decksFetchedAt: string | null;
+  corpusDeckCount: number;
 
   /** card id → copies owned (1–3; absent means 0). */
   collection: ReadonlyMap<number, number>;
@@ -66,7 +96,12 @@ interface StoreValue {
   config: BuildConfig;
   setExtraDeckSize: (size: number) => void;
 
+  /** Every deck the collection supports, strongest first. */
+  builds: BuildResult[];
+  /** The one the screens are currently showing — `builds[0]` unless chosen. */
   build: BuildResult | null;
+  selectedBuildId: string | null;
+  selectBuild: (id: string) => void;
   buildStatus: LoadStatus;
   rebuild: () => void;
 
@@ -85,12 +120,13 @@ export function useStore(): StoreValue {
 export function StoreProvider({ children }: { children: ReactNode }): JSX.Element {
   const [status, setStatus] = useState<LoadStatus>("loading");
   const [error, setError] = useState<string | null>(null);
-  const [pool, setPool] = useState<CardPool | null>(null);
+  const [data, setData] = useState<AppData | null>(null);
   const [collection, setCollection] = useState<ReadonlyMap<number, number>>(new Map());
   const [profile, setProfile] = useState<Profile>(DEFAULT_PROFILE);
   const [saveState, setSaveState] = useState<StoreValue["saveState"]>("idle");
   const [savedAt, setSavedAt] = useState<string | null>(null);
-  const [build, setBuild] = useState<BuildResult | null>(null);
+  const [builds, setBuilds] = useState<BuildResult[]>(EMPTY_BUILDS);
+  const [selectedBuildId, setSelectedBuildId] = useState<string | null>(null);
   const [buildStatus, setBuildStatus] = useState<LoadStatus>("loading");
   const [buildNonce, setBuildNonce] = useState(0);
   const [loadNonce, setLoadNonce] = useState(0);
@@ -106,11 +142,11 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
     setError(null);
 
     Promise.all([
-      loadCardPool(),
+      loadAppData(),
       readCollection().catch(() => [] as StoredCard[]),
       readProfile().catch(() => DEFAULT_PROFILE),
     ])
-      .then(([loadedPool, storedCards, storedProfile]) => {
+      .then(([loaded, storedCards, storedProfile]) => {
         if (cancelled) return;
         const map = new Map<number, number>();
         for (const row of storedCards) {
@@ -119,7 +155,7 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
           map.set(row.id, Math.min(MAX_COPIES, Math.max(0, row.copies)));
           names.current.set(row.id, row.name);
         }
-        setPool(loadedPool);
+        setData(loaded);
         setCollection(map);
         setProfile(storedProfile);
         setSavedAt(storedProfile.savedAt || null);
@@ -138,9 +174,11 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
   }, [loadNonce]);
 
   const retry = useCallback(() => {
-    resetCardPool();
+    resetAppData();
     setLoadNonce((n) => n + 1);
   }, []);
+
+  const pool = data?.pool ?? null;
 
   // --- debounced persist ---------------------------------------------------
   const flush = useCallback(
@@ -230,7 +268,7 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
   // Kept off the click that triggers it: the loading state in the Build screen
   // is real, not decorative, on a large collection.
   useEffect(() => {
-    if (!pool) {
+    if (!data) {
       setBuildStatus("loading");
       return;
     }
@@ -238,9 +276,21 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
     let cancelled = false;
     const handle = setTimeout(() => {
       try {
-        const result = buildBest({ owned: ownedByName, templates, banlist, cards: pool.index, config });
+        const results = buildDecks({
+          owned: ownedByName,
+          templates: data.templates,
+          banlist,
+          cards: data.pool.index,
+          synergy: data.synergy,
+          config,
+        });
         if (!cancelled) {
-          setBuild(result);
+          setBuilds(results);
+          // Keep the player on the deck they were reading if it survived the
+          // rebuild; otherwise fall back to the strongest.
+          setSelectedBuildId((previous) =>
+            previous && results.some((r) => buildId(r) === previous) ? previous : null,
+          );
           setBuildStatus("ready");
         }
       } catch {
@@ -251,9 +301,16 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       cancelled = true;
       clearTimeout(handle);
     };
-  }, [ownedByName, pool, config, buildNonce]);
+  }, [ownedByName, data, config, buildNonce]);
 
   const rebuild = useCallback(() => setBuildNonce((n) => n + 1), []);
+
+  const build = useMemo(
+    () => builds.find((r) => buildId(r) === selectedBuildId) ?? builds[0] ?? null,
+    [builds, selectedBuildId],
+  );
+
+  const selectBuild = useCallback((id: string) => setSelectedBuildId(id), []);
 
   // --- export / import -----------------------------------------------------
   const exportCollection = useCallback((): CollectionExport => {
@@ -304,6 +361,10 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       error,
       retry,
       pool,
+      templates: data?.templates ?? EMPTY_TEMPLATES,
+      synergy: data?.synergy ?? EMPTY_SYNERGY,
+      decksFetchedAt: data?.decksFetchedAt ?? null,
+      corpusDeckCount: data?.corpusDeckCount ?? 0,
       collection,
       ownedByName,
       distinctOwned: collection.size,
@@ -316,16 +377,19 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       savedAt,
       config,
       setExtraDeckSize,
+      builds,
       build,
+      selectedBuildId,
+      selectBuild,
       buildStatus,
       rebuild,
       exportCollection,
       importCollection,
     }),
     [
-      status, error, retry, pool, collection, ownedByName, totalCopies, setQuantity, clearCollection,
-      profile, updateProfile, saveState, savedAt, config, setExtraDeckSize, build, buildStatus, rebuild,
-      exportCollection, importCollection,
+      status, error, retry, pool, data, collection, ownedByName, totalCopies, setQuantity, clearCollection,
+      profile, updateProfile, saveState, savedAt, config, setExtraDeckSize, builds, build,
+      selectedBuildId, selectBuild, buildStatus, rebuild, exportCollection, importCollection,
     ],
   );
 

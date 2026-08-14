@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { buildBest, diffDecks, idealDeck, rankTemplates, scoreTemplate } from "./build.ts";
+import {
+  buildBest,
+  buildDecks,
+  diffDecks,
+  DUPLICATE_OVERLAP_PCT,
+  idealDeck,
+  MAX_BUILDS,
+  rankTemplates,
+  scoreTemplate,
+} from "./build.ts";
 import { validateDeck, countCopies } from "./validator.ts";
 import { BanlistIndex } from "./banlist-index.ts";
 import { DEFAULT_CONFIG, type Deck } from "./types.ts";
@@ -193,6 +202,12 @@ describe("buildBest", () => {
     expect(JSON.stringify([...owned.entries()].sort())).toBe(before);
   });
 
+  it("is the strongest of the decks buildDecks returns", () => {
+    const owned = fullCollection();
+    const inputs = { owned, templates: [weakerTemplate, template], banlist, cards, config };
+    expect(buildBest(inputs).template?.id).toBe(buildDecks(inputs)[0]?.template?.id);
+  });
+
   it("prefers a budget-free candidate over one that burns a scarce slot", () => {
     // Both flex candidates are owned. "Solo Slot A" is the first preference but
     // consumes the only Limited 1 slot; the deck should not waste it on a slot
@@ -204,6 +219,84 @@ describe("buildBest", () => {
     const result = buildBest({ owned: fullCollection(), templates: [narrow], banlist, cards, config });
     expect(copiesOf(result.deck, "Free Spell")).toBeGreaterThan(0);
     expect(result.validation.allowance.tiers[0].used).toBeLessThanOrEqual(1);
+  });
+});
+
+describe("buildDecks", () => {
+  const many = (owned: ReturnType<typeof collection>, templates = [template, weakerTemplate]) =>
+    buildDecks({ owned, templates, banlist, cards, config });
+
+  it("returns one finished deck per viable template", () => {
+    const templated = many(fullCollection()).filter((r) => r.template !== null);
+    expect(templated.map((r) => r.template?.id)).toEqual(["test-deck", "weaker-deck"]);
+  });
+
+  it("offers the solver's own deck alongside the templated ones", () => {
+    const results = many(fullCollection());
+    const synthesized = results.filter((r) => r.template === null);
+    expect(synthesized).toHaveLength(1);
+    expect(synthesized[0]?.validation.violations).toEqual([]);
+  });
+
+  it("does not offer the solver's deck twice under two names", () => {
+    // A collection deep in one archetype makes the solver rediscover the deck a
+    // template already describes; only the templated one should survive.
+    const owned = collection({ "Core One": 3, "Core Two": 3, "Core Three": 3, "Filler A": 3, "Filler B": 3 });
+    const results = buildDecks({ owned, templates: [template], banlist, cards, config });
+    const templated = results.find((r) => r.template !== null);
+    const synthesized = results.find((r) => r.template === null);
+    if (synthesized && templated) {
+      expect(diffDecks(templated.deck, synthesized.deck).completionPct).toBeLessThan(DUPLICATE_OVERLAP_PCT);
+    }
+  });
+
+  it("orders the decks by power score, strongest first", () => {
+    const scores = many(fullCollection()).map((r) => r.powerScore);
+    expect(scores).toEqual([...scores].sort((a, b) => b - a));
+  });
+
+  it("gives every deck a full main deck and no violations", () => {
+    for (const result of many(fullCollection())) {
+      expect(result.validation.violations.map((v) => v.message)).toEqual([]);
+      expect(result.mainCount).toBeGreaterThanOrEqual(config.minMain);
+    }
+  });
+
+  it("leaves out templates the collection cannot touch at all", () => {
+    // Every card this template names is unowned, so it scores zero and is not
+    // worth offering as a build.
+    const unowned: typeof template = {
+      ...template,
+      id: "unowned-deck",
+      name: "Unowned Deck",
+      coreCards: [{ name: "Trio Slot B", copies: 3 }],
+      flexSlots: [{ role: "removal", count: 20, candidates: ["Solo Slot B"] }],
+      extraDeck: [],
+    };
+    const owned = collection({ "Core One": 3, "Core Two": 3, "Core Three": 3, "Filler A": 3, "Filler B": 3 });
+    const results = buildDecks({ owned, templates: [template, unowned], banlist, cards, config });
+    expect(results.length).toBeGreaterThan(0);
+    expect(results.every((r) => r.template?.id !== "unowned-deck")).toBe(true);
+  });
+
+  it("never builds more templates than the limit", () => {
+    const templates = Array.from({ length: MAX_BUILDS + 4 }, (_, i) => ({ ...template, id: `t${i}`, name: `T${i}` }));
+    const results = many(fullCollection(), templates);
+    expect(results.filter((r) => r.template !== null).length).toBeLessThanOrEqual(MAX_BUILDS);
+    // Plus at most the one deck the solver assembles without a template.
+    expect(results.length).toBeLessThanOrEqual(MAX_BUILDS + 1);
+  });
+
+  it("still returns something for a collection that matches nothing", () => {
+    const results = many(collection({}));
+    expect(results).toHaveLength(1);
+    expect(results[0]?.template).toBeNull();
+    expect(results[0]?.reason).toMatch(/Nothing to build with yet/);
+  });
+
+  it("carries the same ranked candidate list on every deck", () => {
+    const results = many(fullCollection());
+    for (const result of results) expect(result.candidates).toHaveLength(2);
   });
 });
 

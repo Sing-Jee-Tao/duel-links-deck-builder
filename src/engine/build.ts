@@ -9,6 +9,8 @@
  */
 import type { DeckTemplate } from "../data/types.ts";
 import { BanlistIndex, normalizeName } from "./banlist-index.ts";
+import { DeckBuilder } from "./deck-builder.ts";
+import { synthesizeDeck } from "./synthesize.ts";
 import { countCopies, validateDeck } from "./validator.ts";
 import {
   type BuildConfig,
@@ -20,8 +22,11 @@ import {
   type DeckEntry,
   type DiffEntry,
   type OwnedCounts,
+  type SynergyIndex,
   type TemplateScore,
 } from "./types.ts";
+
+export { DeckBuilder };
 
 /** Core cards weigh this much more than flex slots when scoring completion. */
 export const CORE_WEIGHT = 5;
@@ -74,73 +79,6 @@ export function rankTemplates(templates: DeckTemplate[], owned: OwnedCounts): Te
   return templates
     .map((t) => scoreTemplate(t, owned))
     .sort((a, b) => b.rank - a.rank || b.completion - a.completion || a.template.name.localeCompare(b.template.name));
-}
-
-/** A deck under construction, keyed by normalized name so copies merge. */
-class DeckBuilder {
-  private readonly main = new Map<string, DeckEntry>();
-  private readonly extra = new Map<string, DeckEntry>();
-
-  constructor(
-    private readonly index: BanlistIndex,
-    private readonly cards: CardIndex,
-    private readonly config: BuildConfig,
-  ) {}
-
-  snapshot(): Deck {
-    return {
-      main: [...this.main.values()].map((e) => ({ ...e })),
-      extra: [...this.extra.values()].map((e) => ({ ...e })),
-    };
-  }
-
-  copiesOf(name: string): number {
-    const key = normalizeName(name);
-    return (this.main.get(key)?.copies ?? 0) + (this.extra.get(key)?.copies ?? 0);
-  }
-
-  mainCount(): number {
-    return countCopies([...this.main.values()]);
-  }
-
-  private target(name: string): Map<string, DeckEntry> {
-    return this.cards.get(normalizeName(name))?.isExtraDeck ? this.extra : this.main;
-  }
-
-  /**
-   * Adds `copies` of `name` only if the deck stays legal apart from being under
-   * the minimum size — which is expected mid-build and fixed by padding later.
-   * Returns how many copies were actually added.
-   */
-  tryAdd(name: string, copies: number): number {
-    let added = 0;
-    for (let i = 0; i < copies; i += 1) {
-      if (!this.addOne(name)) break;
-      added += 1;
-    }
-    return added;
-  }
-
-  private addOne(name: string): boolean {
-    const key = normalizeName(name);
-    const bucket = this.target(name);
-    const existing = bucket.get(key);
-    const before = existing?.copies ?? 0;
-    bucket.set(key, { name: existing?.name ?? name, copies: before + 1 });
-
-    const result = validateDeck(this.snapshot(), this.index, this.config);
-    // Being short of the minimum is the normal mid-build state; anything else
-    // means this copy is not legal and must be rolled back.
-    const blocking = result.violations.filter(
-      (v) => !(v.code === "main-deck-size" && result.mainCount < this.config.minMain),
-    );
-    if (blocking.length > 0) {
-      if (before === 0) bucket.delete(key);
-      else bucket.set(key, { name: existing?.name ?? name, copies: before });
-      return false;
-    }
-    return true;
-  }
 }
 
 /**
@@ -274,36 +212,25 @@ function pad(
   return builder.snapshot();
 }
 
-export function buildBest(inputs: BuildInputs): BuildResult {
-  const index = new BanlistIndex(inputs.banlist);
-  const ranked = rankTemplates(inputs.templates, inputs.owned);
-  const candidates = ranked.slice(0, 3);
-  const best = ranked[0];
+/** How many decks a build run assembles. */
+export const MAX_BUILDS = 5;
 
-  const emptyDeck: Deck = { main: [], extra: [] };
-  if (!best || best.completion === 0) {
-    const deck = pad(emptyDeck, null, inputs.owned, index, inputs.cards, inputs.config);
-    const validation = validateDeck(deck, index, inputs.config);
-    const built = countCopies(deck.main);
-    return {
-      template: null,
-      deck,
-      mainCount: built,
-      powerScore: 0,
-      validation,
-      partial: true,
-      reason:
-        built === 0
-          ? "Nothing to build with yet — no owned cards match any deck template."
-          : `No template matched your collection. Padded to ${built} cards from what you own.`,
-      candidates,
-    };
-  }
-
-  const assembled = assemble(best.template, inputs.owned, index, inputs.cards, inputs.config);
+/**
+ * Assembles one ranked template into a finished, validated deck.
+ *
+ * Lifted out of `buildBest` so several templates can be built from one
+ * collection without re-deriving the banlist index per deck.
+ */
+export function buildTemplate(
+  score: TemplateScore,
+  inputs: BuildInputs,
+  index: BanlistIndex,
+  candidates: TemplateScore[],
+): BuildResult {
+  const assembled = assemble(score.template, inputs.owned, index, inputs.cards, inputs.config);
   const deck =
     countCopies(assembled.deck.main) < inputs.config.minMain
-      ? pad(assembled.deck, best.template, inputs.owned, index, inputs.cards, inputs.config)
+      ? pad(assembled.deck, score.template, inputs.owned, index, inputs.cards, inputs.config)
       : assembled.deck;
 
   const validation = validateDeck(deck, index, inputs.config);
@@ -320,15 +247,89 @@ export function buildBest(inputs: BuildInputs): BuildResult {
   }
 
   return {
-    template: best.template,
+    template: score.template,
     deck,
     mainCount,
-    powerScore: Math.round(best.template.tierScore * best.completion * 10 * 10) / 10,
+    powerScore: Math.round(score.template.tierScore * score.completion * 10 * 10) / 10,
     validation,
     partial,
     ...(reason ? { reason } : {}),
     candidates,
   };
+}
+
+/** The last resort: a legal pile out of whatever the collection holds. */
+function buildFallback(inputs: BuildInputs, index: BanlistIndex, candidates: TemplateScore[]): BuildResult {
+  const deck = pad({ main: [], extra: [] }, null, inputs.owned, index, inputs.cards, inputs.config);
+  const built = countCopies(deck.main);
+  return {
+    template: null,
+    deck,
+    mainCount: built,
+    powerScore: 0,
+    validation: validateDeck(deck, index, inputs.config),
+    partial: true,
+    reason:
+      built === 0
+        ? "Nothing to build with yet — no owned cards match any deck template."
+        : `No template matched your collection. Padded to ${built} cards from what you own.`,
+    candidates,
+  };
+}
+
+/**
+ * Every deck the collection can legally support, strongest first.
+ *
+ * A collection rarely maps onto exactly one archetype — the same cards usually
+ * support several, at different completions — so the Build screen offers the
+ * top few rather than picking one and hiding the rest. Ordering by power score
+ * preserves the ranking order, since power score is `rank × 10`.
+ */
+const EMPTY_SYNERGY: SynergyIndex = new Map();
+
+/**
+ * At or above this overlap the solver's deck is not a second option, it is the
+ * same deck arrived at twice.
+ */
+export const DUPLICATE_OVERLAP_PCT = 80;
+
+export function buildDecks(inputs: BuildInputs, limit = MAX_BUILDS): BuildResult[] {
+  const index = new BanlistIndex(inputs.banlist);
+  const candidates = rankTemplates(inputs.templates, inputs.owned);
+
+  const results = candidates
+    .filter((score) => score.completion > 0)
+    .slice(0, limit)
+    .map((score) => buildTemplate(score, inputs, index, candidates))
+    // A template that assembles nothing is not an option to offer.
+    .filter((result) => result.mainCount > 0);
+
+  // The deck the collection makes on its own terms. It is the only answer for a
+  // player who owns nothing any template names, and a real alternative for one
+  // who does — so it is offered alongside, not only as a fallback.
+  const synthesized = synthesizeDeck({
+    owned: inputs.owned,
+    cards: inputs.cards,
+    synergy: inputs.synergy ?? EMPTY_SYNERGY,
+    index,
+    config: inputs.config,
+    candidates,
+  });
+  // When the collection is deep in one archetype the solver rediscovers the deck
+  // a template already describes. Offering both is noise, and the templated one
+  // is better informed — it knows the copy counts real lists settled on.
+  const duplicated = results.some(
+    (result) => diffDecks(result.deck, synthesized.deck).completionPct >= DUPLICATE_OVERLAP_PCT,
+  );
+  if (synthesized.mainCount > 0 && !duplicated) results.push(synthesized);
+
+  results.sort((a, b) => b.powerScore - a.powerScore);
+  return results.length > 0 ? results : [buildFallback(inputs, index, candidates)];
+}
+
+/** The single strongest deck. Equivalent to `buildDecks(inputs)[0]`. */
+export function buildBest(inputs: BuildInputs): BuildResult {
+  return buildDecks(inputs)[0] as BuildResult;
 }
 
 /**

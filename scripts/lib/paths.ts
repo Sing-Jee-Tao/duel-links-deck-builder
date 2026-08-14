@@ -27,6 +27,16 @@ export function writeJson(file: string, value: unknown): void {
 }
 
 /**
+ * Writes minified JSON, for files that ship to the browser and that no one
+ * reviews by eye. Indenting the synergy statistics cost 2 MB of whitespace on a
+ * file whose diff is meaningless either way — it is counts, not decisions.
+ */
+export function writeCompactJson(file: string, value: unknown): void {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, `${JSON.stringify(value)}\n`, "utf8");
+}
+
+/**
  * Appends a line to the GitHub Actions step summary when running in CI, so the
  * count diff shows up on the pull request rather than only in the job log.
  */

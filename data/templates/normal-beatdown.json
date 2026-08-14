@@ -2,6 +2,7 @@
   "id": "normal-beatdown",
   "name": "Normal Beatdown",
   "tierScore": 5,
+  "source": "authored",
   "coreCards": [
     { "name": "Alexandrite Dragon", "copies": 3 },
     { "name": "Gemini Elf", "copies": 3 },

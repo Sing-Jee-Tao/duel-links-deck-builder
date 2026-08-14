@@ -120,11 +120,18 @@ describe.each(templates.map((t) => [t.name, t] as const))("template: %s", (_name
   });
 
   it("carries strategy prose for every section the Strategy screen renders", () => {
-    expect(template.strategy.gamePlan.length).toBeGreaterThan(80);
-    expect(template.strategy.openingPriorities.length).toBeGreaterThanOrEqual(2);
-    expect(template.strategy.keyInteractions.length).toBeGreaterThanOrEqual(2);
-    expect(template.strategy.matchups.length).toBeGreaterThanOrEqual(2);
-    for (const m of template.strategy.matchups) {
+    // Only hand-authored templates carry prose; the derived ones in
+    // `data/decks.json` get the data guide instead. Everything under
+    // `data/templates/` is authored by definition, so the prose is required here.
+    expect(template.source).toBe("authored");
+    const strategy = template.strategy;
+    expect(strategy).toBeDefined();
+    if (!strategy) return;
+    expect(strategy.gamePlan.length).toBeGreaterThan(80);
+    expect(strategy.openingPriorities.length).toBeGreaterThanOrEqual(2);
+    expect(strategy.keyInteractions.length).toBeGreaterThanOrEqual(2);
+    expect(strategy.matchups.length).toBeGreaterThanOrEqual(2);
+    for (const m of strategy.matchups) {
       expect(m.notes.length).toBeGreaterThan(20);
       if (m.winRate !== undefined) {
         expect(m.winRate).toBeGreaterThan(0);
@@ -145,7 +152,9 @@ describe("engine against the real pool", () => {
     const result = buildBest({ owned, templates, banlist, cards, config });
     expect(result.validation.violations.map((v) => v.message)).toEqual([]);
     expect(result.template).not.toBeNull();
-    expect(result.candidates.length).toBe(3);
+    // Every template is scored and offered as an upgrade target, not just the
+    // three the screen used to show.
+    expect(result.candidates.length).toBe(templates.length);
   });
 
   it("picks the highest tierScore deck when everything is equally available", () => {
