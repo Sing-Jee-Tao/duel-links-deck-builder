@@ -1,6 +1,6 @@
 import { AllowanceRail } from "../components/Allowance.tsx";
 import { Footer, Masthead, Shell } from "../components/Chrome.tsx";
-import { banlist, templates } from "../data/index.ts";
+import { banlist } from "../data/index.ts";
 import { BanlistIndex } from "../engine/banlist-index.ts";
 import { idealDeck } from "../engine/build.ts";
 import { computeAllowance } from "../engine/validator.ts";
@@ -16,7 +16,7 @@ function effectiveDate(): string {
 }
 
 export function Welcome(): JSX.Element {
-  const { pool, build, config } = useStore();
+  const { pool, build, config, templates } = useStore();
 
   // The peek shows the player's own allowance once they have a build; before
   // that, the strongest template's finished list stands in.

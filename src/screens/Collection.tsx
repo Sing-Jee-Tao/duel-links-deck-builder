@@ -9,6 +9,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AllowanceRail, ALLOWANCE_NOTE } from "../components/Allowance.tsx";
 import { Masthead, ScreenNav, Shell } from "../components/Chrome.tsx";
 import { EmptyState, ErrorNotice, LoadingState } from "../components/States.tsx";
+import { ImportPanel } from "../components/ImportPanel.tsx";
 import { banlist } from "../data/index.ts";
 import { BanlistIndex, normalizeName } from "../engine/banlist-index.ts";
 import { buildSearchIndex, NAME_MATCH_FLOOR, rankCards } from "../engine/search.ts";
@@ -284,6 +285,13 @@ export function Collection(): JSX.Element {
 
       <div className="body">
         <main className="main">
+          {/*
+            Above the search box on purpose: one-at-a-time entry is fine for
+            corrections and hopeless for getting started, so the bulk path comes
+            first for anyone arriving with an empty collection.
+          */}
+          {pool && <ImportPanel cards={pool.cards} />}
+
           <section className="search" data-role="search-region">
             <label className="label" htmlFor="card-search" style={{ display: "block", marginBottom: 6 }}>
               Search pool · {pool ? pool.cards.length.toLocaleString("en-GB") : "—"} cards

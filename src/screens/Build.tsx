@@ -6,15 +6,42 @@ import { AllowanceRail, ALLOWANCE_NOTE } from "../components/Allowance.tsx";
 import { Masthead, ScreenNav, Shell } from "../components/Chrome.tsx";
 import { EmptyState, ErrorNotice, LoadingState } from "../components/States.tsx";
 import { banlist } from "../data/index.ts";
-import type { Card } from "../data/types.ts";
+import { RARITY_ORDER, type Card } from "../data/types.ts";
 import { BanlistIndex, normalizeName } from "../engine/banlist-index.ts";
+import { synthesizedName } from "../engine/synthesize.ts";
 import { countCopies } from "../engine/validator.ts";
-import type { DeckEntry } from "../engine/types.ts";
+import type { BuildResult, DeckEntry } from "../engine/types.ts";
 import { href } from "../state/router.ts";
-import { useStore } from "../state/store.tsx";
+import { buildId, useStore } from "../state/store.tsx";
 import { limitLabel, typeLabel } from "./Collection.tsx";
 
 type Group = "monster" | "spell" | "trap";
+
+/** A deck the solver assembled without a template still needs a name. */
+export function deckName(result: BuildResult): string {
+  return result.template?.name ?? synthesizedName(result);
+}
+
+/**
+ * What stands between this deck and the list it came from, in the unit a Duel
+ * Links player actually thinks in.
+ *
+ * "6 UR SHORT" is actionable — URs are what a box rations. "11 cards short" is
+ * not, because eleven Ns are free and three URs are a month of gems.
+ */
+export function shortfallLabel(result: BuildResult): string {
+  if (result.ready) return "READY";
+  const parts = RARITY_ORDER.filter((rarity) => result.shortfall.byRarity[rarity]).map(
+    (rarity) => `${result.shortfall.byRarity[rarity]} ${rarity}`,
+  );
+  if (parts.length === 0) return result.shortfall.copies > 0 ? `${result.shortfall.copies} SHORT` : "INCOMPLETE";
+  // Two buckets is all that fits, and the scarcest two are the ones that decide.
+  return `${parts.slice(0, 2).join(" · ")} SHORT`;
+}
+
+export function gemLabel(gems: number): string {
+  return gems > 0 ? `${gems.toLocaleString("en-GB")} gems` : "—";
+}
 
 function groupOf(card: Card | undefined): Group {
   if (!card) return "monster";
@@ -49,8 +76,21 @@ function DeckRow({ entry, card, index }: { entry: DeckEntry; card: Card | undefi
 }
 
 export function Build(): JSX.Element {
-  const { status, retry, pool, build, buildStatus, rebuild, config, setExtraDeckSize, totalCopies } = useStore();
+  const {
+    status,
+    retry,
+    pool,
+    builds,
+    build,
+    selectBuild,
+    buildStatus,
+    rebuild,
+    config,
+    setExtraDeckSize,
+    totalCopies,
+  } = useStore();
   const index = useMemo(() => new BanlistIndex(banlist), []);
+  const activeId = build ? buildId(build) : null;
 
   const grouped = useMemo(() => {
     const groups: Record<Group, DeckEntry[]> = { monster: [], spell: [], trap: [] };
@@ -80,6 +120,50 @@ export function Build(): JSX.Element {
       <Masthead />
       <ScreenNav current="build" />
 
+      {/*
+        A collection almost never maps onto one archetype. The engine assembles
+        every deck it legally can and the player picks; the panel below reads
+        from whichever tab is selected.
+      */}
+      {!loading && builds.length > 1 && (
+        <div className="tabs" role="tablist" data-role="deck-switcher">
+          {builds.map((result) => {
+            const id = buildId(result);
+            return (
+              <button
+                className="tab"
+                type="button"
+                role="tab"
+                key={id}
+                data-role="deck-tab"
+                data-deck={id}
+                aria-selected={id === activeId}
+                onClick={() => selectBuild(id)}
+              >
+                <span className="tab__name">{deckName(result)}</span>
+                <span className="tab__meta" data-role="deck-readiness" data-ready={result.ready}>
+                  {shortfallLabel(result)} · {result.powerScore.toFixed(1)}
+                </span>
+              </button>
+            );
+          })}
+          <div
+            className="mono muted"
+            style={{
+              flex: 1,
+              minWidth: 120,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              padding: "0 16px",
+              fontSize: "var(--t-11)",
+            }}
+          >
+            {builds.filter((r) => r.ready).length} READY OF {builds.length}
+          </div>
+        </div>
+      )}
+
       <div
         className="panel"
         style={{ display: "flex", flexWrap: "wrap", gap: "14px 28px", alignItems: "flex-end", padding: "16px 20px" }}
@@ -88,8 +172,19 @@ export function Build(): JSX.Element {
         <div>
           <div className="label">Assembled from your collection</div>
           <h1 className="h1" style={{ marginTop: 6 }} data-role="deck-name">
-            {build?.template?.name ?? "No deck yet"}
+            {build && build.mainCount > 0 ? deckName(build) : "No deck yet"}
           </h1>
+          {/*
+            A Duel Links deck without its Skill is a different deck, so the Skill
+            the corpus actually plays it with belongs beside the name, not buried
+            in a guide.
+          */}
+          {build?.template?.meta?.skill && (
+            <div className="mono muted" style={{ fontSize: "var(--t-11)", marginTop: 6 }} data-role="deck-skill">
+              SKILL · {build.template.meta.skill.name.toUpperCase()} ·{" "}
+              {Math.round(build.template.meta.skill.share * 100)}% OF LISTS
+            </div>
+          )}
         </div>
         <span style={{ flex: 1 }} />
         <div style={{ display: "flex", gap: 22, alignItems: "flex-end" }}>
@@ -136,6 +231,26 @@ export function Build(): JSX.Element {
               The engine needs at least {config.minMain} owned copies.{" "}
               <a href={href("collection")}>Enter your collection.</a>
             </EmptyState>
+          )}
+
+          {/*
+            The score on a synthesized deck is measured differently from a
+            template's, and the deck was assembled by statistics rather than by
+            reading card text. Both are worth saying plainly rather than letting
+            the number imply more than it means.
+          */}
+          {!loading && build && !build.template && build.mainCount > 0 && (
+            <div className="notice" data-role="synthesized-note">
+              <div className="notice__title">Built from your cards alone — no deck list involved</div>
+              <div className="notice__body">
+                {build.archetype
+                  ? `Seeded from the ${build.archetype} cards you own, then grown by `
+                  : "Grown by "}
+                how often real tournament lists play these cards together. Nothing here reads a card's
+                effect text. The score is that measured overlap, so it answers a different question from a
+                template's power score.
+              </div>
+            </div>
           )}
 
           {!loading && build?.partial && build.mainCount > 0 && (
@@ -255,6 +370,36 @@ export function Build(): JSX.Element {
                 </div>
               </div>
             </div>
+
+            {/*
+              The gap to the real list, in the unit that decides whether it is
+              worth chasing. The gem figure is the cost of the WHOLE list per the
+              corpus — there are no per-card gem prices upstream, so splitting it
+              across the missing cards would be a made-up number.
+            */}
+            {build && !build.ready && build.shortfall.copies > 0 && (
+              <div className="panel" data-role="shortfall-panel">
+                <div className="label">To finish this list</div>
+                <div className="stat" style={{ marginTop: 8 }} data-role="shortfall-copies">
+                  {build.shortfall.copies}
+                </div>
+                <div className="stat__label">
+                  copies missing across {build.shortfall.cards} card{build.shortfall.cards === 1 ? "" : "s"}
+                </div>
+                <div style={{ marginTop: 10, display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {RARITY_ORDER.filter((rarity) => build.shortfall.byRarity[rarity]).map((rarity) => (
+                    <span className="chip" key={rarity} data-role="shortfall-rarity" data-rarity={rarity}>
+                      {build.shortfall.byRarity[rarity]} {rarity}
+                    </span>
+                  ))}
+                </div>
+                {build.gemsPrice > 0 && (
+                  <div className="stat__label" style={{ marginTop: 10 }}>
+                    The full list runs about {gemLabel(build.gemsPrice)} built from nothing.
+                  </div>
+                )}
+              </div>
+            )}
 
             {tierWarning && validation?.legal && (
               <div className="notice" data-role="legality-warning">

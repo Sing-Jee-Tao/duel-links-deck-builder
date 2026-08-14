@@ -10,6 +10,7 @@
 import { describe, expect, it } from "vitest";
 import {
   assertPoolSane,
+  attachAcquisition,
   isExtraDeckType,
   isReleased,
   mergePool,
@@ -19,6 +20,7 @@ import {
   type DlmCard,
   type YgoCard,
 } from "./lib/duel-links-pool.ts";
+import type { Card } from "../src/data/types.ts";
 import { broadType, typeLabel } from "../src/screens/Collection.tsx";
 
 const NOW = Date.parse("2026-08-13T00:00:00.000Z");
@@ -110,7 +112,81 @@ describe("projectFromDlm", () => {
   });
 });
 
+describe("attachAcquisition", () => {
+  const card = (name: string): Card => ({
+    id: 1,
+    name,
+    type: "Effect Monster",
+    race: "Warrior",
+    desc: "",
+    isExtraDeck: false,
+  });
+
+  it("copies rarity and the first acquisition source off the duellinksmeta record", () => {
+    const cards = [card("Sphere Kuriboh")];
+    const covered = attachAcquisition(cards, [
+      dlm({
+        name: "Sphere Kuriboh",
+        rarity: "UR",
+        obtain: [
+          { source: { type: "Main Box", name: "Abyss Encounters" } },
+          { source: { type: "Event", name: "Some Campaign" } },
+        ],
+      }),
+    ]);
+    expect(covered).toBe(1);
+    expect(cards[0]?.rarity).toBe("UR");
+    // Only the first source is kept; the rest would bloat cards.json for nothing.
+    expect(cards[0]?.obtainedFrom).toEqual({ type: "Main Box", name: "Abyss Encounters" });
+  });
+
+  it("matches on the folded name, so typography does not break the join", () => {
+    const cards = [card("Battlin' Boxing Cross Counter")];
+    attachAcquisition(cards, [dlm({ name: "Battlin' Boxing Cross Counter", rarity: "SR" })]);
+    expect(cards[0]?.rarity).toBe("SR");
+  });
+
+  it("leaves a card untouched when duellinksmeta has no record of it", () => {
+    const cards = [card("Unknown Card")];
+    expect(attachAcquisition(cards, [dlm({ name: "Something Else", rarity: "UR" })])).toBe(0);
+    expect(cards[0]?.rarity).toBeUndefined();
+    expect(cards[0]?.obtainedFrom).toBeUndefined();
+  });
+
+  it("ignores a rarity outside the four Duel Links grades", () => {
+    const cards = [card("Odd One")];
+    expect(attachAcquisition(cards, [dlm({ name: "Odd One", rarity: "Secret Rare" })])).toBe(0);
+    expect(cards[0]?.rarity).toBeUndefined();
+  });
+
+  it("skips obtain entries that name no source", () => {
+    const cards = [card("Vague")];
+    attachAcquisition(cards, [
+      dlm({ name: "Vague", rarity: "R", obtain: [{ amount: 1 }, { source: { name: "Structure Deck EX" } }] }),
+    ]);
+    expect(cards[0]?.obtainedFrom).toEqual({ type: "Unknown", name: "Structure Deck EX" });
+  });
+});
+
 describe("mergePool", () => {
+  it("carries rarity onto pool cards, including ones with no release date", () => {
+    const flagged = [ygo({ name: "Kept", id: 5, desc: "long enough" })];
+    // "Kept" has no duellinksmeta release, so it is not in the released subset —
+    // but it is still in the pool, and still has a rarity worth showing.
+    const { cards, rarityCovered } = mergePool(flagged, flagged, [], [
+      dlm({ name: "Kept", rarity: "SR", obtain: [{ source: { type: "Mini Box", name: "Voltage Vortex" } }] }),
+    ]);
+    expect(rarityCovered).toBe(1);
+    expect(cards[0]?.rarity).toBe("SR");
+    expect(cards[0]?.obtainedFrom?.name).toBe("Voltage Vortex");
+  });
+
+  it("defaults the acquisition lookup to the released list when none is given", () => {
+    const flagged = [ygo({ name: "Plain", id: 6, desc: "long enough" })];
+    const { rarityCovered } = mergePool(flagged, flagged, [dlm({ name: "Plain", rarity: "N" })]);
+    expect(rarityCovered).toBe(1);
+  });
+
   const whirlwind = dlm({
     name: "Black Feather Whirlwind",
     _id: "62ddd693d4d4b99dbbc9567f",

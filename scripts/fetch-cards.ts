@@ -108,7 +108,14 @@ async function main(): Promise<void> {
   const released = dlmAll.filter((card) => isReleased(card));
   console.log(`duellinksmeta: ${released.length} of ${dlmAll.length} rows are released Speed Duel cards`);
 
-  const { cards, addedFromDlm, unreleasedPerDlm, renamed } = mergePool(duelLinksFlagged, everything, released);
+  // `released` decides membership; `dlmAll` supplies rarity and acquisition data
+  // for every pool card, including the ones kept despite having no release date.
+  const { cards, addedFromDlm, unreleasedPerDlm, renamed, rarityCovered } = mergePool(
+    duelLinksFlagged,
+    everything,
+    released,
+    dlmAll,
+  );
 
   const previous = readJsonIfExists<CardFile>(cardsPath);
   const previousCount = previous?.cards.length ?? 0;
@@ -132,8 +139,12 @@ async function main(): Promise<void> {
   const review = unreleasedPerDlm.map((c) => c.name).sort((a, b) => a.localeCompare(b, "en"));
   const renames = renamed.map((r) => `${r.from} → ${r.to}`).sort((a, b) => a.localeCompare(b, "en"));
 
+  const rarityPct = cards.length === 0 ? 0 : (rarityCovered / cards.length) * 100;
+  const withSource = cards.filter((c) => c.obtainedFrom).length;
+
   console.log(`Cards: ${cards.length} (was ${previousCount}, ${sign}${delta})`);
   console.log(`Extra Deck cards: ${cards.filter((c) => c.isExtraDeck).length}`);
+  console.log(`With rarity: ${rarityCovered} (${rarityPct.toFixed(1)}%); with an acquisition source: ${withSource}`);
   console.log(`Recovered by duellinksmeta (YGOPRODeck did not flag them): ${addedFromDlm.length}`);
   console.log(`Kept but unreleased per duellinksmeta — review: ${review.length}`);
   if (renames.length) console.log(`Took the in-game name (${renames.length}): ${renames.join(", ")}`);
@@ -146,6 +157,7 @@ async function main(): Promise<void> {
       "",
       `- Total: **${cards.length}** (was ${previousCount}, ${sign}${delta})`,
       `- Recovered by duellinksmeta: ${addedFromDlm.length}`,
+      `- Rarity: **${rarityCovered}** (${rarityPct.toFixed(1)}%) · acquisition source: ${withSource}`,
       `- Added: ${added.length}`,
       `- Removed: ${removed.length}`,
       `- Renamed to the in-game name: ${renames.length}`,

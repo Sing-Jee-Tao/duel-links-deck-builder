@@ -9,6 +9,8 @@
  */
 import type { DeckTemplate } from "../data/types.ts";
 import { BanlistIndex, normalizeName } from "./banlist-index.ts";
+import { DeckBuilder } from "./deck-builder.ts";
+import { synthesizeDeck } from "./synthesize.ts";
 import { countCopies, validateDeck } from "./validator.ts";
 import {
   type BuildConfig,
@@ -20,8 +22,13 @@ import {
   type DeckEntry,
   type DiffEntry,
   type OwnedCounts,
+  type Shortfall,
+  type SynergyIndex,
   type TemplateScore,
 } from "./types.ts";
+import type { CardRarity } from "../data/types.ts";
+
+export { DeckBuilder };
 
 /** Core cards weigh this much more than flex slots when scoring completion. */
 export const CORE_WEIGHT = 5;
@@ -74,73 +81,6 @@ export function rankTemplates(templates: DeckTemplate[], owned: OwnedCounts): Te
   return templates
     .map((t) => scoreTemplate(t, owned))
     .sort((a, b) => b.rank - a.rank || b.completion - a.completion || a.template.name.localeCompare(b.template.name));
-}
-
-/** A deck under construction, keyed by normalized name so copies merge. */
-class DeckBuilder {
-  private readonly main = new Map<string, DeckEntry>();
-  private readonly extra = new Map<string, DeckEntry>();
-
-  constructor(
-    private readonly index: BanlistIndex,
-    private readonly cards: CardIndex,
-    private readonly config: BuildConfig,
-  ) {}
-
-  snapshot(): Deck {
-    return {
-      main: [...this.main.values()].map((e) => ({ ...e })),
-      extra: [...this.extra.values()].map((e) => ({ ...e })),
-    };
-  }
-
-  copiesOf(name: string): number {
-    const key = normalizeName(name);
-    return (this.main.get(key)?.copies ?? 0) + (this.extra.get(key)?.copies ?? 0);
-  }
-
-  mainCount(): number {
-    return countCopies([...this.main.values()]);
-  }
-
-  private target(name: string): Map<string, DeckEntry> {
-    return this.cards.get(normalizeName(name))?.isExtraDeck ? this.extra : this.main;
-  }
-
-  /**
-   * Adds `copies` of `name` only if the deck stays legal apart from being under
-   * the minimum size — which is expected mid-build and fixed by padding later.
-   * Returns how many copies were actually added.
-   */
-  tryAdd(name: string, copies: number): number {
-    let added = 0;
-    for (let i = 0; i < copies; i += 1) {
-      if (!this.addOne(name)) break;
-      added += 1;
-    }
-    return added;
-  }
-
-  private addOne(name: string): boolean {
-    const key = normalizeName(name);
-    const bucket = this.target(name);
-    const existing = bucket.get(key);
-    const before = existing?.copies ?? 0;
-    bucket.set(key, { name: existing?.name ?? name, copies: before + 1 });
-
-    const result = validateDeck(this.snapshot(), this.index, this.config);
-    // Being short of the minimum is the normal mid-build state; anything else
-    // means this copy is not legal and must be rolled back.
-    const blocking = result.violations.filter(
-      (v) => !(v.code === "main-deck-size" && result.mainCount < this.config.minMain),
-    );
-    if (blocking.length > 0) {
-      if (before === 0) bucket.delete(key);
-      else bucket.set(key, { name: existing?.name ?? name, copies: before });
-      return false;
-    }
-    return true;
-  }
 }
 
 /**
@@ -274,36 +214,44 @@ function pad(
   return builder.snapshot();
 }
 
-export function buildBest(inputs: BuildInputs): BuildResult {
-  const index = new BanlistIndex(inputs.banlist);
-  const ranked = rankTemplates(inputs.templates, inputs.owned);
-  const candidates = ranked.slice(0, 3);
-  const best = ranked[0];
+/** How many decks a build run assembles. */
+export const MAX_BUILDS = 5;
 
-  const emptyDeck: Deck = { main: [], extra: [] };
-  if (!best || best.completion === 0) {
-    const deck = pad(emptyDeck, null, inputs.owned, index, inputs.cards, inputs.config);
-    const validation = validateDeck(deck, index, inputs.config);
-    const built = countCopies(deck.main);
-    return {
-      template: null,
-      deck,
-      mainCount: built,
-      powerScore: 0,
-      validation,
-      partial: true,
-      reason:
-        built === 0
-          ? "Nothing to build with yet — no owned cards match any deck template."
-          : `No template matched your collection. Padded to ${built} cards from what you own.`,
-      candidates,
-    };
+const EMPTY_SHORTFALL: Shortfall = { byRarity: {}, copies: 0, cards: 0 };
+
+/**
+ * Buckets a diff's missing cards by rarity.
+ *
+ * "Six URs short" is the sentence a Duel Links player can act on; "eleven cards
+ * short" is not, because a box rations URs and hands out Ns freely.
+ */
+export function shortfallOf(missing: DiffEntry[], cards: CardIndex): Shortfall {
+  const byRarity: Partial<Record<CardRarity, number>> = {};
+  let copies = 0;
+  for (const entry of missing) {
+    copies += entry.copies;
+    const rarity = cards.get(normalizeName(entry.name))?.rarity;
+    if (rarity) byRarity[rarity] = (byRarity[rarity] ?? 0) + entry.copies;
   }
+  return { byRarity, copies, cards: missing.length };
+}
 
-  const assembled = assemble(best.template, inputs.owned, index, inputs.cards, inputs.config);
+/**
+ * Assembles one ranked template into a finished, validated deck.
+ *
+ * Lifted out of `buildBest` so several templates can be built from one
+ * collection without re-deriving the banlist index per deck.
+ */
+export function buildTemplate(
+  score: TemplateScore,
+  inputs: BuildInputs,
+  index: BanlistIndex,
+  candidates: TemplateScore[],
+): BuildResult {
+  const assembled = assemble(score.template, inputs.owned, index, inputs.cards, inputs.config);
   const deck =
     countCopies(assembled.deck.main) < inputs.config.minMain
-      ? pad(assembled.deck, best.template, inputs.owned, index, inputs.cards, inputs.config)
+      ? pad(assembled.deck, score.template, inputs.owned, index, inputs.cards, inputs.config)
       : assembled.deck;
 
   const validation = validateDeck(deck, index, inputs.config);
@@ -319,16 +267,104 @@ export function buildBest(inputs: BuildInputs): BuildResult {
       `Every remaining owned card is Forbidden, already at 3 copies, or blocked by a spent Limited allowance.`;
   }
 
+  // The gap against the finished list. Same pair the Upgrade screen runs, done
+  // once here so both screens read one number rather than computing their own.
+  const ideal = idealDeck(score.template, index, inputs.cards, inputs.config);
+  const shortfall = shortfallOf(diffDecks(deck, ideal).toAcquire, inputs.cards);
+
   return {
-    template: best.template,
+    template: score.template,
     deck,
     mainCount,
-    powerScore: Math.round(best.template.tierScore * best.completion * 10 * 10) / 10,
+    powerScore: Math.round(score.template.tierScore * score.completion * 10 * 10) / 10,
+    ready: score.missingCore.length === 0 && !partial,
+    shortfall,
+    gemsPrice: score.template.meta?.gemsPrice ?? 0,
     validation,
     partial,
     ...(reason ? { reason } : {}),
     candidates,
   };
+}
+
+/** The last resort: a legal pile out of whatever the collection holds. */
+function buildFallback(inputs: BuildInputs, index: BanlistIndex, candidates: TemplateScore[]): BuildResult {
+  const deck = pad({ main: [], extra: [] }, null, inputs.owned, index, inputs.cards, inputs.config);
+  const built = countCopies(deck.main);
+  return {
+    template: null,
+    deck,
+    mainCount: built,
+    powerScore: 0,
+    ready: false,
+    shortfall: EMPTY_SHORTFALL,
+    gemsPrice: 0,
+    validation: validateDeck(deck, index, inputs.config),
+    partial: true,
+    reason:
+      built === 0
+        ? "Nothing to build with yet — no owned cards match any deck template."
+        : `No template matched your collection. Padded to ${built} cards from what you own.`,
+    candidates,
+  };
+}
+
+/**
+ * Every deck the collection can legally support, strongest first.
+ *
+ * A collection rarely maps onto exactly one archetype — the same cards usually
+ * support several, at different completions — so the Build screen offers the
+ * top few rather than picking one and hiding the rest. Ordering by power score
+ * preserves the ranking order, since power score is `rank × 10`.
+ */
+const EMPTY_SYNERGY: SynergyIndex = new Map();
+
+/**
+ * At or above this overlap the solver's deck is not a second option, it is the
+ * same deck arrived at twice.
+ */
+export const DUPLICATE_OVERLAP_PCT = 80;
+
+export function buildDecks(inputs: BuildInputs, limit = MAX_BUILDS): BuildResult[] {
+  const index = new BanlistIndex(inputs.banlist);
+  const candidates = rankTemplates(inputs.templates, inputs.owned);
+
+  const results = candidates
+    .filter((score) => score.completion > 0)
+    .slice(0, limit)
+    .map((score) => buildTemplate(score, inputs, index, candidates))
+    // A template that assembles nothing is not an option to offer.
+    .filter((result) => result.mainCount > 0);
+
+  // The deck the collection makes on its own terms. It is the only answer for a
+  // player who owns nothing any template names, and a real alternative for one
+  // who does — so it is offered alongside, not only as a fallback.
+  const synthesized = synthesizeDeck({
+    owned: inputs.owned,
+    cards: inputs.cards,
+    synergy: inputs.synergy ?? EMPTY_SYNERGY,
+    index,
+    config: inputs.config,
+    candidates,
+  });
+  // When the collection is deep in one archetype the solver rediscovers the deck
+  // a template already describes. Offering both is noise, and the templated one
+  // is better informed — it knows the copy counts real lists settled on.
+  const duplicated = results.some(
+    (result) => diffDecks(result.deck, synthesized.deck).completionPct >= DUPLICATE_OVERLAP_PCT,
+  );
+  if (synthesized.mainCount > 0 && !duplicated) results.push(synthesized);
+
+  // Playable first, then strongest. This is the ordering that makes the Build
+  // screen answer "what can I field tonight" rather than "what scores highest",
+  // which is the question duellinksmeta already answers better.
+  results.sort((a, b) => Number(b.ready) - Number(a.ready) || b.powerScore - a.powerScore);
+  return results.length > 0 ? results : [buildFallback(inputs, index, candidates)];
+}
+
+/** The single strongest deck. Equivalent to `buildDecks(inputs)[0]`. */
+export function buildBest(inputs: BuildInputs): BuildResult {
+  return buildDecks(inputs)[0] as BuildResult;
 }
 
 /**
@@ -408,5 +444,20 @@ export function idealDeck(template: DeckTemplate, index: BanlistIndex, cards: Ca
       if (room > 0) filled += builder.tryAdd(name, room);
     }
   }
+
+  // The pooled Limited budgets can block a copy the template asked for — three
+  // Tachyon cards drawing on one shared allowance, say — leaving the target list
+  // a card or two under the legal minimum. Top it back up from the template's
+  // own candidates so the list a player is aiming at is a deck they could
+  // actually sit down with.
+  if (countCopies(builder.snapshot().main) < config.minMain) {
+    for (const name of template.flexSlots.flatMap((slot) => slot.candidates)) {
+      if (countCopies(builder.snapshot().main) >= config.minMain) break;
+      const maxCopies = index.maxCopiesIgnoringPool(name, config.maxCopies);
+      const room = maxCopies - builder.copiesOf(name);
+      if (room > 0) builder.tryAdd(name, room);
+    }
+  }
+
   return builder.snapshot();
 }

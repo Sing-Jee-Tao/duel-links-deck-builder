@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Traptrix",
+    "rush": false,
+    "tier": null,
+    "tournamentPower": 5,
+    "deckBreakdown": {
+      "total": 11,
+      "avgMainSize": 26
+    }
+  },
+  {
+    "name": "ABC",
+    "rush": false,
+    "tier": null,
+    "tournamentPower": 1,
+    "deckBreakdown": {
+      "total": 2,
+      "avgMainSize": 30
+    }
+  },
+  {
+    "name": "Spellcasters",
+    "rush": true,
+    "tier": null,
+    "tournamentPower": 4,
+    "deckBreakdown": {
+      "total": 4,
+      "avgMainSize": 30
+    }
+  },
+  {
+    "name": "Dinos",
+    "rush": false,
+    "tier": null,
+    "tournamentPower": 1.5,
+    "deckBreakdown": {
+      "total": 6,
+      "avgMainSize": 29
+    }
+  }
+]

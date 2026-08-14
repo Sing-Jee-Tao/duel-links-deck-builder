@@ -4,7 +4,6 @@ import fs from "node:fs";
 
 export const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
 export const dataDir = path.join(repoRoot, "data");
-export const templatesDir = path.join(dataDir, "templates");
 export const fixturesDir = path.join(repoRoot, "scripts", "__fixtures__");
 
 export const cardsPath = path.join(dataDir, "cards.json");
@@ -24,6 +23,16 @@ export function readJsonIfExists<T>(file: string): T | null {
 export function writeJson(file: string, value: unknown): void {
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+/**
+ * Writes minified JSON, for files that ship to the browser and that no one
+ * reviews by eye. Indenting the synergy statistics cost 2 MB of whitespace on a
+ * file whose diff is meaningless either way — it is counts, not decisions.
+ */
+export function writeCompactJson(file: string, value: unknown): void {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, `${JSON.stringify(value)}\n`, "utf8");
 }
 
 /**
