@@ -37,10 +37,89 @@ export interface Card {
   rarity?: CardRarity;
   /**
    * Where the card primarily comes from, e.g. `{ type: "Main Box", name: "Abyss
-   * Encounters" }`. Only the first source is kept: cards list several and the
-   * extra ones add megabytes to `cards.json` without changing any decision.
+   * Encounters" }` — the first route upstream lists, kept as the headline for
+   * every screen that has room for exactly one source. `routes` carries the
+   * rest; this stays because it is what the collection and upgrade rows read.
    */
   obtainedFrom?: { type: string; name: string };
+  /**
+   * EVERY way the card can be got, not just the headline one.
+   *
+   * This used to be truncated to the first entry on the grounds that the extra
+   * ones would bloat `cards.json` without changing a decision. Both halves of
+   * that turned out to be wrong. 57.7% of released cards have more than one
+   * route and 2,916 of them — including 674 URs — are obtainable without ever
+   * opening a box, so the truncated field was hiding the cheapest path to more
+   * than half the pool. And the full array costs ~220 kB gzipped, against the
+   * ~980 kB the pool already ships.
+   *
+   * `amount` is what makes a gem cost computable rather than invented: it is
+   * how many copies of this card sit in that box, and a box is a fixed pile.
+   */
+  routes?: AcquisitionRoute[];
+}
+
+/**
+ * One way to get a card.
+ *
+ * `kind` is what decides how it is priced, so it is deliberately coarse:
+ * a `set` is a random pull and costs gems in expectation, while a `character`
+ * or `other` route costs time instead and must never be priced in gems.
+ */
+export interface AcquisitionRoute {
+  kind: "set" | "character" | "other";
+  /** "Main Box", "Mini Box", "Structure Deck" … for sets; absent otherwise. */
+  setType?: string;
+  /** "Abyss Encounters", "Yugi Muto", "Ranked Duels Ticket". */
+  name: string;
+  /** "Level 10", "Drop" — how a character route unlocks. */
+  detail?: string;
+  /** Copies of this card in that box. Only meaningful when `kind` is "set". */
+  amount?: number;
+}
+
+/**
+ * A box, as `data/sets.json` records it.
+ *
+ * A Duel Links box is a fixed pile of cards drawn without replacement, three to
+ * a pack, so `copies` and the per-card `amount` are together enough to compute
+ * how many packs a given pull takes. Every Main Box comes back a clean multiple
+ * of three (600 copies = 200 packs), which is the check the pipeline enforces.
+ */
+export interface BoxSet {
+  /** "Main Box", "Mini Box", "Selection Box", "Structure Deck" … */
+  type: string;
+  name: string;
+  /** ISO 8601, where duellinksmeta states one. */
+  release?: string;
+  /** Distinct cards in the box. */
+  cards: number;
+  /** Total card copies in the box — the size of the pile you draw from. */
+  copies: number;
+  /**
+   * How many packs empty the box.
+   *
+   * ABSENT MEANS DO NOT PRICE THIS BOX. That is the case either when the box is
+   * not bought pack by pack (a Structure Deck is bought whole) or when the
+   * upstream copy counts are not credible enough to divide — see `suspect`.
+   */
+  packs?: number;
+  /**
+   * Why this box has no `packs`, where the reason is bad data rather than the
+   * box simply not being pack-drawn. Carried so CI can report it and the UI can
+   * say "we cannot price this" instead of quietly showing a wrong number.
+   */
+  suspect?: string;
+  /** Copies by rarity, e.g. `{ UR: 10, SR: 24, R: 192, N: 374 }`. */
+  byRarity: Partial<Record<CardRarity, number>>;
+}
+
+/** `data/sets.json` */
+export interface SetFile {
+  fetchedAt: string;
+  source: string;
+  count: number;
+  sets: BoxSet[];
 }
 
 /** Ultra Rare, Super Rare, Rare, Normal — Duel Links' four rarities. */
@@ -48,6 +127,16 @@ export type CardRarity = "UR" | "SR" | "R" | "N";
 
 /** Rarity order for display and for bucketing a shortfall, scarcest first. */
 export const RARITY_ORDER: CardRarity[] = ["UR", "SR", "R", "N"];
+
+/**
+ * Cards in one pack of a Duel Links box.
+ *
+ * This is a game rule, not a tuning knob, and it is the bridge between the two
+ * units the app has to move between: boxes are measured in copies, players buy
+ * in packs. Every Main Box in the pool divides cleanly by it (600 copies = 200
+ * packs), which is the invariant `deriveSets` asserts.
+ */
+export const CARDS_PER_PACK = 3;
 
 /** `data/cards.json` */
 export interface CardFile {

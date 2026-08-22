@@ -1,0 +1,2774 @@
+{
+  "fetchedAt": "2026-08-22T22:35:41.826Z",
+  "source": "https://www.duellinksmeta.com/api/v1/cards + https://www.duellinksmeta.com/api/v1/sets",
+  "count": 213,
+  "sets": [
+    {
+      "type": "Deck Build Box",
+      "name": "Buster Assault",
+      "cards": 40,
+      "copies": 150,
+      "byRarity": {
+        "R": 48,
+        "N": 86,
+        "SR": 10,
+        "UR": 6
+      }
+    },
+    {
+      "type": "Deck Build Box",
+      "name": "Dragon's Gate",
+      "cards": 40,
+      "copies": 150,
+      "byRarity": {
+        "SR": 10,
+        "N": 78,
+        "R": 56,
+        "UR": 6
+      }
+    },
+    {
+      "type": "Deck Build Box",
+      "name": "Midnight Terror",
+      "cards": 40,
+      "copies": 150,
+      "byRarity": {
+        "R": 48,
+        "N": 86,
+        "UR": 9,
+        "SR": 7
+      }
+    },
+    {
+      "type": "Deck Build Box",
+      "name": "Ritual Territory",
+      "cards": 40,
+      "copies": 150,
+      "byRarity": {
+        "UR": 8,
+        "N": 86,
+        "R": 48,
+        "SR": 8
+      }
+    },
+    {
+      "type": "Deck Build Box",
+      "name": "Wild Spirit",
+      "cards": 40,
+      "copies": 150,
+      "byRarity": {
+        "SR": 10,
+        "N": 78,
+        "R": 56,
+        "UR": 6
+      }
+    },
+    {
+      "type": "Main Box",
+      "name": "Absolute Inferno",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "SR": 22,
+        "R": 168,
+        "N": 341,
+        "UR": 9
+      },
+      "release": "2019-02-20T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Abyss Encounters",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 374,
+        "R": 192,
+        "UR": 10,
+        "SR": 24
+      },
+      "release": "2018-02-20T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Aerial Assault",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "UR": 9,
+        "R": 168,
+        "SR": 22,
+        "N": 341
+      },
+      "release": "2019-11-11T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Anniversary Box Vol. 01",
+      "cards": 125,
+      "copies": 750,
+      "byRarity": {
+        "UR": 38,
+        "R": 264,
+        "SR": 68,
+        "N": 380
+      },
+      "packs": 250
+    },
+    {
+      "type": "Main Box",
+      "name": "Anniversary Box Vol. 02",
+      "cards": 125,
+      "copies": 750,
+      "byRarity": {
+        "UR": 38,
+        "R": 240,
+        "N": 404,
+        "SR": 68
+      },
+      "packs": 250
+    },
+    {
+      "type": "Main Box",
+      "name": "Anniversary Box Vol. 03",
+      "cards": 125,
+      "copies": 750,
+      "byRarity": {
+        "SR": 69,
+        "R": 246,
+        "N": 392,
+        "UR": 43
+      },
+      "packs": 250
+    },
+    {
+      "type": "Main Box",
+      "name": "Anniversary Box: WCS 2024",
+      "cards": 70,
+      "copies": 450,
+      "byRarity": {
+        "N": 248,
+        "R": 138,
+        "SR": 49,
+        "UR": 15
+      },
+      "packs": 150
+    },
+    {
+      "type": "Main Box",
+      "name": "Anniversary Box: WCS 2025",
+      "cards": 70,
+      "copies": 450,
+      "byRarity": {
+        "UR": 36,
+        "SR": 26,
+        "N": 232,
+        "R": 156
+      },
+      "packs": 150
+    },
+    {
+      "type": "Main Box",
+      "name": "Anniversary Box: WCS 2026",
+      "cards": 125,
+      "copies": 750,
+      "byRarity": {
+        "N": 404,
+        "R": 240,
+        "SR": 66,
+        "UR": 40
+      },
+      "packs": 250
+    },
+    {
+      "type": "Main Box",
+      "name": "Antinomic Theory",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "UR": 9,
+        "SR": 22
+      },
+      "release": "2021-02-28T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Blackstorm Rising",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "UR": 9,
+        "R": 168,
+        "SR": 22
+      },
+      "release": "2018-11-12T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Blazing Rose",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "UR": 9,
+        "SR": 22
+      },
+      "release": "2019-05-21T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Borrelsword Slash",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Braver Victory",
+      "cards": 90,
+      "copies": 533,
+      "byRarity": {
+        "UR": 9,
+        "SR": 22,
+        "N": 334,
+        "R": 168
+      },
+      "packs": 178
+    },
+    {
+      "type": "Main Box",
+      "name": "Burning Nova",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "R": 192,
+        "N": 374,
+        "UR": 10,
+        "SR": 24
+      },
+      "release": "2018-07-09T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Chaos Voltage",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Chaotic Compliance",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 374,
+        "R": 192,
+        "UR": 10,
+        "SR": 24
+      },
+      "release": "2017-04-12T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Chaotic Soldiers",
+      "cards": 90,
+      "copies": 535,
+      "byRarity": {
+        "UR": 9,
+        "N": 336,
+        "R": 168,
+        "SR": 22
+      },
+      "packs": 178
+    },
+    {
+      "type": "Main Box",
+      "name": "Crimson Kingdom",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 374,
+        "R": 192,
+        "UR": 10,
+        "SR": 24
+      },
+      "release": "2017-06-13T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Cross Dimension",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "UR": 9,
+        "SR": 22,
+        "R": 168,
+        "N": 341
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Crusaders' Battlegrounds",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 372,
+        "R": 194,
+        "SR": 24,
+        "UR": 10
+      },
+      "release": "2018-05-21T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Cybernetic Rebellion",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "release": "2019-07-12T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Dark Dimension",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "UR": 9,
+        "SR": 22
+      },
+      "release": "2019-09-26T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Darkness Gimmick",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "UR": 9,
+        "SR": 22
+      },
+      "release": "2021-06-30T15:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Deep Emotion",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Destroyer Phoenix",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Electric Overload",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 374,
+        "UR": 10,
+        "R": 192,
+        "SR": 24
+      },
+      "release": "2017-07-31T07:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Eternal Stream",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "release": "2021-04-30T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Fantastic Arc",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "UR": 9,
+        "SR": 22
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Future Circuit",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "UR": 9,
+        "R": 168,
+        "SR": 22
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Future Horizon",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "UR": 9,
+        "SR": 22
+      },
+      "release": "2019-12-31T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Gaia Genesis",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "release": "2018-08-27T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Galactic Origin",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "R": 192,
+        "N": 374,
+        "UR": 10,
+        "SR": 24
+      },
+      "release": "2017-11-07T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Generation Next",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "R": 192,
+        "SR": 24,
+        "N": 374,
+        "UR": 10
+      },
+      "release": "2017-09-22T02:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Infernity Destruction",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "release": "2020-07-31T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Infinite Ray",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "UR": 9,
+        "R": 168,
+        "SR": 22
+      },
+      "release": "2020-12-31T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Judgement Force",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "UR": 9,
+        "R": 168,
+        "SR": 22
+      },
+      "release": "2020-02-29T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Link Revolution",
+      "cards": 89,
+      "copies": 532,
+      "byRarity": {
+        "R": 168,
+        "UR": 9,
+        "N": 333,
+        "SR": 22
+      },
+      "packs": 177
+    },
+    {
+      "type": "Main Box",
+      "name": "Majestic Magic",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Maximum Gustav",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "UR": 9,
+        "SR": 22
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Millennium Duel",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "UR": 9,
+        "SR": 22
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Neo-Impact",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 374,
+        "R": 192,
+        "UR": 10,
+        "SR": 24
+      },
+      "release": "2016-12-28T05:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Pendulum Genesis",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Phoenix Blaze",
+      "cards": 89,
+      "copies": 534,
+      "byRarity": {
+        "N": 341,
+        "R": 162,
+        "UR": 9,
+        "SR": 22
+      },
+      "packs": 178
+    },
+    {
+      "type": "Main Box",
+      "name": "Primal Burst",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 374,
+        "R": 192,
+        "SR": 24,
+        "UR": 10
+      },
+      "release": "2017-12-31T15:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Raider's Requiem",
+      "cards": 90,
+      "copies": 539,
+      "byRarity": {
+        "R": 168,
+        "N": 340,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Rainbow Overdrive",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "UR": 9,
+        "SR": 22
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Red Supernova",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Revolution Beginning",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "UR": 9,
+        "R": 168,
+        "SR": 22
+      },
+      "release": "2018-12-31T15:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Savage Shot",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Scarred Resonance",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Shadow Eyes",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Shark Fang",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "SR": 22,
+        "R": 168,
+        "UR": 9
+      },
+      "release": "2020-11-08T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Shining Hope",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "UR": 9,
+        "SR": 22
+      },
+      "release": "2020-09-29T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Shining Sunrise",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "UR": 9,
+        "SR": 22,
+        "N": 341
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Solflare Lightning",
+      "cards": 89,
+      "copies": 534,
+      "byRarity": {
+        "R": 162,
+        "SR": 22,
+        "N": 341,
+        "UR": 9
+      },
+      "packs": 178
+    },
+    {
+      "type": "Main Box",
+      "name": "Stardust Acceleration",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "release": "2018-09-25T07:30:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Starving Venom",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Striker Expansion",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "R": 168,
+        "UR": 9,
+        "SR": 22
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "The Ultimate Chaos",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "SR": 22,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "The Ultimate Rising",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "SR": 24,
+        "N": 374,
+        "UR": 10,
+        "R": 192
+      },
+      "release": "2016-10-27T05:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Truth Universe",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "UR": 9,
+        "SR": 22,
+        "R": 168
+      },
+      "release": "2020-04-30T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Valhalla Calling",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "N": 341,
+        "UR": 9,
+        "SR": 22,
+        "R": 168
+      },
+      "release": "2019-08-31T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Valiant Souls",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "N": 374,
+        "R": 192,
+        "SR": 24,
+        "UR": 10
+      },
+      "release": "2018-04-03T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Valkyrie's Rage",
+      "cards": 100,
+      "copies": 600,
+      "byRarity": {
+        "SR": 24,
+        "N": 374,
+        "R": 192,
+        "UR": 10
+      },
+      "release": "2017-02-28T00:00:00.000Z",
+      "packs": 200
+    },
+    {
+      "type": "Main Box",
+      "name": "Warriors Unite",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "SR": 22,
+        "UR": 9
+      },
+      "release": "2019-03-31T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Witch's Sorcery",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "SR": 22,
+        "N": 341,
+        "UR": 9
+      },
+      "release": "2020-06-17T00:00:00.000Z",
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Zillion Thunder",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "SR": 22,
+        "N": 341,
+        "UR": 9
+      },
+      "packs": 180
+    },
+    {
+      "type": "Main Box",
+      "name": "Zodiac Destiny",
+      "cards": 90,
+      "copies": 540,
+      "byRarity": {
+        "R": 168,
+        "N": 341,
+        "UR": 9,
+        "SR": 22
+      },
+      "packs": 180
+    },
+    {
+      "type": "Mini Box",
+      "name": "Age of Discovery",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "N": 160,
+        "R": 70,
+        "SR": 8,
+        "UR": 2
+      },
+      "release": "2016-11-16T05:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Arena of Sanctuary",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "SR": 10,
+        "R": 102,
+        "N": 185,
+        "UR": 3
+      },
+      "release": "2020-08-31T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Ark of Seventh",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 140,
+        "N": 147,
+        "UR": 3,
+        "SR": 10
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Arms of Giant",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "N": 185,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Arts of Atlantis",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "SR": 10,
+        "UR": 3,
+        "R": 102
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Blades of Spirits",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "R": 70,
+        "N": 160,
+        "SR": 8,
+        "UR": 2
+      },
+      "release": "2017-12-01T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Chronicle of Glory",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "R": 102,
+        "SR": 10,
+        "UR": 3
+      },
+      "release": "2020-07-13T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Clash of Wings",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "R": 70,
+        "UR": 2,
+        "N": 160,
+        "SR": 8
+      },
+      "release": "2018-06-20T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Curse of Dread",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "SR": 10,
+        "R": 102,
+        "UR": 3
+      },
+      "release": "2019-08-13T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Dawn of Destiny",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "N": 160,
+        "R": 70,
+        "SR": 8,
+        "UR": 2
+      },
+      "release": "2017-07-11T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Destroyer of the Phantasm",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "N": 185,
+        "UR": 3,
+        "SR": 10
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Dimension of the Wizards",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "UR": 3,
+        "SR": 10,
+        "R": 102
+      },
+      "release": "2019-03-12T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Echoes of Silence",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "R": 70,
+        "N": 160,
+        "SR": 8,
+        "UR": 2
+      },
+      "release": "2017-08-31T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Empire of Scarlet",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "SR": 10,
+        "R": 102,
+        "N": 185,
+        "UR": 3
+      },
+      "release": "2018-08-08T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Energy of Gigarays",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "SR": 10,
+        "UR": 3,
+        "N": 185
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Explosion of Meteor",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "R": 102,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Flame of the Tyrant",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "N": 160,
+        "R": 70,
+        "SR": 8,
+        "UR": 2
+      },
+      "release": "2017-02-03T05:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Flames of the Heart",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "SR": 10,
+        "R": 102,
+        "N": 185,
+        "UR": 3
+      },
+      "release": "2020-05-28T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Force of Infinity",
+      "cards": 50,
+      "copies": 301,
+      "byRarity": {
+        "N": 186,
+        "R": 102,
+        "UR": 3,
+        "SR": 10
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Fortress of Gears",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "R": 102,
+        "UR": 3,
+        "SR": 10
+      },
+      "release": "2020-03-24T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Guardians of Rock",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "SR": 10,
+        "UR": 3,
+        "N": 185,
+        "R": 102
+      },
+      "release": "2019-06-19T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Heart of Xyz",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "SR": 10,
+        "N": 185,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "History of the Victor",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 137,
+        "N": 150,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Idea of Armageddon",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "UR": 3,
+        "R": 102,
+        "SR": 10
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Land of the Titans",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "R": 70,
+        "N": 160,
+        "SR": 8,
+        "UR": 2
+      },
+      "release": "2017-05-12T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Lord of Borrel",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "SR": 10,
+        "R": 102,
+        "N": 185,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Lords of Shining",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "SR": 10,
+        "N": 185,
+        "UR": 3
+      },
+      "release": "2019-04-30T15:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Masters of Shadow",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "SR": 10,
+        "R": 102,
+        "UR": 3
+      },
+      "release": "2020-01-31T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Phantom of Rebellion",
+      "cards": 50,
+      "copies": 301,
+      "byRarity": {
+        "R": 102,
+        "N": 186,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Photon of Galaxy",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "UR": 3,
+        "R": 102,
+        "SR": 10
+      },
+      "release": "2021-01-31T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Power of Bravery",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "UR": 3,
+        "SR": 10,
+        "N": 185
+      },
+      "release": "2018-10-23T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Predator of the Abyss",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 173,
+        "R": 114,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "President of Machinex",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "R": 102,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Prime of Stream",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 108,
+        "N": 179,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Pulse of the Quasars",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "SR": 10,
+        "R": 102,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Rage of Volcano",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "SR": 10,
+        "R": 102,
+        "UR": 3
+      },
+      "release": "2020-12-09T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Rampage of the Forest",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "R": 70,
+        "UR": 2,
+        "N": 160,
+        "SR": 8
+      },
+      "release": "2018-03-14T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Ray of Aura",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "R": 102,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Rebirth of Flame",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 167,
+        "R": 120,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Resonance of Contrast",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "N": 160,
+        "R": 70,
+        "SR": 8,
+        "UR": 2
+      },
+      "release": "2018-01-25T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Scream of Resistance",
+      "cards": 50,
+      "copies": 50,
+      "byRarity": {
+        "N": 20,
+        "R": 17,
+        "UR": 3,
+        "SR": 10
+      },
+      "suspect": "50 copies across 50 cards (1.0 each) — too few for a Mini Box, so the upstream copy counts are not real. Not priced."
+    },
+    {
+      "type": "Mini Box",
+      "name": "Secrets of the Ancients",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "UR": 3,
+        "N": 185,
+        "SR": 10
+      },
+      "release": "2018-12-10T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Servants of Kings",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "N": 160,
+        "SR": 8,
+        "UR": 2,
+        "R": 70
+      },
+      "release": "2017-10-18T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Sign of Harpies",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 182,
+        "R": 105,
+        "UR": 3,
+        "SR": 10
+      },
+      "release": "2021-03-31T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Soul of Resurrection",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "SR": 10,
+        "R": 102,
+        "UR": 3
+      },
+      "release": "2019-12-11T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Spirit of the Beast",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "SR": 10,
+        "R": 102,
+        "UR": 3
+      },
+      "release": "2019-10-24T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Stage of Trickstar",
+      "cards": 50,
+      "copies": 295,
+      "byRarity": {
+        "SR": 10,
+        "R": 102,
+        "N": 180,
+        "UR": 3
+      },
+      "packs": 98
+    },
+    {
+      "type": "Mini Box",
+      "name": "Stars of Synchro",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "R": 102,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Tachyon of Galaxy",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "N": 185,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "The End of Dominion",
+      "cards": 50,
+      "copies": 293,
+      "byRarity": {
+        "R": 116,
+        "N": 164,
+        "UR": 3,
+        "SR": 10
+      },
+      "packs": 98
+    },
+    {
+      "type": "Mini Box",
+      "name": "The King of Vermilion",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "SR": 10,
+        "N": 185,
+        "R": 102,
+        "UR": 3
+      },
+      "release": "2021-05-27T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Tornado of Phantoms",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "N": 185,
+        "R": 102,
+        "UR": 3,
+        "SR": 10
+      },
+      "release": "2019-01-25T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Visions of Ice",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "SR": 8,
+        "N": 160,
+        "R": 70,
+        "UR": 2
+      },
+      "release": "2018-05-01T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "Voltage of the Metal",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "N": 185,
+        "SR": 10,
+        "UR": 3
+      },
+      "release": "2020-10-22T00:00:00.000Z",
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Wing of Genesis",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 128,
+        "N": 159,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Wings of Clearness",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "SR": 10,
+        "R": 102,
+        "N": 185,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Mini Box",
+      "name": "Wonders of the Sky",
+      "cards": 40,
+      "copies": 240,
+      "byRarity": {
+        "SR": 8,
+        "N": 160,
+        "R": 70,
+        "UR": 2
+      },
+      "release": "2017-03-17T00:00:00.000Z",
+      "packs": 80
+    },
+    {
+      "type": "Mini Box",
+      "name": "World of Barian",
+      "cards": 50,
+      "copies": 300,
+      "byRarity": {
+        "R": 102,
+        "N": 185,
+        "SR": 10,
+        "UR": 3
+      },
+      "packs": 100
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Actor's Theater",
+      "cards": 40,
+      "copies": 90,
+      "byRarity": {
+        "UR": 8,
+        "N": 32,
+        "SR": 8,
+        "R": 42
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Ancient Records",
+      "cards": 40,
+      "copies": 90,
+      "byRarity": {
+        "R": 50,
+        "SR": 9,
+        "UR": 7,
+        "N": 24
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Chaos Archives",
+      "cards": 40,
+      "copies": 88,
+      "byRarity": {
+        "SR": 11,
+        "R": 42,
+        "N": 30,
+        "UR": 5
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Crossing Darkness",
+      "cards": 40,
+      "copies": 88,
+      "byRarity": {
+        "SR": 10,
+        "UR": 6,
+        "R": 33,
+        "N": 39
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Ghost Reunion",
+      "cards": 40,
+      "copies": 90,
+      "byRarity": {
+        "N": 32,
+        "SR": 10,
+        "UR": 6,
+        "R": 42
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Photon Universe",
+      "cards": 40,
+      "copies": 90,
+      "byRarity": {
+        "R": 36,
+        "N": 38,
+        "SR": 10,
+        "UR": 6
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Progressive Fusion",
+      "cards": 40,
+      "copies": 90,
+      "byRarity": {
+        "UR": 7,
+        "SR": 9,
+        "R": 33,
+        "N": 41
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Ruler's Abyss",
+      "cards": 40,
+      "copies": 90,
+      "byRarity": {
+        "N": 32,
+        "SR": 11,
+        "R": 42,
+        "UR": 5
+      }
+    },
+    {
+      "type": "Pickup Box",
+      "name": "Shooting Riders",
+      "cards": 40,
+      "copies": 90,
+      "byRarity": {
+        "N": 38,
+        "R": 36,
+        "UR": 8,
+        "SR": 8
+      }
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.01",
+      "cards": 120,
+      "copies": 720,
+      "byRarity": {
+        "N": 420,
+        "R": 240,
+        "SR": 44,
+        "UR": 16
+      },
+      "release": "2018-01-11T00:00:00.000Z"
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.02",
+      "cards": 120,
+      "copies": 720,
+      "byRarity": {
+        "N": 420,
+        "R": 240,
+        "UR": 16,
+        "SR": 44
+      },
+      "release": "2019-01-12T00:00:00.000Z"
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.03",
+      "cards": 120,
+      "copies": 720,
+      "byRarity": {
+        "R": 240,
+        "N": 420,
+        "UR": 16,
+        "SR": 44
+      },
+      "release": "2020-01-11T00:00:00.000Z"
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.04",
+      "cards": 120,
+      "copies": 720,
+      "byRarity": {
+        "R": 240,
+        "N": 420,
+        "SR": 44,
+        "UR": 16
+      },
+      "release": "2021-01-11T00:00:00.000Z"
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.05",
+      "cards": 120,
+      "copies": 720,
+      "byRarity": {
+        "R": 240,
+        "UR": 16,
+        "SR": 44,
+        "N": 420
+      }
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.06",
+      "cards": 120,
+      "copies": 720,
+      "byRarity": {
+        "N": 420,
+        "SR": 44,
+        "UR": 16,
+        "R": 240
+      }
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.07",
+      "cards": 119,
+      "copies": 714,
+      "byRarity": {
+        "SR": 44,
+        "N": 420,
+        "UR": 16,
+        "R": 234
+      }
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.08",
+      "cards": 120,
+      "copies": 720,
+      "byRarity": {
+        "R": 240,
+        "UR": 16,
+        "SR": 44,
+        "N": 420
+      }
+    },
+    {
+      "type": "Selection Box",
+      "name": "Selection Box Vol.09",
+      "cards": 114,
+      "copies": 684,
+      "byRarity": {
+        "R": 210,
+        "SR": 44,
+        "N": 414,
+        "UR": 16
+      }
+    },
+    {
+      "type": "Selection Box Mini",
+      "name": "Selection Box Mini Vol. 04",
+      "cards": 62,
+      "copies": 199,
+      "byRarity": {
+        "N": 21,
+        "UR": 8,
+        "R": 144,
+        "SR": 26
+      }
+    },
+    {
+      "type": "Selection Box Mini",
+      "name": "Selection Box Mini Vol. 05",
+      "cards": 63,
+      "copies": 432,
+      "byRarity": {
+        "R": 144,
+        "N": 252,
+        "SR": 28,
+        "UR": 8
+      }
+    },
+    {
+      "type": "Selection Box Mini",
+      "name": "Selection Box Mini Vol.01",
+      "cards": 63,
+      "copies": 432,
+      "byRarity": {
+        "R": 144,
+        "N": 252,
+        "SR": 28,
+        "UR": 8
+      },
+      "release": "2018-05-11T00:00:00.000Z"
+    },
+    {
+      "type": "Selection Box Mini",
+      "name": "Selection Box Mini Vol.02",
+      "cards": 63,
+      "copies": 432,
+      "byRarity": {
+        "R": 144,
+        "UR": 8,
+        "N": 252,
+        "SR": 28
+      },
+      "release": "2020-03-24T00:00:00.000Z"
+    },
+    {
+      "type": "Selection Box Mini",
+      "name": "Selection Box Mini Vol.03",
+      "cards": 62,
+      "copies": 420,
+      "byRarity": {
+        "UR": 8,
+        "N": 240,
+        "R": 144,
+        "SR": 28
+      },
+      "release": "2021-07-31T15:00:00.000Z"
+    },
+    {
+      "type": "Selection Box Mini",
+      "name": "Selection Box Mini Vol.07",
+      "cards": 63,
+      "copies": 432,
+      "byRarity": {
+        "N": 252,
+        "R": 144,
+        "SR": 28,
+        "UR": 8
+      }
+    },
+    {
+      "type": "Selection Box Mini",
+      "name": "Selection Box Mini: Vol. 06",
+      "cards": 63,
+      "copies": 431,
+      "byRarity": {
+        "N": 252,
+        "UR": 8,
+        "R": 144,
+        "SR": 27
+      }
+    },
+    {
+      "type": "Selection Box Super Mini",
+      "name": "Selection Box Super Mini Vol. 01",
+      "cards": 33,
+      "copies": 144,
+      "byRarity": {
+        "SR": 8,
+        "UR": 4,
+        "R": 48,
+        "N": 84
+      }
+    },
+    {
+      "type": "Selection Box Super Mini",
+      "name": "Selection Box Super Mini Vol. 02",
+      "cards": 33,
+      "copies": 144,
+      "byRarity": {
+        "R": 48,
+        "SR": 8,
+        "N": 84,
+        "UR": 4
+      }
+    },
+    {
+      "type": "Selection Box Super Mini",
+      "name": "Selection Box Super Mini Vol. 03",
+      "cards": 33,
+      "copies": 144,
+      "byRarity": {
+        "R": 48,
+        "N": 84,
+        "SR": 8,
+        "UR": 4
+      }
+    },
+    {
+      "type": "Selection Box Super Mini",
+      "name": "Selection Box Super Mini Vol. 04",
+      "cards": 33,
+      "copies": 144,
+      "byRarity": {
+        "R": 48,
+        "N": 84,
+        "SR": 8,
+        "UR": 4
+      }
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Destiny Rulers",
+      "cards": 14,
+      "copies": 22,
+      "byRarity": {
+        "R": 19,
+        "SR": 3
+      },
+      "release": "2018-03-01T01:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Dragonic Force",
+      "cards": 12,
+      "copies": 20,
+      "byRarity": {
+        "R": 15,
+        "N": 4,
+        "SR": 1
+      },
+      "release": "2017-07-04T07:30:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Dragonic Knights",
+      "cards": 15,
+      "copies": 20,
+      "byRarity": {
+        "SR": 1,
+        "R": 18,
+        "N": 1
+      },
+      "release": "2018-03-31T07:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Gagaga Xyz",
+      "cards": 14,
+      "copies": 21,
+      "byRarity": {
+        "R": 8,
+        "N": 8,
+        "SR": 3,
+        "UR": 2
+      },
+      "release": "2020-09-29T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "HERO Generation",
+      "cards": 22,
+      "copies": 25,
+      "byRarity": {
+        "R": 15,
+        "SR": 5,
+        "UR": 3,
+        "N": 2
+      },
+      "release": "2020-05-19T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "HERO Rising",
+      "cards": 14,
+      "copies": 22,
+      "byRarity": {
+        "R": 19,
+        "SR": 3
+      },
+      "release": "2017-09-28T07:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Legendary Warriors",
+      "cards": 14,
+      "copies": 20,
+      "byRarity": {
+        "R": 19,
+        "SR": 1
+      },
+      "release": "2017-09-28T07:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Magicians Arc",
+      "cards": 15,
+      "copies": 20,
+      "byRarity": {
+        "R": 8,
+        "UR": 2,
+        "SR": 3,
+        "N": 7
+      }
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Return of the Fire Kings",
+      "cards": 15,
+      "copies": 21,
+      "byRarity": {
+        "R": 12,
+        "UR": 3,
+        "N": 3,
+        "SR": 3
+      },
+      "release": "2020-06-30T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Sorcerer's Alliance",
+      "cards": 11,
+      "copies": 20,
+      "byRarity": {
+        "R": 16,
+        "N": 3,
+        "SR": 1
+      },
+      "release": "2017-07-04T19:30:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Starter Deck (Friend Invitation Campaign: HERO)",
+      "cards": 16,
+      "copies": 26,
+      "byRarity": {
+        "R": 1,
+        "UR": 15,
+        "SR": 10
+      }
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Starter Deck (Friend Invitation Campaign: Sky Striker Ace)",
+      "cards": 13,
+      "copies": 26,
+      "byRarity": {
+        "SR": 9,
+        "R": 10,
+        "UR": 7
+      }
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Starter Deck (Friend Invitation Campaign)",
+      "cards": 11,
+      "copies": 23,
+      "byRarity": {
+        "SR": 9,
+        "UR": 11,
+        "R": 3
+      }
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Swordbound Silence",
+      "cards": 16,
+      "copies": 20,
+      "byRarity": {
+        "R": 11,
+        "N": 6,
+        "SR": 1,
+        "UR": 2
+      },
+      "release": "2019-01-12T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck",
+      "name": "Synchro Connection",
+      "cards": 18,
+      "copies": 22,
+      "byRarity": {
+        "R": 21,
+        "UR": 1
+      },
+      "release": "2018-09-25T07:30:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Ancient Gear Awakening",
+      "cards": 18,
+      "copies": 21,
+      "byRarity": {
+        "R": 9,
+        "UR": 2,
+        "N": 6,
+        "SR": 4
+      },
+      "release": "2019-02-04T00:30:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Armed Neos Thunder",
+      "cards": 20,
+      "copies": 25,
+      "byRarity": {
+        "R": 11,
+        "UR": 7,
+        "SR": 4,
+        "N": 3
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Blazing Gearfried",
+      "cards": 15,
+      "copies": 22,
+      "byRarity": {
+        "R": 8,
+        "SR": 4,
+        "N": 6,
+        "UR": 4
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Blue-Eyes Evolution",
+      "cards": 16,
+      "copies": 24,
+      "byRarity": {
+        "SR": 4,
+        "UR": 6,
+        "R": 10,
+        "N": 4
+      },
+      "release": "2021-01-11T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Brave Hope",
+      "cards": 20,
+      "copies": 24,
+      "byRarity": {
+        "R": 14,
+        "SR": 5,
+        "N": 2,
+        "UR": 3
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Core of the Salamander",
+      "cards": 24,
+      "copies": 24,
+      "byRarity": {
+        "UR": 6,
+        "SR": 4,
+        "R": 4,
+        "N": 10
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Cyber Style Extreme",
+      "cards": 17,
+      "copies": 22,
+      "byRarity": {
+        "R": 13,
+        "SR": 4,
+        "UR": 4,
+        "N": 1
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Cyberse Code",
+      "cards": 14,
+      "copies": 22,
+      "byRarity": {
+        "N": 10,
+        "R": 7,
+        "UR": 3,
+        "SR": 2
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Cynet Raging",
+      "cards": 21,
+      "copies": 25,
+      "byRarity": {
+        "R": 5,
+        "UR": 5,
+        "N": 11,
+        "SR": 4
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "D/D/D Apocalypse",
+      "cards": 20,
+      "copies": 25,
+      "byRarity": {
+        "SR": 3,
+        "N": 5,
+        "R": 14,
+        "UR": 3
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Dragunity Overdrive",
+      "cards": 20,
+      "copies": 24,
+      "byRarity": {
+        "SR": 4,
+        "N": 5,
+        "R": 12,
+        "UR": 3
+      },
+      "release": "2020-01-11T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Evil Domination",
+      "cards": 18,
+      "copies": 24,
+      "byRarity": {
+        "R": 13,
+        "N": 4,
+        "SR": 4,
+        "UR": 3
+      },
+      "release": "2021-07-31T15:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Full Metal Desperado",
+      "cards": 20,
+      "copies": 21,
+      "byRarity": {
+        "N": 6,
+        "UR": 2,
+        "SR": 6,
+        "R": 7
+      },
+      "release": "2019-07-24T00:30:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Gladiator's Storm",
+      "cards": 20,
+      "copies": 23,
+      "byRarity": {
+        "N": 10,
+        "R": 7,
+        "SR": 4,
+        "UR": 2
+      },
+      "release": "2020-02-19T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Hope of the Universe",
+      "cards": 21,
+      "copies": 25,
+      "byRarity": {
+        "UR": 10,
+        "SR": 8,
+        "R": 4,
+        "N": 3
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Imperial Joker",
+      "cards": 16,
+      "copies": 23,
+      "byRarity": {
+        "UR": 3,
+        "R": 9,
+        "N": 7,
+        "SR": 4
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Junk Enforcers",
+      "cards": 25,
+      "copies": 26,
+      "byRarity": {
+        "N": 2,
+        "UR": 8,
+        "R": 7,
+        "SR": 9
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "King's Resonance",
+      "cards": 21,
+      "copies": 23,
+      "byRarity": {
+        "R": 14,
+        "SR": 3,
+        "N": 4,
+        "UR": 2
+      },
+      "release": "2019-11-30T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Magician's Chronicle",
+      "cards": 18,
+      "copies": 23,
+      "byRarity": {
+        "UR": 6,
+        "N": 4,
+        "SR": 5,
+        "R": 8
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Masters of Chaos",
+      "cards": 22,
+      "copies": 23,
+      "byRarity": {
+        "UR": 3,
+        "SR": 5,
+        "R": 10,
+        "N": 5
+      },
+      "release": "2019-09-26T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Neos Fusion",
+      "cards": 24,
+      "copies": 24,
+      "byRarity": {
+        "R": 12,
+        "N": 7,
+        "UR": 2,
+        "SR": 3
+      },
+      "release": "2019-04-17T00:30:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Odd-Eyes Challenger",
+      "cards": 16,
+      "copies": 22,
+      "byRarity": {
+        "N": 5,
+        "UR": 4,
+        "R": 8,
+        "SR": 5
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Red-Eyes Inferno",
+      "cards": 22,
+      "copies": 25,
+      "byRarity": {
+        "UR": 10,
+        "R": 2,
+        "SR": 13
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Return of the Red-Eyes",
+      "cards": 17,
+      "copies": 21,
+      "byRarity": {
+        "SR": 5,
+        "N": 3,
+        "R": 11,
+        "UR": 2
+      },
+      "release": "2019-05-13T01:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Rise of Gaia",
+      "cards": 15,
+      "copies": 22,
+      "byRarity": {
+        "N": 4,
+        "SR": 6,
+        "R": 10,
+        "UR": 2
+      },
+      "release": "2021-06-17T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Ruddy Rose Burning",
+      "cards": 15,
+      "copies": 15,
+      "byRarity": {
+        "UR": 3,
+        "N": 2,
+        "R": 6,
+        "SR": 4
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Secret of Magicians",
+      "cards": 18,
+      "copies": 22,
+      "byRarity": {
+        "R": 9,
+        "SR": 4,
+        "N": 5,
+        "UR": 4
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Soul Servant",
+      "cards": 20,
+      "copies": 23,
+      "byRarity": {
+        "UR": 10,
+        "SR": 12,
+        "R": 1
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Spirit Charmers",
+      "cards": 19,
+      "copies": 22,
+      "byRarity": {
+        "R": 10,
+        "SR": 6,
+        "N": 3,
+        "UR": 3
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Stardust Nexus",
+      "cards": 18,
+      "copies": 25,
+      "byRarity": {
+        "R": 11,
+        "N": 6,
+        "UR": 5,
+        "SR": 3
+      },
+      "release": "2021-05-19T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Sword of Paladin",
+      "cards": 20,
+      "copies": 22,
+      "byRarity": {
+        "R": 11,
+        "N": 4,
+        "UR": 4,
+        "SR": 3
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Tales of the Noble Knights",
+      "cards": 16,
+      "copies": 22,
+      "byRarity": {
+        "UR": 3,
+        "R": 14,
+        "SR": 3,
+        "N": 2
+      },
+      "release": "2020-11-30T00:00:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Tellarknight Advent",
+      "cards": 15,
+      "copies": 22,
+      "byRarity": {
+        "UR": 4,
+        "R": 7,
+        "N": 9,
+        "SR": 2
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "The White Dragon of Legend",
+      "cards": 17,
+      "copies": 20,
+      "byRarity": {
+        "R": 12,
+        "SR": 4,
+        "UR": 2,
+        "N": 2
+      },
+      "release": "2018-10-15T00:30:00.000Z"
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Thousand Illusion",
+      "cards": 18,
+      "copies": 23,
+      "byRarity": {
+        "R": 13,
+        "SR": 5,
+        "N": 3,
+        "UR": 2
+      }
+    },
+    {
+      "type": "Structure Deck EX",
+      "name": "Zombie Necromancy",
+      "cards": 18,
+      "copies": 18,
+      "byRarity": {
+        "R": 8,
+        "UR": 3,
+        "SR": 6,
+        "N": 1
+      }
+    },
+    {
+      "type": "Structure Deck Special",
+      "name": "Spellbound Silence",
+      "cards": 14,
+      "copies": 21,
+      "byRarity": {
+        "R": 15,
+        "UR": 3,
+        "SR": 2,
+        "N": 1
+      },
+      "release": "2018-06-14T00:30:00.000Z"
+    }
+  ]
+}

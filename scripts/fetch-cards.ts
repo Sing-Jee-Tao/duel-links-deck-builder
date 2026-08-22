@@ -15,24 +15,28 @@ import {
   isMain,
   readJsonIfExists,
   reportToCi,
+  setsPath,
   USER_AGENT,
   writeJson,
 } from "./lib/paths.ts";
 import { isPathAllowed } from "./lib/robots.ts";
 import {
   assertPoolSane,
+  assertSetsSane,
+  deriveSets,
   isReleased,
   mergePool,
   PoolError,
   type DlmCard,
   type YgoCard,
 } from "./lib/duel-links-pool.ts";
-import type { CardFile } from "../src/data/types.ts";
+import type { CardFile, SetFile } from "../src/data/types.ts";
 
 const YGO_DUEL_LINKS = "https://db.ygoprodeck.com/api/v7/cardinfo.php?format=duel%20links";
 const YGO_ALL = "https://db.ygoprodeck.com/api/v7/cardinfo.php";
 const DLM_ORIGIN = "https://www.duellinksmeta.com";
 const DLM_PATH = "/api/v1/cards";
+const DLM_SETS_PATH = "/api/v1/sets";
 const DLM_ROBOTS = `${DLM_ORIGIN}/robots.txt`;
 const DLM_PAGE_SIZE = 3000;
 /** The endpoint is ~18k rows; this only exists so a pagination bug cannot spin. */
@@ -45,6 +49,9 @@ export {
   projectFromDlm,
   mergePool,
   assertPoolSane,
+  assertSetsSane,
+  deriveSets,
+  projectRoutes,
 } from "./lib/duel-links-pool.ts";
 
 async function getJson<T>(url: string): Promise<T> {
@@ -88,6 +95,33 @@ async function fetchDuelLinksMeta(): Promise<DlmCard[]> {
   return all;
 }
 
+/**
+ * Box release dates, the one thing `/api/v1/sets` knows that the cards do not.
+ *
+ * Composition is rebuilt from the cards themselves (see `deriveSets`) because
+ * this endpoint states only that a box exists. Release matters because a box
+ * that left the shop is not a route a player can take today, so a missing
+ * response degrades the table rather than failing the run.
+ */
+async function fetchSetReleases(): Promise<Map<string, string>> {
+  const releases = new Map<string, string>();
+  try {
+    const rows = await getJson<{ type?: string; name?: string; release?: string }[]>(
+      `${DLM_ORIGIN}${DLM_SETS_PATH}`,
+    );
+    for (const row of rows) {
+      if (!row.name || !row.release) continue;
+      releases.set(`${row.type ?? ""}\u0000${row.name}`, row.release);
+      if (!releases.has(row.name)) releases.set(row.name, row.release);
+    }
+    console.log(`Fetched ${DLM_ORIGIN}${DLM_SETS_PATH}: ${releases.size} release dates`);
+  } catch (err) {
+    // Not fatal: a box with no date is still a box you can price.
+    console.warn(`Could not read ${DLM_SETS_PATH} (${String(err)}); boxes will have no release date.`);
+  }
+  return releases;
+}
+
 function list(names: string[], limit = 20): string {
   const head = names.slice(0, limit).join(", ");
   return names.length > limit ? `${head}, … (+${names.length - limit})` : head;
@@ -99,10 +133,11 @@ function details(summary: string, names: string[]): string {
 }
 
 async function main(): Promise<void> {
-  const [duelLinksFlagged, everything, dlmAll] = await Promise.all([
+  const [duelLinksFlagged, everything, dlmAll, setReleases] = await Promise.all([
     fetchYgoprodeck(YGO_DUEL_LINKS, "Duel Links"),
     fetchYgoprodeck(YGO_ALL, "full database"),
     fetchDuelLinksMeta(),
+    fetchSetReleases(),
   ]);
 
   const released = dlmAll.filter((card) => isReleased(card));
@@ -134,6 +169,19 @@ async function main(): Promise<void> {
   };
   writeJson(cardsPath, file);
 
+  // Boxes come from the same response, so this costs no extra request. It is
+  // written after cards.json on purpose: if the box table is the thing that
+  // fails its guard, the pool refresh has already landed.
+  const sets = deriveSets(dlmAll, setReleases);
+  const previousSets = readJsonIfExists<SetFile>(setsPath);
+  assertSetsSane(sets, previousSets?.sets.length ?? 0);
+  writeJson(setsPath, {
+    fetchedAt: new Date().toISOString(),
+    source: `${DLM_ORIGIN}${DLM_PATH} + ${DLM_ORIGIN}${DLM_SETS_PATH}`,
+    count: sets.length,
+    sets,
+  } satisfies SetFile);
+
   const delta = cards.length - previousCount;
   const sign = delta >= 0 ? "+" : "";
   const review = unreleasedPerDlm.map((c) => c.name).sort((a, b) => a.localeCompare(b, "en"));
@@ -141,10 +189,17 @@ async function main(): Promise<void> {
 
   const rarityPct = cards.length === 0 ? 0 : (rarityCovered / cards.length) * 100;
   const withSource = cards.filter((c) => c.obtainedFrom).length;
+  const multiRoute = cards.filter((c) => (c.routes?.length ?? 0) > 1).length;
+  const boxFree = cards.filter(
+    (c) => (c.routes?.length ?? 0) > 0 && !c.routes?.some((r) => r.kind === "set"),
+  ).length;
+  const packed = sets.filter((s) => s.packs !== undefined);
 
   console.log(`Cards: ${cards.length} (was ${previousCount}, ${sign}${delta})`);
   console.log(`Extra Deck cards: ${cards.filter((c) => c.isExtraDeck).length}`);
   console.log(`With rarity: ${rarityCovered} (${rarityPct.toFixed(1)}%); with an acquisition source: ${withSource}`);
+  console.log(`With more than one acquisition route: ${multiRoute}; obtainable with no box: ${boxFree}`);
+  console.log(`Boxes: ${sets.length} (${packed.length} drawn in packs, was ${previousSets?.sets.length ?? 0})`);
   console.log(`Recovered by duellinksmeta (YGOPRODeck did not flag them): ${addedFromDlm.length}`);
   console.log(`Kept but unreleased per duellinksmeta — review: ${review.length}`);
   if (renames.length) console.log(`Took the in-game name (${renames.length}): ${renames.join(", ")}`);
@@ -158,6 +213,8 @@ async function main(): Promise<void> {
       `- Total: **${cards.length}** (was ${previousCount}, ${sign}${delta})`,
       `- Recovered by duellinksmeta: ${addedFromDlm.length}`,
       `- Rarity: **${rarityCovered}** (${rarityPct.toFixed(1)}%) · acquisition source: ${withSource}`,
+      `- Multi-route cards: **${multiRoute}** · obtainable with no box: **${boxFree}**`,
+      `- Boxes: **${sets.length}** (${packed.length} drawn in packs)`,
       `- Added: ${added.length}`,
       `- Removed: ${removed.length}`,
       `- Renamed to the in-game name: ${renames.length}`,

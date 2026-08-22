@@ -7,6 +7,7 @@ export const dataDir = path.join(repoRoot, "data");
 export const fixturesDir = path.join(repoRoot, "scripts", "__fixtures__");
 
 export const cardsPath = path.join(dataDir, "cards.json");
+export const setsPath = path.join(dataDir, "sets.json");
 export const banlistPath = path.join(dataDir, "banlist.json");
 export const banlistOverridePath = path.join(dataDir, "banlist-override.json");
 

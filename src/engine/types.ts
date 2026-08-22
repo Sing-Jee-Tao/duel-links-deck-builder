@@ -1,4 +1,5 @@
 import type { Banlist, Card, CardRarity, DeckTemplate, FlexRole, SynergyCard } from "../data/types.ts";
+import type { AcquisitionCost, BoxIndex } from "./acquisition.ts";
 
 /** One card name and how many copies of it sit in a deck. */
 export interface DeckEntry {
@@ -85,6 +86,8 @@ export type CardIndex = ReadonlyMap<string, Card>;
 /** Play rate, deck-type spread and co-occurring partners, by card id. */
 export type SynergyIndex = ReadonlyMap<number, SynergyCard>;
 
+export type { AcquisitionCost, BoxIndex };
+
 export interface TemplateScore {
   template: DeckTemplate;
   /** 0–1, weighted core+flex completion. */
@@ -145,6 +148,15 @@ export interface Shortfall {
   copies: number;
   /** Distinct cards missing at least one copy. */
   cards: number;
+  /**
+   * What closing this gap costs — gems, packs, and the free routes that need no
+   * gems at all. Absent when the box table was not supplied, which is how every
+   * existing caller keeps working unchanged.
+   *
+   * This is the number `gemsPrice` could never be: it is measured against the
+   * cards this player is actually missing, not against an empty collection.
+   */
+  cost?: AcquisitionCost;
 }
 
 export interface DiffEntry extends DeckEntry {
@@ -175,6 +187,11 @@ export interface BuildInputs {
    * it the template-free solver still runs, but on card kind and ATK alone.
    */
   synergy?: SynergyIndex;
+  /**
+   * Box composition, for pricing a shortfall. Optional: without it a build is
+   * exactly what it was before, minus the gem figure.
+   */
+  boxes?: BoxIndex;
 }
 
 export type { FlexRole };

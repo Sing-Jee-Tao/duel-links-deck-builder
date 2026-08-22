@@ -12,8 +12,10 @@ import { BanlistIndex, normalizeName } from "./banlist-index.ts";
 import { DeckBuilder } from "./deck-builder.ts";
 import { synthesizeDeck } from "./synthesize.ts";
 import { countCopies, validateDeck } from "./validator.ts";
+import { costOf } from "./acquisition.ts";
 import {
   type BuildConfig,
+  type BoxIndex,
   type BuildInputs,
   type BuildResult,
   type CardIndex,
@@ -76,6 +78,66 @@ export function scoreTemplate(template: DeckTemplate, owned: OwnedCounts): Templ
     missingCore,
   };
 }
+
+/**
+ * Everything a template still wants that the collection cannot cover.
+ *
+ * This is the gap measured against the COLLECTION, not against a built deck —
+ * "what do I still need for Branded", regardless of what I am currently
+ * playing. That is the question "cheapest to finish" sorts on, and it has to be
+ * answerable for all sixty-nine targets at once, so it deliberately avoids the
+ * deck builder: no validation, no banlist, just the list against the shelf.
+ *
+ * Flex slots are counted exactly as `scoreTemplate` counts them, so the two
+ * cannot disagree about how complete a deck is. Whatever a slot is still short
+ * by is filled from its own candidates in preference order — the same order the
+ * builder would have tried them in.
+ */
+export function missingForTemplate(
+  template: DeckTemplate,
+  owned: OwnedCounts,
+  maxCopies = DEFAULT_MAX_COPIES,
+): DeckEntry[] {
+  // Keyed by name, because the same card can be wanted by more than one place:
+  // templates list a card like Free Spell as a candidate in two different slots.
+  // Two entries for one name would be priced as two separate chases and could
+  // between them ask for more copies than a deck may legally run.
+  const wanted = new Map<string, { name: string; copies: number }>();
+  const request = (name: string, copies: number): number => {
+    if (copies <= 0) return 0;
+    const key = normalizeName(name);
+    const existing = wanted.get(key);
+    const already = existing?.copies ?? 0;
+    const room = Math.min(copies, maxCopies - ownedCopies(owned, name) - already);
+    if (room <= 0) return 0;
+    if (existing) existing.copies += room;
+    else wanted.set(key, { name, copies: room });
+    return room;
+  };
+
+  for (const entry of [...template.coreCards, ...template.extraDeck]) {
+    request(entry.name, entry.copies - ownedCopies(owned, entry.name));
+  }
+
+  for (const slot of template.flexSlots) {
+    let covered = 0;
+    for (const candidate of slot.candidates) {
+      if (covered >= slot.count) break;
+      covered += Math.min(ownedCopies(owned, candidate), slot.count - covered);
+    }
+    let short = slot.count - covered;
+
+    for (const candidate of slot.candidates) {
+      if (short <= 0) break;
+      short -= request(candidate, short);
+    }
+  }
+
+  return [...wanted.values()];
+}
+
+/** Copies of one card a deck may run, absent a stricter banlist tier. */
+const DEFAULT_MAX_COPIES = 3;
 
 export function rankTemplates(templates: DeckTemplate[], owned: OwnedCounts): TemplateScore[] {
   return templates
@@ -225,7 +287,7 @@ const EMPTY_SHORTFALL: Shortfall = { byRarity: {}, copies: 0, cards: 0 };
  * "Six URs short" is the sentence a Duel Links player can act on; "eleven cards
  * short" is not, because a box rations URs and hands out Ns freely.
  */
-export function shortfallOf(missing: DiffEntry[], cards: CardIndex): Shortfall {
+export function shortfallOf(missing: DiffEntry[], cards: CardIndex, boxes?: BoxIndex): Shortfall {
   const byRarity: Partial<Record<CardRarity, number>> = {};
   let copies = 0;
   for (const entry of missing) {
@@ -233,7 +295,11 @@ export function shortfallOf(missing: DiffEntry[], cards: CardIndex): Shortfall {
     const rarity = cards.get(normalizeName(entry.name))?.rarity;
     if (rarity) byRarity[rarity] = (byRarity[rarity] ?? 0) + entry.copies;
   }
-  return { byRarity, copies, cards: missing.length };
+  const shortfall: Shortfall = { byRarity, copies, cards: missing.length };
+  // Rarity says how scarce the gap is; cost says what it takes to close it. The
+  // second is only available once the box table is loaded, so it is additive.
+  if (boxes) shortfall.cost = costOf(missing, cards, boxes);
+  return shortfall;
 }
 
 /**
@@ -270,7 +336,7 @@ export function buildTemplate(
   // The gap against the finished list. Same pair the Upgrade screen runs, done
   // once here so both screens read one number rather than computing their own.
   const ideal = idealDeck(score.template, index, inputs.cards, inputs.config);
-  const shortfall = shortfallOf(diffDecks(deck, ideal).toAcquire, inputs.cards);
+  const shortfall = shortfallOf(diffDecks(deck, ideal).toAcquire, inputs.cards, inputs.boxes);
 
   return {
     template: score.template,

@@ -6,6 +6,7 @@ import {
   DUPLICATE_OVERLAP_PCT,
   idealDeck,
   MAX_BUILDS,
+  missingForTemplate,
   rankTemplates,
   scoreTemplate,
   shortfallOf,
@@ -246,6 +247,65 @@ describe("shortfallOf", () => {
 
   it("is empty for a deck that is missing nothing", () => {
     expect(shortfallOf([], cards)).toEqual({ byRarity: {}, copies: 0, cards: 0 });
+  });
+
+  it("leaves cost off entirely when no box table is supplied", () => {
+    // Every caller that predates the cost engine must be unaffected.
+    const result = shortfallOf([{ name: "Core One", copies: 1, inCurrent: 0, inTarget: 1 }], cards);
+    expect(result.cost).toBeUndefined();
+  });
+});
+
+describe("missingForTemplate", () => {
+  const totalCopies = (owned: ReturnType<typeof collection>): number =>
+    missingForTemplate(template, owned).reduce((sum, e) => sum + e.copies, 0);
+
+  it("asks for the whole list when the player owns nothing", () => {
+    const missing = missingForTemplate(template, collection({}));
+    // 3 core cards at 3, one Extra Deck card, and 11 flex slots.
+    expect(totalCopies(collection({}))).toBe(9 + 1 + 11);
+    expect(missing.find((e) => e.name === "Core One")?.copies).toBe(3);
+    expect(missing.find((e) => e.name === "Extra Body")?.copies).toBe(1);
+  });
+
+  it("asks for nothing when the player owns the list", () => {
+    expect(missingForTemplate(template, fullCollection())).toEqual([]);
+  });
+
+  it("asks only for the copies still short", () => {
+    const missing = missingForTemplate(template, collection({ "Core One": 1 }));
+    expect(missing.find((e) => e.name === "Core One")?.copies).toBe(2);
+  });
+
+  it("counts owned flex candidates against the slot, as the score does", () => {
+    // The two must never disagree about how complete a deck is: one drives the
+    // percentage on screen and the other drives the price beside it.
+    const owned = collection({ "Solo Slot A": 2 });
+    const before = totalCopies(collection({}));
+    expect(totalCopies(owned)).toBe(before - 2);
+  });
+
+  it("never asks for a fourth copy of a card the player already has three of", () => {
+    const missing = missingForTemplate(template, collection({ "Filler B": 3 }));
+    expect(missing.find((e) => e.name === "Filler B")).toBeUndefined();
+  });
+
+  it("fills a slot from its own candidates, in the builder's preference order", () => {
+    const missing = missingForTemplate(template, collection({}));
+    // The removal slot wants two, and its first candidate can supply both.
+    expect(missing.find((e) => e.name === "Solo Slot A")?.copies).toBe(2);
+  });
+
+  it("asks for a card shared by two slots once, not twice", () => {
+    // "Free Spell" is a candidate in both the removal and the draw slot. Two
+    // entries for one name would be priced as two separate chases, and could
+    // between them ask for more copies than a deck may legally run.
+    const missing = missingForTemplate(template, collection({}));
+    const names = missing.map((e) => e.name);
+    expect(names.length).toBe(new Set(names).size);
+    const free = missing.filter((e) => e.name === "Free Spell");
+    expect(free).toHaveLength(1);
+    expect(free[0]?.copies).toBeLessThanOrEqual(3);
   });
 });
 
