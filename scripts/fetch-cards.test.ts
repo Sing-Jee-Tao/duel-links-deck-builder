@@ -10,7 +10,10 @@
 import { describe, expect, it } from "vitest";
 import {
   assertPoolSane,
+  assertSetsSane,
   attachAcquisition,
+  deriveSets,
+  projectRoutes,
   isExtraDeckType,
   isReleased,
   mergePool,
@@ -136,8 +139,9 @@ describe("attachAcquisition", () => {
     ]);
     expect(covered).toBe(1);
     expect(cards[0]?.rarity).toBe("UR");
-    // Only the first source is kept; the rest would bloat cards.json for nothing.
+    // The first source is still the headline, but the rest are no longer lost.
     expect(cards[0]?.obtainedFrom).toEqual({ type: "Main Box", name: "Abyss Encounters" });
+    expect(cards[0]?.routes).toHaveLength(2);
   });
 
   it("matches on the folded name, so typography does not break the join", () => {
@@ -311,5 +315,149 @@ describe("assertPoolSane", () => {
 
   it("allows a first run with nothing to compare against", () => {
     expect(() => assertPoolSane(pool(10), 0)).not.toThrow();
+  });
+});
+
+describe("projectRoutes", () => {
+  it("keeps every route, not just the first", () => {
+    const routes = projectRoutes(
+      dlm({
+        name: "Sphere Kuriboh",
+        obtain: [
+          { type: "sets", amount: 1, source: { type: "Main Box", name: "The Ultimate Rising" } },
+          { type: "characters", subSource: "Level 10", source: { name: "Yugi Muto" } },
+          { type: "otherSources", source: { name: "Ranked Duels Ticket" } },
+        ],
+      }),
+    );
+    expect(routes).toEqual([
+      { kind: "set", name: "The Ultimate Rising", setType: "Main Box", amount: 1 },
+      { kind: "character", name: "Yugi Muto", detail: "Level 10" },
+      { kind: "other", name: "Ranked Duels Ticket" },
+    ]);
+  });
+
+  it("collapses a route the card lists twice", () => {
+    // A character who both drops a card and grants it at a level lists twice
+    // upstream; two identical rows read as two separate opportunities.
+    const routes = projectRoutes(
+      dlm({
+        name: "Twice",
+        obtain: [
+          { type: "characters", subSource: "Drop", source: { name: "Mako Tsunami" } },
+          { type: "characters", subSource: "Drop", source: { name: "Mako Tsunami" } },
+        ],
+      }),
+    );
+    expect(routes).toHaveLength(1);
+  });
+
+  it("drops an entry with no usable source name", () => {
+    expect(projectRoutes(dlm({ name: "Nameless", obtain: [{ type: "sets", amount: 3 }] }))).toEqual([]);
+  });
+
+  it("never puts a copy count on a non-set route", () => {
+    // `amount` is what the box math divides by. A character reward is one card,
+    // and letting a stray amount through would price a free route as a pull.
+    const routes = projectRoutes(
+      dlm({ name: "Freebie", obtain: [{ type: "characters", amount: 9, source: { name: "Yugi Muto" } }] }),
+    );
+    expect(routes[0]?.amount).toBeUndefined();
+  });
+});
+
+describe("deriveSets", () => {
+  /** A box of `cards` distinct cards holding `each` copies apiece. */
+  const box = (name: string, type: string, cards: number, each: number, rarity = "N"): DlmCard[] =>
+    Array.from({ length: cards }, (_, i) =>
+      dlm({
+        name: `${name} card ${i}`,
+        rarity,
+        obtain: [{ type: "sets", amount: each, source: { type, name } }],
+      }),
+    );
+
+  it("rebuilds a Main Box as the game's own structure", () => {
+    const sets = deriveSets(box("Abyss Encounters", "Main Box", 100, 6));
+    expect(sets[0]).toMatchObject({ type: "Main Box", name: "Abyss Encounters", cards: 100, copies: 600, packs: 200 });
+  });
+
+  it("counts copies by rarity, which is what rations a box", () => {
+    const sets = deriveSets([...box("B", "Main Box", 2, 6, "UR"), ...box("B", "Main Box", 3, 6, "N")]);
+    expect(sets[0]?.byRarity).toEqual({ UR: 12, N: 18 });
+  });
+
+  it("rounds a box that is a copy or two off, rather than refusing it", () => {
+    // Raider's Requiem really does come back at 539 rather than 540. That moves
+    // a price by 0.2%; refusing to answer would be the worse trade.
+    const sets = deriveSets([...box("Raider's Requiem", "Main Box", 89, 6), ...box("Raider's Requiem", "Main Box", 1, 5)]);
+    expect(sets[0]?.copies).toBe(539);
+    expect(sets[0]?.packs).toBe(180);
+    expect(sets[0]?.suspect).toBeUndefined();
+  });
+
+  it("refuses to price a box whose copy counts were never filled in", () => {
+    // "Scream of Resistance" lists all 50 cards at one copy each. Priced, it
+    // would claim a full box costs 17 packs against a real 100.
+    const sets = deriveSets(box("Scream of Resistance", "Mini Box", 50, 1));
+    expect(sets[0]?.copies).toBe(50);
+    expect(sets[0]?.packs).toBeUndefined();
+    expect(sets[0]?.suspect).toMatch(/not real/i);
+  });
+
+  it("leaves a Structure Deck unpriced without calling it suspect", () => {
+    // It is bought whole, so there is no pack count to state — and that is not
+    // a data problem the way an empty box is.
+    const sets = deriveSets(box("Dragonic Force", "Structure Deck", 40, 1));
+    expect(sets[0]?.packs).toBeUndefined();
+    expect(sets[0]?.suspect).toBeUndefined();
+  });
+
+  it("excludes Rush Duel, which draws from different boxes", () => {
+    const rush = box("Rush Box", "Main Box", 50, 6).map((c) => ({ ...c, rush: true }));
+    expect(deriveSets(rush)).toEqual([]);
+  });
+});
+
+describe("assertSetsSane", () => {
+  const good = (n: number) =>
+    Array.from({ length: n }, (_, i) => ({
+      type: "Main Box",
+      name: `box ${i}`,
+      cards: 100,
+      copies: 600,
+      packs: 200,
+      byRarity: {},
+    }));
+
+  it("refuses an empty table", () => {
+    expect(() => assertSetsSane([], 60)).toThrow(/no boxes/i);
+  });
+
+  it("refuses a box with copies but no cards", () => {
+    expect(() =>
+      assertSetsSane([...good(9), { type: "Main Box", name: "hollow", cards: 0, copies: 600, byRarity: {} }], 0),
+    ).toThrow(/parse failure/i);
+  });
+
+  it("refuses a collapse in box count", () => {
+    expect(() => assertSetsSane(good(10), 100)).toThrow(/fell from/i);
+  });
+
+  it("tolerates the handful of boxes that are always unpriceable", () => {
+    const sets = [...good(19), { type: "Mini Box", name: "broken", cards: 50, copies: 50, byRarity: {}, suspect: "x" }];
+    expect(() => assertSetsSane(sets, 20)).not.toThrow();
+  });
+
+  it("refuses when the priceable share falls off a cliff", () => {
+    const broken = Array.from({ length: 10 }, (_, i) => ({
+      type: "Mini Box",
+      name: `broken ${i}`,
+      cards: 50,
+      copies: 50,
+      byRarity: {},
+      suspect: "x",
+    }));
+    expect(() => assertSetsSane([...good(10), ...broken], 20)).toThrow(/changed shape/i);
   });
 });

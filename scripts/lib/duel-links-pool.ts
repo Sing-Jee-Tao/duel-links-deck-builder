@@ -16,7 +16,14 @@
  * out yet. Cards YGOPRODeck flags but duellinksmeta has no release for are
  * reported for human review instead of being removed.
  */
-import { RARITY_ORDER, type Card, type CardRarity } from "../../src/data/types.ts";
+import {
+  CARDS_PER_PACK,
+  RARITY_ORDER,
+  type AcquisitionRoute,
+  type BoxSet,
+  type Card,
+  type CardRarity,
+} from "../../src/data/types.ts";
 
 /** YGOPRODeck's payload, narrowed to the fields we read. */
 export interface YgoCard {
@@ -53,8 +60,18 @@ export interface DlmCard {
   rush?: boolean;
   /** "UR" | "SR" | "R" | "N". Only duellinksmeta knows this; YGOPRODeck does not. */
   rarity?: string;
-  /** Every way the card can be got. We keep the first; see `attachAcquisition`. */
-  obtain?: { amount?: number; type?: string; source?: { type?: string; name?: string } }[];
+  /**
+   * Every way the card can be got. `type` buckets the route ("sets",
+   * "characters", "otherSources"), `subSource` qualifies it ("Level 10",
+   * "Drop"), and `amount` is copies in the box for a set route — the number
+   * that makes a gem cost computable. See `attachAcquisition`.
+   */
+  obtain?: {
+    amount?: number;
+    type?: string;
+    subSource?: string;
+    source?: { type?: string; name?: string };
+  }[];
 }
 
 const EXTRA_DECK_MARKERS = ["fusion", "synchro", "xyz", "link"];
@@ -218,10 +235,16 @@ const RARITIES = new Set<string>(RARITY_ORDER);
  * renames are applied, because the rename makes the pool's name match
  * duellinksmeta's and the join is by name.
  *
- * Only the FIRST `obtain` entry is kept. Cards commonly list several sources and
- * the full array would add megabytes to a 5.4 MB asset without changing any
- * decision a player makes: they want to know where to go, not every place the
- * card has ever appeared.
+ * `obtainedFrom` still takes the FIRST entry, because most screens have room for
+ * exactly one source and the first is the one upstream leads with. What changed
+ * is that the rest are no longer thrown away: `routes` keeps the whole array.
+ *
+ * The old reasoning was that the extra entries would add megabytes without
+ * changing a decision. Measured against the live endpoint, both halves were
+ * wrong — 57.7% of released cards have more than one route, 2,916 of them are
+ * obtainable with no box at all, and the full array costs ~220 kB gzipped. A
+ * player told to open a box for a card that is a character reward is being sent
+ * to spend gems they did not need to spend.
  */
 export function attachAcquisition(cards: Card[], dlm: DlmCard[]): number {
   const byName = new Map<string, DlmCard>();
@@ -244,13 +267,189 @@ export function attachAcquisition(cards: Card[], dlm: DlmCard[]): number {
     if (source?.name) {
       card.obtainedFrom = { type: source.type ?? "Unknown", name: source.name };
     }
+    const routes = projectRoutes(match);
+    if (routes.length > 0) card.routes = routes;
   }
   return covered;
+}
+
+/** duellinksmeta's bucket names for `obtain[].type`. */
+const SET_ROUTE = "sets";
+const CHARACTER_ROUTE = "characters";
+
+/**
+ * Projects one card's `obtain` array into the app's route shape, dropping
+ * entries with no usable source name.
+ *
+ * Duplicate routes are collapsed: a card given by the same character at a level
+ * AND as a drop lists twice upstream, and showing it twice would read as two
+ * separate opportunities. The first `amount` seen for a pair wins, matching the
+ * first-writer-wins rule the rest of this module uses.
+ */
+export function projectRoutes(card: DlmCard): AcquisitionRoute[] {
+  const routes: AcquisitionRoute[] = [];
+  const seen = new Set<string>();
+
+  for (const entry of card.obtain ?? []) {
+    const name = entry.source?.name;
+    if (!name) continue;
+
+    const kind: AcquisitionRoute["kind"] =
+      entry.type === SET_ROUTE ? "set" : entry.type === CHARACTER_ROUTE ? "character" : "other";
+
+    const key = `${kind}|${entry.source?.type ?? ""}|${name}|${entry.subSource ?? ""}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+
+    const route: AcquisitionRoute = { kind, name };
+    if (kind === "set" && entry.source?.type) route.setType = entry.source.type;
+    if (entry.subSource) route.detail = entry.subSource;
+    // Only a set route has a meaningful copy count; a character reward is one card.
+    if (kind === "set" && typeof entry.amount === "number" && entry.amount > 0) {
+      route.amount = entry.amount;
+    }
+    routes.push(route);
+  }
+  return routes;
+}
+
+/**
+ * Rebuilds every box from the cards that cite it.
+ *
+ * There is no endpoint for box composition — `/api/v1/sets` names the boxes but
+ * not what is in them. The cards themselves carry it: each set route states how
+ * many copies of that card the box holds, so summing across the pool recovers
+ * the whole pile. It comes back exactly as the game's own structure (a Main Box
+ * is 600 copies, which is 200 packs of three), and that is what makes an
+ * expected pack count real arithmetic rather than a guess.
+ *
+ * Rush Duel is excluded for the same reason it is excluded from the pool: it is
+ * a different game mode drawing from a different set of boxes.
+ */
+export function deriveSets(dlm: DlmCard[], releases: Map<string, string> = new Map()): BoxSet[] {
+  const boxes = new Map<string, BoxSet>();
+
+  for (const card of dlm) {
+    if (card.rush) continue;
+    const rarity = card.rarity && RARITIES.has(card.rarity) ? (card.rarity as CardRarity) : undefined;
+
+    for (const route of projectRoutes(card)) {
+      if (route.kind !== "set" || !route.setType) continue;
+      const key = `${route.setType}\u0000${route.name}`;
+      const box =
+        boxes.get(key) ??
+        ({ type: route.setType, name: route.name, cards: 0, copies: 0, byRarity: {} } as BoxSet);
+
+      box.cards += 1;
+      box.copies += route.amount ?? 0;
+      if (rarity) box.byRarity[rarity] = (box.byRarity[rarity] ?? 0) + (route.amount ?? 0);
+      boxes.set(key, box);
+    }
+  }
+
+  const sets = [...boxes.values()];
+  for (const box of sets) {
+    const release = releases.get(`${box.type}\u0000${box.name}`) ?? releases.get(box.name);
+    if (release) box.release = release;
+    if (!PACKED_SET_TYPES.has(box.type)) continue;
+
+    // Upstream copy counts are mostly exact but not uniformly so: a handful of
+    // boxes are a copy or two off a clean multiple of three, which moves a price
+    // by a fraction of a percent and is not worth refusing to answer over.
+    //
+    // What IS worth refusing over is a box whose amounts were never really
+    // filled in. "Scream of Resistance" lists all 50 of its cards at one copy
+    // each, so its pile reads as 50 where the real box is 300 — pricing it would
+    // claim a full box costs 17 packs instead of 100. Wrong and CHEAP is the
+    // dangerous direction: it sends a player to spend gems on a promise the box
+    // cannot keep. The tell is the ratio, not the remainder, because a real box
+    // stocks several copies of every card it holds.
+    const perCard = box.cards === 0 ? 0 : box.copies / box.cards;
+    if (perCard < MIN_COPIES_PER_CARD) {
+      box.suspect =
+        `${box.copies} copies across ${box.cards} cards (${perCard.toFixed(1)} each) — too few for a ` +
+        `${box.type}, so the upstream copy counts are not real. Not priced.`;
+      continue;
+    }
+    box.packs = Math.round(box.copies / CARDS_PER_PACK);
+  }
+
+  sets.sort((a, b) => a.type.localeCompare(b.type, "en") || a.name.localeCompare(b.name, "en"));
+  return sets;
 }
 
 function byNameKey(name: string): string {
   return name.trim().toLowerCase();
 }
+
+/**
+ * Fails the run rather than shipping a box table that cannot be true.
+ *
+ * The cost engine divides by these numbers, so a quietly halved box would not
+ * error — it would produce a confident, wrong gem figure, which is worse than
+ * no figure at all. Three things have to hold:
+ *
+ * - a Main or Mini Box is drawn in packs, so its pile must divide by three
+ * - boxes must not vanish: a set-route parse that broke upstream shows up as a
+ *   collapse in box count long before it shows up as a bad price
+ * - a box with copies but no cards, or cards but no copies, is a parse failure
+ */
+export function assertSetsSane(sets: BoxSet[], previousCount: number): void {
+  if (sets.length === 0) {
+    throw new PoolError("No boxes derived — refusing to overwrite sets.json");
+  }
+
+  // Individual boxes are allowed to be unpriceable — a few always are, and
+  // `deriveSets` marks them rather than guessing. What must not pass is the
+  // whole endpoint changing shape underneath us, which shows up as the
+  // priceable share falling off a cliff rather than as any one bad box.
+  const packedTypes = sets.filter((box) => PACKED_SET_TYPES.has(box.type));
+  const priceable = packedTypes.filter((box) => box.packs !== undefined);
+  if (packedTypes.length > 0) {
+    const share = priceable.length / packedTypes.length;
+    if (share < MIN_PRICEABLE_SHARE) {
+      const broken = packedTypes.filter((b) => b.packs === undefined).map((b) => b.name);
+      throw new PoolError(
+        `Only ${priceable.length} of ${packedTypes.length} pack-drawn boxes have credible copy ` +
+          `counts (${(share * 100).toFixed(0)}%, floor ${(MIN_PRICEABLE_SHARE * 100).toFixed(0)}%). ` +
+          `Upstream amounts changed shape. Unpriceable: ${broken.slice(0, 12).join(", ")}`,
+      );
+    }
+  }
+
+  const empty = sets.filter((box) => box.cards === 0 || box.copies === 0);
+  if (empty.length > 0) {
+    throw new PoolError(
+      `${empty.length} box(es) came back with no cards or no copies, e.g. ${empty[0]?.name}. ` +
+        "That is a parse failure, not a real box.",
+    );
+  }
+
+  if (previousCount > 0) {
+    const drop = (previousCount - sets.length) / previousCount;
+    if (drop > MAX_SHRINK) {
+      throw new PoolError(
+        `Box count fell from ${previousCount} to ${sets.length} ` +
+          `(${(drop * 100).toFixed(1)}%), past the ${(MAX_SHRINK * 100).toFixed(0)}% limit.`,
+      );
+    }
+  }
+}
+
+/** Box types a player buys pack by pack, as opposed to buying whole. */
+const PACKED_SET_TYPES = new Set(["Main Box", "Mini Box"]);
+
+/**
+ * Fewest copies per distinct card a real pack-drawn box can hold.
+ *
+ * A Main Box is 600 copies over 100 cards and a Mini Box 300 over 50, so both
+ * sit at 6. Three leaves generous room for a box stocked differently while
+ * still catching the failure this exists for: amounts defaulted to one apiece.
+ */
+const MIN_COPIES_PER_CARD = 3;
+
+/** How much of the pack-drawn shelf must be priceable before the run is trusted. */
+const MIN_PRICEABLE_SHARE = 0.9;
 
 /**
  * Unions the two upstreams. `ygoFull` is the unfiltered YGOPRODeck database,

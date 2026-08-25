@@ -25,8 +25,9 @@ import {
 } from "../data/index.ts";
 import type { DeckTemplate } from "../data/types.ts";
 import { normalizeName } from "../engine/banlist-index.ts";
-import { buildDecks } from "../engine/build.ts";
-import { DEFAULT_CONFIG, type BuildConfig, type BuildResult, type OwnedCounts } from "../engine/types.ts";
+import { buildDecks, missingForTemplate } from "../engine/build.ts";
+import { costOf, type AcquisitionCost } from "../engine/acquisition.ts";
+import { DEFAULT_CONFIG, type BoxIndex, type BuildConfig, type BuildResult, type OwnedCounts } from "../engine/types.ts";
 import {
   DEFAULT_PROFILE,
   readCollection,
@@ -47,6 +48,8 @@ export const EXPORT_FORMAT = "deck-ledger-collection";
 /** Stable identities, so a null-data render does not invalidate every consumer. */
 const EMPTY_TEMPLATES: DeckTemplate[] = [];
 const EMPTY_SYNERGY: SynergyIndex = new Map();
+const EMPTY_BOXES: BoxIndex = new Map();
+const EMPTY_COSTS: ReadonlyMap<string, AcquisitionCost> = new Map();
 const EMPTY_BUILDS: BuildResult[] = [];
 
 /**
@@ -76,6 +79,17 @@ interface StoreValue {
   /** Hand-authored and corpus-derived templates together, ranked. */
   templates: DeckTemplate[];
   synergy: SynergyIndex;
+  /** Box composition, for pricing a gap the screen diffs itself. */
+  boxes: BoxIndex;
+  /**
+   * What each deck target still costs this collection, by template id.
+   *
+   * Computed with the builds rather than on render: pricing the whole shelf
+   * runs a pull simulation per box and is far too slow to sit in a `useMemo`.
+   * This is what lets the Upgrade screen sort by cost to finish — the question
+   * a site that cannot see your collection is unable to answer at all.
+   */
+  costs: ReadonlyMap<string, AcquisitionCost>;
   /** Provenance for the derived templates, shown on the Strategy screen. */
   decksFetchedAt: string | null;
   corpusDeckCount: number;
@@ -128,6 +142,7 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
   const [saveState, setSaveState] = useState<StoreValue["saveState"]>("idle");
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [builds, setBuilds] = useState<BuildResult[]>(EMPTY_BUILDS);
+  const [costs, setCosts] = useState<ReadonlyMap<string, AcquisitionCost>>(EMPTY_COSTS);
   const [selectedBuildId, setSelectedBuildId] = useState<string | null>(null);
   const [buildStatus, setBuildStatus] = useState<LoadStatus>("loading");
   const [buildNonce, setBuildNonce] = useState(0);
@@ -318,10 +333,20 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
           banlist,
           cards: data.pool.index,
           synergy: data.synergy,
+          boxes: data.boxes,
           config,
         });
+        // Same tick as the builds, behind the same loading state.
+        const priced = new Map<string, AcquisitionCost>();
+        for (const template of data.templates) {
+          priced.set(
+            template.id,
+            costOf(missingForTemplate(template, ownedByName), data.pool.index, data.boxes),
+          );
+        }
         if (!cancelled) {
           setBuilds(results);
+          setCosts(priced);
           // Keep the player on the deck they were reading if it survived the
           // rebuild; otherwise fall back to the strongest.
           setSelectedBuildId((previous) =>
@@ -399,6 +424,8 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       pool,
       templates: data?.templates ?? EMPTY_TEMPLATES,
       synergy: data?.synergy ?? EMPTY_SYNERGY,
+      boxes: data?.boxes ?? EMPTY_BOXES,
+      costs,
       decksFetchedAt: data?.decksFetchedAt ?? null,
       corpusDeckCount: data?.corpusDeckCount ?? 0,
       collection,
@@ -428,6 +455,7 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       clearCollection,
       profile, updateProfile, saveState, savedAt, config, setExtraDeckSize, builds, build,
       selectedBuildId, selectBuild, buildStatus, rebuild, exportCollection, importCollection,
+      costs,
     ],
   );
 

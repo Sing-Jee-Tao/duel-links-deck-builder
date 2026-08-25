@@ -8,6 +8,7 @@ import banlistJson from "@data/banlist.json";
 import cardsUrl from "@data/cards.json?url";
 import decksUrl from "@data/decks.json?url";
 import synergyUrl from "@data/synergy.json?url";
+import setsUrl from "@data/sets.json?url";
 import { normalizeName } from "../engine/banlist-index.ts";
 import type {
   Banlist,
@@ -15,10 +16,12 @@ import type {
   CardFile,
   DeckFile,
   DeckTemplate,
+  SetFile,
   SynergyCard,
   SynergyFile,
 } from "./types.ts";
 import type { CardIndex, SynergyIndex } from "../engine/types.ts";
+import { indexBoxes, type BoxIndex } from "../engine/acquisition.ts";
 
 export const banlist = banlistJson as Banlist;
 
@@ -36,6 +39,11 @@ export interface AppData {
   /** Every deck target, ranked. */
   templates: DeckTemplate[];
   synergy: SynergyIndex;
+  /**
+   * Box composition, keyed by box name. This is what turns a shortfall into a
+   * gem figure — see `src/engine/acquisition.ts`.
+   */
+  boxes: BoxIndex;
   /** When the tournament corpus behind the derived templates was last pulled. */
   decksFetchedAt: string;
   /** Lists the derived templates and the synergy statistics were measured over. */
@@ -52,10 +60,11 @@ async function getJson<T>(url: string, label: string): Promise<T> {
 
 export function loadAppData(): Promise<AppData> {
   dataPromise ??= (async () => {
-    const [cardFile, deckFile, synergyFile] = await Promise.all([
+    const [cardFile, deckFile, synergyFile, setFile] = await Promise.all([
       getJson<CardFile>(cardsUrl, "Card pool"),
       getJson<DeckFile>(decksUrl, "Deck templates"),
       getJson<SynergyFile>(synergyUrl, "Synergy data"),
+      getJson<SetFile>(setsUrl, "Box data"),
     ]);
 
     const pool: CardPool = {
@@ -73,6 +82,7 @@ export function loadAppData(): Promise<AppData> {
       pool,
       templates: rankTemplateList(deckFile.templates),
       synergy,
+      boxes: indexBoxes(setFile.sets),
       decksFetchedAt: deckFile.fetchedAt,
       corpusDeckCount: synergyFile.deckCount,
     };

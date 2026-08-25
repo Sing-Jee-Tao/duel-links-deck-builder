@@ -106,7 +106,7 @@ jobs:
         run: |
           gh issue create \
             --title "Data refresh failed on $(date -u +%Y-%m-%d)" \
-            --body "The weekly refresh job failed. \`data/banlist.json\`, \`data/cards.json\`, \`data/decks.json\` and \`data/synergy.json\` were left untouched, so the site is still serving the last known good data.
+            --body "The weekly refresh job failed. \`data/banlist.json\`, \`data/cards.json\`, \`data/sets.json\`, \`data/decks.json\` and \`data/synergy.json\` were left untouched, so the site is still serving the last known good data.
 
           Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 

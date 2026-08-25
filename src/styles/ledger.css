@@ -405,3 +405,28 @@ button, input, select { font: inherit; color: inherit; border-radius: var(--radi
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
+
+/* Cost-to-finish rows sit in the ~240px side column, where the ledger's
+   fixed-width `cols-*` grids are the wrong tool — `cols-cut` reserves 242px for
+   its middle column alone and collapses the name to about 20px, which turns
+   "Millennium Duel" into "M" and loses the one fact the row exists to carry.
+   Two lines instead: what to open and what it costs, then the caveats under it.
+   Tokens only, no new colors or type. */
+.costrow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0 var(--s-2);
+  align-items: baseline;
+  padding: var(--s-2) 0;
+  border-bottom: 1px solid var(--rule-3);
+}
+.costrow:last-child { border-bottom: 0; }
+.costrow__name { font-size: var(--t-13); font-weight: 600; overflow-wrap: anywhere; }
+.costrow__num {
+  font-family: var(--font-num); font-variant-numeric: tabular-nums;
+  font-size: var(--t-12); font-weight: 600;
+}
+.costrow__note {
+  grid-column: 1 / -1;
+  font-family: var(--font-num); font-size: var(--t-11); color: var(--ink-3);
+}

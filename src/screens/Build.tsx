@@ -393,8 +393,29 @@ export function Build(): JSX.Element {
                     </span>
                   ))}
                 </div>
+                {/*
+                  What YOUR gap costs, which is the number the whole app is for.
+                  Free routes are called free rather than counted as zero gems,
+                  and anything that could not be priced is named — a total that
+                  reads complete when it is not would be worse than no total.
+                */}
+                {build.shortfall.cost && (
+                  <div className="stat__label" style={{ marginTop: 10 }} data-role="build-gap-cost">
+                    Your gap:{" "}
+                    <strong>
+                      {build.shortfall.cost.gems > 0
+                        ? `${gemLabel(build.shortfall.cost.gems)}`
+                        : "no gems"}
+                    </strong>
+                    {build.shortfall.cost.gems > 0 && ` · ~${build.shortfall.cost.packs} packs`}
+                    {build.shortfall.cost.free.length > 0 &&
+                      ` · ${build.shortfall.cost.free.length} free`}
+                    {!build.shortfall.cost.complete &&
+                      ` · ${build.shortfall.cost.unpriced.length + build.shortfall.cost.unknown.length} unpriced`}
+                  </div>
+                )}
                 {build.gemsPrice > 0 && (
-                  <div className="stat__label" style={{ marginTop: 10 }}>
+                  <div className="stat__label" style={{ marginTop: 6 }}>
                     The full list runs about {gemLabel(build.gemsPrice)} built from nothing.
                   </div>
                 )}

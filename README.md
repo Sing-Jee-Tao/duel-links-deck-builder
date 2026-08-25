@@ -14,7 +14,9 @@ step up from here?*
 - Every **legal** deck your collection can assemble, playable ones first
 - Each deck's **Skill**, because a Duel Links deck without it is a different deck
 - What each one is short by, **in URs and SRs** rather than a copy count
-- What the whole list costs in gems, from real tournament decks
+- **What your gap costs in gems** — the boxes to open and the packs it takes,
+  measured against the cards *you* are missing rather than the whole list
+- Which of the missing cards are **free**, and who hands them to you
 
 Static site. No backend, no accounts, and **zero third-party requests at
 runtime** — the card pool, the Forbidden & Limited list and the three typefaces
@@ -30,7 +32,7 @@ npm run dev
 | Task | Command |
 | --- | --- |
 | Dev server | `npm run dev` |
-| Tests (880) | `npm test` |
+| Tests (943) | `npm test` |
 | Typecheck | `npm run typecheck` |
 | Production build | `npm run build` |
 | Refresh card pool | `npm run fetch:cards` |
@@ -64,7 +66,8 @@ allowance was spent *on*.
 
 ```
 data/                       committed pipeline output — the app reads only this
-  cards.json                10,644 Duel Links cards, with rarity and where to get them
+  cards.json                10,644 Duel Links cards, with rarity and every way to get them
+  sets.json                 213 boxes: what is in each, and how many packs empty it
   banlist.json              scraped Forbidden & Limited list, overrides applied
   banlist-override.json     hand-applied changes, merged on top of the scrape
   decks.json                69 deck targets derived from the tournament corpus
@@ -82,6 +85,7 @@ src/
     deck-builder.ts         the only path a card takes into a deck
     build.ts                template ranking and assembly
     synthesize.ts           the template-free solver
+    acquisition.ts          what a gap costs, in gems and packs
   data/                     static data access + freshness
   state/                    IndexedDB persistence, store, hash router
   components/               chrome, allowance rail, states
@@ -121,6 +125,13 @@ to 250 damage). That is the name the scraped banlist joins on, and an unmatched
 forbidden card would validate as legal. Duel Links–exclusive cards have no Konami
 passcode, so they get a stable synthetic id at or above 100000000 — saved
 collections key on that id, so it must not drift between runs.
+
+`fetch-cards.ts` also writes `data/sets.json` from the same response, and fails
+closed on it separately: a box holding cards but no copies aborts the run, as
+does the priceable share of the pack-drawn shelf falling below 90%. Individual
+boxes are *allowed* to be unpriceable — one always is — because refusing the
+whole refresh over a single bad box would be the wrong trade. The collapse of
+many at once is the real signal, and that is what the guard watches.
 
 `scrape-banlist.ts` renders duellinksmeta.com's Forbidden/Limited page with
 Playwright (it is a Svelte app — the raw HTML has no list) and parses the rendered
@@ -211,17 +222,94 @@ twice changes nothing and importing a second decklist adds to the first.
 `/api/v1/cards`, which the card-pool build already calls, carries a rarity and an
 acquisition source per card. Both are copied onto `Card` — **98.1% of the pool
 has a rarity**, and the same share names where it comes from ("Main Box · Rainbow
-Overdrive"). Only the *first* source is kept: cards list several, and the rest
-would add megabytes to a 6.5 MB asset without changing any decision.
+Overdrive").
 
 This is why the shortfall reads "**6 UR · 2 SR SHORT**" rather than "11 cards
 short". A box rations URs and gives Ns away; the rarity split is the difference
 between a deck you finish this week and one you finish next month.
 
-The gem figure is the corpus's median price for the **whole list**, and is
-labelled that way everywhere it appears. There are no per-card gem prices
-upstream, so apportioning it across the cards you happen to be missing would be
-an invented number.
+`obtain` is an **array**, and for a long time this kept only the first entry, on
+the grounds that the rest would add megabytes without changing a decision.
+Measured against the live endpoint, both halves of that were wrong:
+
+- **6,052 of 10,644** pool cards have more than one route
+- **2,955** are obtainable with no box at all — **690 of them URs**
+- the whole array costs ~220 kB gzipped, on a pool that already ships ~980 kB
+
+So the truncated field was not saving much, and it was hiding the cheapest path
+to more than half the pool. A player told to open a box for a card a character
+simply hands them is being sent to spend gems they did not need to spend. Every
+route is kept now, and a free one is always shown ahead of a box.
+
+## What your gap costs
+
+duellinksmeta publishes a gem price per list and the app still shows it, labelled
+"from nothing" — because that is what it measures. It is the only thing a site
+that cannot see your collection is able to measure.
+
+The question this app exists to answer is the other one: **what does the rest
+cost, from where you already are?** That used to be out of reach — there are no
+per-card gem prices upstream, and apportioning a list price across the cards you
+happen to be missing would have been an invented number.
+
+It does not have to be invented. A Duel Links box is a **fixed pile of cards
+drawn without replacement, three to a pack**, and the pool records how many
+copies of each card the pile holds. `data/sets.json` rebuilds every box from the
+cards that cite it — there is no endpoint for box composition, but summing
+`obtain[].amount` recovers it exactly, and it comes back as the game's own
+structure:
+
+```
+Main Box :: Abyss Encounters   100 cards / 600 copies / 200 packs  {UR:10, SR:24, R:192, N:374}
+Mini Box :: Wonders of the Sky  40 cards / 240 copies /  80 packs  {UR:2,  SR:8,  R:70,  N:160}
+```
+
+From there [`src/engine/acquisition.ts`](src/engine/acquisition.ts) is arithmetic.
+The expected draw for the k-th copy of a card the box holds `m` of is
+`k·(N+1)/(m+1)`; for several cards out of one box you stop when the last lands,
+which is the expectation of a maximum over draws that compete for the same slots,
+so the pile is dealt directly under a fixed seed. Cards are assigned to boxes
+**before** anything is priced, greedily consolidating onto boxes already being
+opened — chasing three cards out of one box is far cheaper than chasing them one
+at a time, and that is the answer a player would actually take.
+
+Three rules keep it honest, and all three exist because **wrong and cheap is far
+more damaging than no answer**. Under-promising costs a player some patience;
+under-pricing sends them to spend gems on a box that cannot give them what they
+came for.
+
+1. A card obtainable without a box is **free**, and free beats any pull. It is
+   reported as free rather than as zero gems, because it costs time instead.
+2. A box whose copy counts are not credible is **never guessed at**. "Scream of
+   Resistance" lists all 50 of its cards at one copy each, so its pile reads as
+   50 where the real box is 300; priced, it would claim a full box costs 17 packs
+   against a real 100. `deriveSets` marks it `suspect` and the engine declines.
+   A box that is merely a copy or two off a clean multiple of three is *rounded*,
+   not refused — that moves a price by a fraction of a percent.
+3. A card with no usable route at all is **counted and named**, so a total can
+   never read as cheap merely because data was missing.
+
+A pull is random, so the output is a distribution rather than a promise: every
+figure is shown beside the 90th percentile, and no screen states the expected
+value alone. Where a card is scarcer in the box than the deck runs it, the cost
+includes the **box resets** it genuinely takes — capping that at one box would
+quote a third of the real price for the most expensive kind of gap there is.
+
+The result is a number that moves with your collection, which is the whole point.
+Worked example from the shipped data: a collection 72% of the way to Branded
+needs **39,600 gems**, because the nine cards left are URs. The same collection
+is **0%** of the way to Red-Eyes and needs **9,400** — seven of that list is free
+from a character deck and two campaigns. "Closest to done" and "cheapest to
+finish" are genuinely different orderings, and the Upgrade screen sorts by both.
+
+Calibration is a **sanity check, not a target**
+([`acquisition-real.test.ts`](src/engine/acquisition-real.test.ts)). Pricing a
+whole list from an empty collection lands at a median 0.84× duellinksmeta's
+published figure, spanning 0.41–1.24. It is supposed to sit low and track: this
+excludes free cards, prices an *expected* pull rather than a full box, and counts
+shared packs once. The band exists to catch the model breaking — a units error, a
+lost join, a box that stops dividing — not to chase agreement with a number that
+answers a different question.
 
 ### Build engine
 
@@ -316,12 +404,14 @@ The templates in `design/` were treated as a spec and ported faithfully —
 below a marked divider, and the `data-role` hooks are preserved throughout. Five
 places differ, all for reasons the handoff could not have known:
 
-1. **Upgrade rows carry rarity and a box, as the handoff drew them.** This was
-   the one deviation for a while: acquisition data was out of scope because
-   inventing gem costs would be worse than omitting them. It turned out not to
-   need inventing — duellinksmeta states a rarity and a source per card, and a
-   gem price per list, so those columns now say what the handoff wanted them to
-   say. Dust is still absent; nothing publishes it.
+1. **Upgrade rows carry rarity, a source and a gem cost, as the handoff drew
+   them.** This was the one deviation for a while: acquisition data was out of
+   scope because inventing gem costs would be worse than omitting them. None of
+   it needed inventing in the end. duellinksmeta states a rarity and every source
+   per card, and box composition makes a per-gap gem cost arithmetic — so all
+   three columns now say what the handoff wanted them to say, and the side panel
+   states what the gap costs. Dust is still absent; nothing publishes it, and
+   that one really would be made up.
 2. **Account is a local profile, not sign-up/sign-in.** There is no server, so a
    password field would authenticate nothing. The screen keeps the template's
    switcher, form geometry and context column, and uses them for what actually
@@ -352,7 +442,10 @@ to be invented, and it turned out duellinksmeta states it outright.
 - Card data: [YGOPRODeck](https://ygoprodeck.com/api-guide/) — cached locally and
   refreshed weekly, as their guidance asks.
 - Rarity and acquisition sources: Duel Links Meta's `/api/v1/cards`, read in the
-  same request that decides pool membership.
+  same request that decides pool membership. Every route is kept, including the
+  ones that cost no gems.
+- Box composition: derived from those same records — no endpoint publishes it —
+  with release dates from `/api/v1/sets`.
 - Forbidden & Limited list: [Duel Links Meta](https://www.duellinksmeta.com/forbidden-limited-list),
   scraped weekly under a descriptive User-Agent, `robots.txt` honoured.
 - Deck templates and synergy statistics: Duel Links Meta's `/api/v1/top-decks`
