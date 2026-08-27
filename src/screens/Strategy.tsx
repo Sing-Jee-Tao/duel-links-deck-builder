@@ -14,6 +14,7 @@ import type { Card, DeckTemplate, TemplateProvenance } from "../data/types.ts";
 import { BanlistIndex, normalizeName } from "../engine/banlist-index.ts";
 import { countCopies } from "../engine/validator.ts";
 import { href } from "../state/router.ts";
+import { resolveFocused } from "../state/focus.ts";
 import { useStore } from "../state/store.tsx";
 
 /** Stable identity so a null-pool render does not invalidate consumers. */
@@ -266,11 +267,32 @@ function DataGuide({
 }
 
 export function Strategy({ selected }: { selected: string | null }): JSX.Element {
-  const { status, pool, build, templates } = useStore();
+  const { status, pool, build, templates, focusedDeckId, setFocusedDeck } = useStore();
   const [ruling, setRuling] = useState<Card | null>(null);
 
-  const template: DeckTemplate | null =
-    templates.find((t) => t.id === selected) ?? build?.template ?? templates[0] ?? null;
+  /*
+   * Which deck this page is about, in falling order of how directly the player
+   * asked for it:
+   *
+   *   1. the deck id in the URL - they clicked a specific guide
+   *   2. the last guide they opened - the nav item carries no id, so without
+   *      this, clicking "Strategy" after reading about Blackwings silently
+   *      swapped them onto the highest-tier deck
+   *   3. the deck they are currently building
+   *   4. the strongest deck, for a first visit with nothing else to go on
+   */
+  const template: DeckTemplate | null = resolveFocused(
+    templates,
+    selected,
+    focusedDeckId,
+    build?.template,
+    templates[0],
+  );
+
+  // Remember an explicit choice, so returning by the nav lands back here.
+  useEffect(() => {
+    if (selected && selected !== focusedDeckId) setFocusedDeck(selected);
+  }, [focusedDeckId, selected, setFocusedDeck]);
 
   const cards = pool?.index ?? EMPTY_CARDS;
   const close = useCallback(() => setRuling(null), []);

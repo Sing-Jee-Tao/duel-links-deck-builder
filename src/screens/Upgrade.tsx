@@ -14,7 +14,7 @@
  *
  * Still absent: dust. Nothing publishes it, and that one really would be made up.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AllowanceRail } from "../components/Allowance.tsx";
 import { Masthead, ScreenNav, Shell } from "../components/Chrome.tsx";
 import { EmptyState, ErrorNotice, LoadingState, Meter } from "../components/States.tsx";
@@ -25,6 +25,7 @@ import { RARITY_ORDER } from "../data/types.ts";
 import { foldForSearch, tokenize } from "../engine/search.ts";
 import { computeAllowance } from "../engine/validator.ts";
 import { href } from "../state/router.ts";
+import { resolveFocused } from "../state/focus.ts";
 import { useStore } from "../state/store.tsx";
 import type { Card } from "../data/types.ts";
 import type { AcquisitionCost, TemplateScore } from "../engine/types.ts";
@@ -94,14 +95,28 @@ type SortKey = keyof typeof SORTS;
 type CostIndex = ReadonlyMap<string, AcquisitionCost>;
 
 export function Upgrade({ selected }: { selected: string | null }): JSX.Element {
-  const { status, retry, pool, builds, build, buildStatus, collection, config, boxes, costs } = useStore();
+  const {
+    status, retry, pool, builds, build, buildStatus, collection, config, boxes, costs,
+    focusedDeckId, setFocusedDeck,
+  } = useStore();
   const index = useMemo(() => new BanlistIndex(banlist), []);
   const candidates = build?.candidates ?? [];
-  const [chosen, setChosen] = useState<string | null>(selected);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortKey>("closest");
-  const activeId = chosen ?? candidates[0]?.template.id ?? null;
-  const active = candidates.find((c) => c.template.id === activeId) ?? candidates[0] ?? null;
+
+  // Held in the store, not local state: the nav item back to this screen carries
+  // no deck id, so a local value was thrown away every time the player looked at
+  // their build and came back. Shared with Strategy, which "Read the guide"
+  // hands off to.
+  const active =
+    resolveFocused(
+      candidates.map((c) => ({ id: c.template.id, candidate: c })),
+      selected,
+      focusedDeckId,
+    )?.candidate ??
+    candidates[0] ??
+    null;
+  const activeId = active?.template.id ?? null;
 
   // Every template is a scored upgrade target now, not just three, so the strip
   // needs narrowing rather than a tab per deck. The active candidate stays in
@@ -122,6 +137,11 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
   }, [activeId, candidates, query, sort, costs]);
 
   const loading = status === "loading" || buildStatus === "loading";
+
+  // A deck id arriving in the URL is an explicit choice; remember it too.
+  useEffect(() => {
+    if (selected && selected !== focusedDeckId) setFocusedDeck(selected);
+  }, [focusedDeckId, selected, setFocusedDeck]);
 
   /**
    * The deck the target is measured against.
@@ -232,7 +252,7 @@ export function Upgrade({ selected }: { selected: string | null }): JSX.Element 
             data-role="candidate-tab"
             data-candidate={candidate.template.id}
             aria-selected={candidate.template.id === activeId}
-            onClick={() => setChosen(candidate.template.id)}
+            onClick={() => setFocusedDeck(candidate.template.id)}
           >
             <span className="tab__name">{candidate.template.name}</span>
             <span className="tab__meta">

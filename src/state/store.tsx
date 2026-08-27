@@ -118,6 +118,18 @@ interface StoreValue {
   build: BuildResult | null;
   selectedBuildId: string | null;
   selectBuild: (id: string) => void;
+
+  /**
+   * The deck the player is currently looking at, shared across screens.
+   *
+   * The nav items carry no deck id - they cannot, one generic link is reused by
+   * every screen - so without this, leaving Upgrade or Strategy and coming back
+   * threw the choice away and reset to whatever ranked first. Upgrade and
+   * Strategy share one value on purpose: "Read the guide" hands the selection
+   * from one to the other, so two separate memories would disagree.
+   */
+  focusedDeckId: string | null;
+  setFocusedDeck: (id: string) => void;
   buildStatus: LoadStatus;
   rebuild: () => void;
 
@@ -144,6 +156,7 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
   const [builds, setBuilds] = useState<BuildResult[]>(EMPTY_BUILDS);
   const [costs, setCosts] = useState<ReadonlyMap<string, AcquisitionCost>>(EMPTY_COSTS);
   const [selectedBuildId, setSelectedBuildId] = useState<string | null>(null);
+  const [focusedDeckId, setFocusedDeckId] = useState<string | null>(null);
   const [buildStatus, setBuildStatus] = useState<LoadStatus>("loading");
   const [buildNonce, setBuildNonce] = useState(0);
   const [loadNonce, setLoadNonce] = useState(0);
@@ -373,6 +386,8 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
 
   const selectBuild = useCallback((id: string) => setSelectedBuildId(id), []);
 
+  const setFocusedDeck = useCallback((id: string) => setFocusedDeckId(id), []);
+
   // --- export / import -----------------------------------------------------
   const exportCollection = useCallback((): CollectionExport => {
     return {
@@ -445,6 +460,8 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       build,
       selectedBuildId,
       selectBuild,
+      focusedDeckId,
+      setFocusedDeck,
       buildStatus,
       rebuild,
       exportCollection,
@@ -454,8 +471,8 @@ export function StoreProvider({ children }: { children: ReactNode }): JSX.Elemen
       status, error, retry, pool, data, collection, ownedByName, totalCopies, setQuantity, mergeCollection,
       clearCollection,
       profile, updateProfile, saveState, savedAt, config, setExtraDeckSize, builds, build,
-      selectedBuildId, selectBuild, buildStatus, rebuild, exportCollection, importCollection,
-      costs,
+      selectedBuildId, selectBuild, focusedDeckId, setFocusedDeck, buildStatus, rebuild,
+      exportCollection, importCollection, costs,
     ],
   );
 
